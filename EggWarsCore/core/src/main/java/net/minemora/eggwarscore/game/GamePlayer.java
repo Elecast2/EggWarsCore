@@ -103,9 +103,9 @@ public class GamePlayer extends PlayerStats {
 				Player killer = Bukkit.getPlayer(lastDamager);
 				if(getLastKiller() != null) {
 					if(getLastKiller().equals(lastDamager) && (System.currentTimeMillis() - getLastRespawnTime()) <= 
-							(5000 + 1000*ConfigMain.get().getInt("general.respawn-protection-time"))) { //TODO FROM CONFIG
+							(6000 + 1000*ConfigMain.get().getInt("general.respawn-protection-time"))) { //TODO FROM CONFIG
 						setSpamKillCount(getSpamKillCount() + 1);
-						if(getSpamKillCount() > 3) {
+						if(getSpamKillCount() > 2) {
 							spamKill = true;
 							if(killer!=null) {
 								//TODO LANG
