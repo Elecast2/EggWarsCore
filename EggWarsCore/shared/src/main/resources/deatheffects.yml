@@ -1,0 +1,234 @@
+item-format:
+  level:
+    locked-item:
+      material: INK_SACK
+      data: 8
+    locked-desc:
+      - '&c&lBLOQUEADO'
+      - ''
+      - '&7Debes ser nivel &a%level% &7para'
+      - '&7para desbloquear este &bEfecto'
+      - '&bde Victoria'
+      - ''
+      - ' &7&l> &2&lDescripción:'
+      - '%description%'
+      - ''
+    unlocked-desc:
+      - '&a&lDESBLOQUEADO'
+      - ''
+      - ' &7&l> &2&lDescripción:'
+      - '%description%'
+      - ''
+  key:
+    locked-item:
+      material: INK_SACK
+      data: 8
+    locked-desc:
+      - '&c&lBLOQUEADO'
+      - ''
+      - '&7Debes ser nivel &a%level% &7y'
+      - '&7usar una &eLlave &7para'
+      - '&7desbloquear este &dEfecto'
+      - ''
+      - ' &7&l> &2&lDescripción:'
+      - '%description%'
+      - ''
+    unlocked-desc:
+      - '&a&lDESBLOQUEADO'
+      - ''
+      - ' &7&l> &2&lDescripción:'
+      - '%description%'
+      - ''
+  price:
+    locked-item:
+      material: INK_SACK
+      data: 8
+    locked-desc:
+      - '&c&lBLOQUEADO'
+      - ''
+      - '&aClick para comprar'
+      - '&6&lPrecio: &d&l%price% &5Moras'
+      - ''
+      - ' &7&l> &2&lDescripción:'
+      - '%description%'
+      - ''
+    unlocked-desc:
+      - '&a&lDESBLOQUEADO'
+      - ''
+      - ' &7&l> &2&lDescripción:'
+      - '%description%'
+      - ''
+  permission:
+    '1':
+      permission: ewc.vip1
+      locked-item:
+        material: INK_SACK
+        data: 6
+      locked-desc:
+        - '&c&lBLOQUEADO'
+        - ''
+        - '&7Debes ser &3&lMM &7o un rango'
+        - '&7superior para desbloquear'
+        - ''
+        - ' &7&l> &2&lDescripción:'
+        - '%description%'
+        - ''
+      unlocked-desc:
+        - '&a&lDESBLOQUEADO'
+        - ''
+        - ' &7&l> &2&lDescripción:'
+        - '%description%'
+        - ''
+    '2':
+      permission: ewc.vip2
+      locked-item:
+        material: INK_SACK
+        data: 12
+      locked-desc:
+        - '&c&lBLOQUEADO'
+        - ''
+        - '&7Debes ser &b&lMMC &7o un rango'
+        - '&7superior para desbloquear'
+        - ''
+        - ' &7&l> &2&lDescripción:'
+        - '%description%'
+        - ''
+      unlocked-desc:
+        - '&a&lDESBLOQUEADO'
+        - ''
+        - ' &7&l> &2&lDescripción:'
+        - '%description%'
+        - ''
+    '3':
+      permission: ewc.vip3
+      locked-item:
+        material: INK_SACK
+        data: 10
+      locked-desc:
+        - '&c&lBLOQUEADO'
+        - ''
+        - '&7Debes ser &a&lMMC&e&l+ &7o un rango'
+        - '&7superior para desbloquear'
+        - ''
+        - ' &7&l> &2&lDescripción:'
+        - '%description%'
+        - ''
+      unlocked-desc:
+        - '&a&lDESBLOQUEADO'
+        - ''
+        - ' &7&l> &2&lDescripción:'
+        - '%description%'
+        - ''
+  default:
+    locked-item:
+      material: BARRIER
+    locked-desc:
+      - '&c&lDESHABILITADO'
+      - ''
+      - '&cEste efecto se encuentra'
+      - '&cdeshabilitado para ti.'
+    unlocked-desc:
+      - '&a&lDESBLOQUEADO'
+      - ''
+      - ' &7&l> &2&lDescripción:'
+      - '%description%'
+      - ''
+
+# -- Unlock Types -- 
+# DEFAULT: unlocked by default
+# LEVEL: unlocked by level
+# KEY: unlocked using a key
+# PRICE: unlocked by price
+# PERMISSION: unlocked by permission
+# DISABLED: will disable the extra and shows the default locked item and desc
+
+death-effects:
+  lightning:
+    position: 1
+    unlock-type: PERMISSION
+    permission: ewc.vip1
+    name: '&4&lRayo'
+    desc:
+      - '&7¡Rayos!'
+    menu-item:
+      material: GLOWSTONE_DUST
+  cat:
+    position: 2
+    unlock-type: PERMISSION
+    permission: ewc.vip1
+    name: '&4&lMiau'
+    desc:
+      - '&7Reencarna en un gato...'
+      - '&7y luego explota.'
+    menu-item:
+      material: MONSTER_EGG
+      data: 98
+  firework:
+    position: 3
+    unlock-type: PERMISSION
+    permission: ewc.vip1
+    name: '&4&lPirotecnia'
+    desc:
+      - '&7¿No es año nuevo?'
+    menu-item:
+      material: FIREWORK
+  explosion:
+    position: 4
+    unlock-type: PERMISSION
+    permission: ewc.vip2
+    name: '&4&lExplosion'
+    desc:
+      - '&7¡EXPLOOOOOSION!'
+    menu-item:
+      material: TNT
+  spirit:
+    position: 5
+    unlock-type: PERMISSION
+    permission: ewc.vip2
+    name: '&4&lEspiritu'
+    desc:
+      - '&7Despues de la muerte'
+      - '&7solo queda tu espíritu.'
+    menu-item:
+      material: INK_SACK
+      data: 15
+  clap:
+    position: 6
+    unlock-type: PERMISSION
+    permission: ewc.vip2
+    name: '&4&lAplausos'
+    desc:
+      - '&7Felicita a tu oponente'
+      - '&7por haberte ganado.'
+      - '&7(De forma no sarcástica)'
+    menu-item:
+      material: STICK
+  dab:
+    position: 7
+    unlock-type: PERMISSION
+    permission: ewc.vip3
+    name: '&4&lDAB'
+    desc:
+      - '&7Demuestra lo cool que eres'
+      - '&7haciendo un DAB al morir.'
+    menu-item:
+      material: RECORD_7
+  floss:
+    position: 8
+    unlock-type: PERMISSION
+    permission: ewc.vip3
+    name: '&4&lHilo'
+    desc:
+      - '&7A que no puedes bailar'
+      - '&7asi sin equivocarte.'
+    menu-item:
+      material: RECORD_8
+  hype:
+    position: 9
+    unlock-type: PERMISSION
+    permission: ewc.vip3
+    name: '&4&lHype'
+    desc:
+      - '&7¡Nunca dejes el Hype!'
+    menu-item:
+      material: RECORD_9

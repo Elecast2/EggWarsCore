@@ -1,0 +1,234 @@
+item-format:
+  level:
+    locked-item:
+      material: INK_SACK
+      data: 8
+    locked-desc:
+      - '&c&lBLOQUEADO'
+      - ''
+      - '&7Debes ser nivel &a%level% &7para'
+      - '&7para desbloquear este &bEfecto'
+      - '&bde Victoria'
+      - ''
+      - ' &7&l> &2&lDescripción:'
+      - '%description%'
+      - ''
+    unlocked-desc:
+      - '&a&lDESBLOQUEADO'
+      - ''
+      - ' &7&l> &2&lDescripción:'
+      - '%description%'
+      - ''
+  key:
+    locked-item:
+      material: INK_SACK
+      data: 8
+    locked-desc:
+      - '&c&lBLOQUEADO'
+      - ''
+      - '&7Debes ser nivel &a%level% &7y'
+      - '&7usar una &eLlave &7para'
+      - '&7desbloquear este &dEfecto'
+      - ''
+      - ' &7&l> &2&lDescripción:'
+      - '%description%'
+      - ''
+    unlocked-desc:
+      - '&a&lDESBLOQUEADO'
+      - ''
+      - ' &7&l> &2&lDescripción:'
+      - '%description%'
+      - ''
+  price:
+    locked-item:
+      material: INK_SACK
+      data: 8
+    locked-desc:
+      - '&c&lBLOQUEADO'
+      - ''
+      - '&aClick para comprar'
+      - '&6&lPrecio: &d&l%price% &5Moras'
+      - ''
+      - ' &7&l> &2&lDescripción:'
+      - '%description%'
+      - ''
+    unlocked-desc:
+      - '&a&lDESBLOQUEADO'
+      - ''
+      - ' &7&l> &2&lDescripción:'
+      - '%description%'
+      - ''
+  permission:
+    '1':
+      permission: ewc.vip1
+      locked-item:
+        material: INK_SACK
+        data: 6
+      locked-desc:
+        - '&c&lBLOQUEADO'
+        - ''
+        - '&7Debes ser &3&lMM &7o un rango'
+        - '&7superior para desbloquear'
+        - ''
+        - ' &7&l> &2&lDescripción:'
+        - '%description%'
+        - ''
+      unlocked-desc:
+        - '&a&lDESBLOQUEADO'
+        - ''
+        - ' &7&l> &2&lDescripción:'
+        - '%description%'
+        - ''
+    '2':
+      permission: ewc.vip2
+      locked-item:
+        material: INK_SACK
+        data: 12
+      locked-desc:
+        - '&c&lBLOQUEADO'
+        - ''
+        - '&7Debes ser &b&lMMC &7o un rango'
+        - '&7superior para desbloquear'
+        - ''
+        - ' &7&l> &2&lDescripción:'
+        - '%description%'
+        - ''
+      unlocked-desc:
+        - '&a&lDESBLOQUEADO'
+        - ''
+        - ' &7&l> &2&lDescripción:'
+        - '%description%'
+        - ''
+    '3':
+      permission: ewc.vip3
+      locked-item:
+        material: INK_SACK
+        data: 10
+      locked-desc:
+        - '&c&lBLOQUEADO'
+        - ''
+        - '&7Debes ser &a&lMMC&e&l+ &7o un rango'
+        - '&7superior para desbloquear'
+        - ''
+        - ' &7&l> &2&lDescripción:'
+        - '%description%'
+        - ''
+      unlocked-desc:
+        - '&a&lDESBLOQUEADO'
+        - ''
+        - ' &7&l> &2&lDescripción:'
+        - '%description%'
+        - ''
+  default:
+    locked-item:
+      material: BARRIER
+    locked-desc:
+      - '&c&lDESHABILITADO'
+      - ''
+      - '&cEste efecto se encuentra'
+      - '&cdeshabilitado para ti.'
+    unlocked-desc:
+      - '&a&lDESBLOQUEADO'
+      - ''
+      - ' &7&l> &2&lDescripción:'
+      - '%description%'
+      - ''
+
+# -- Unlock Types -- 
+# DEFAULT: unlocked by default
+# LEVEL: unlocked by level
+# KEY: unlocked using a key
+# PRICE: unlocked by price
+# PERMISSION: unlocked by permission
+# DISABLED: will disable the extra and shows the default locked item and desc
+
+win-effects:
+  fireworks:
+    position: 1
+    unlock-type: DEFAULT
+    name: '&c&lFuegos Artificiales'
+    desc:
+      - '&7Increible espectáculo'
+      - '&7de fuegos artificiales.'
+    menu-item:
+      material: FIREWORK
+  storm:
+    position: 2
+    unlock-type: PERMISSION
+    permission: ewc.vip1
+    name: '&f&lTormenta Eléctrica'
+    desc:
+      - '&7Despues de la tormenta'
+      - '&7viene la calma.'
+    menu-item:
+      material: WATER_BUCKET
+  tnt-rain:
+    position: 3
+    unlock-type: PERMISSION
+    permission: ewc.vip1
+    name: '&4&lLluvia de TNT'
+    desc:
+      - '&7¡Es un ataque aereo!'
+      - '&7¡repito! ¡es un ataque'
+      - '&7aereo!'
+    menu-item:
+      material: TNT
+  crazy-blocks:
+    position: 4
+    unlock-type: PERMISSION
+    permission: ewc.vip2
+    name: '&d&lBloques Locos'
+    desc:
+      - '&7¡Bloques por doquier!'
+    menu-item:
+      material: REDSTONE_BLOCK
+  cat-rain:
+    position: 5
+    unlock-type: PERMISSION
+    permission: ewc.vip2
+    name: '&6&lLluvia de Gatitos'
+    desc:
+      - '&7¡miau! ¡miau! ¡miau!'
+    menu-item:
+      material: MONSTER_EGG
+      data: 98
+  chicken-raid:
+    position: 6
+    unlock-type: PERMISSION
+    permission: ewc.vip2
+    name: '&6&lInvasión de Pollos'
+    desc:
+      - '&7Has matado muchos pollos...'
+      - '&7ahora quieren su venganza.'
+    menu-item:
+      material: EGG
+  ghosts:
+    position: 7
+    unlock-type: PERMISSION
+    permission: ewc.vip3
+    name: '&e&lInvasion Fantasmal'
+    desc:
+      - '&7¡Pulpos voladores gigantes'
+      - '&7escupe fuego al ataque!'
+    menu-item:
+      material: FIREBALL
+  dancers:
+    position: 8
+    unlock-type: PERMISSION
+    permission: ewc.vip3
+    name: '&9&lBaile Frenético'
+    desc:
+      - '&7¿Quien no tiene ganas de'
+      - '&7bailar despues de ganar?'
+    menu-item:
+      material: RECORD_10
+  thriller:
+    position: 9
+    unlock-type: PERMISSION
+    permission: ewc.vip3
+    name: '&4&lThriller'
+    desc:
+      - '&7Cause this is thriller '
+      - '&7Thriller night.'
+    menu-item:
+      material: RECORD_8

@@ -1,0 +1,98 @@
+material-names:
+  '1':
+    material: IRON_INGOT
+    name: '&7Hierro'
+    name-plural: '&7Hierros'
+  '2':
+    material: GOLD_INGOT
+    name: '&6Oro'
+    name-plural: '&6Oros'
+  '3':
+    material: DIAMOND
+    name: '&bDiamante'
+    name-plural: '&bDiamantes'
+generators:
+  iron:
+    name: '&7Hierro'
+    material: IRON_INGOT
+    levels:
+      '1':
+        ticks: 40
+        exp: 1
+        price:
+          material: IRON_INGOT
+          amount: 10
+      '2':
+        ticks: 30
+        exp: 1
+        price:
+          material: IRON_INGOT
+          amount: 30
+      '3':
+        ticks: 20
+        exp: 2
+        price:
+          material: GOLD_INGOT
+          amount: 20
+      '4':
+        ticks: 10
+        exp: 3
+        price:
+          material: DIAMOND
+          amount: 10
+  gold:
+    name: '&6Oro'
+    material: GOLD_INGOT
+    levels:
+      '1':
+        ticks: 80
+        exp: 1
+        price:
+          material: GOLD_INGOT
+          amount: 5
+      '2':
+        ticks: 60
+        exp: 2
+        price:
+          material: GOLD_INGOT
+          amount: 10
+      '3':
+        ticks: 40
+        exp: 3
+        price:
+          material: DIAMOND
+          amount: 10
+      '4':
+        ticks: 20
+        exp: 4
+        price:
+          material: DIAMOND
+          amount: 20
+  diamond:
+    name: '&bDiamante'
+    material: DIAMOND
+    levels:
+      '1':
+        ticks: 160
+        exp: 2
+        price:
+          material: DIAMOND
+          amount: 5
+      '2':
+        ticks: 120
+        exp: 3
+        price:
+          material: DIAMOND
+          amount: 10
+      '3':
+        ticks: 80
+        exp: 4
+        price:
+          material: DIAMOND
+          amount: 20
+      '4':
+        ticks: 40
+        exp: 5
+        price:
+          material: DIAMOND
+          amount: 30

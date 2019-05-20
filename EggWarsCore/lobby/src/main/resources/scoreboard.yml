@@ -1,0 +1,19 @@
+scoreboards:
+  lobby:
+    title: '&5&lEGGWARS'
+    lines:
+      - ''
+      - 'Jugador: &7%player%'
+      - 'Rango: &7%group%'
+      - 'Boost: %boost%'
+      - 'Nivel: &a%level% &fExp: &a%exp%'
+      - 'Llaves: &a%keys% &fMoras: &a%money%'
+      - ''
+      - '&d&lEstadísticas:'
+      - ''
+      - ' Asesinatos: &a%kills%'
+      - ' Muertes: &a%deaths%'
+      - ' Victorias: &a%wins%'
+      - ' Huevos Rotos: &a%eggs%'
+      - ''
+      - '&dmc.minemora.net'

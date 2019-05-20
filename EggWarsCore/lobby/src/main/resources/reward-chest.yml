@@ -1,0 +1,151 @@
+# -- Reward Types --
+# MONEY
+# COMMAND
+# KIT
+# DEATHEFFECT
+# WINEFFECT
+# TRAIL
+# CUSTOM
+
+types:
+  money:
+    title: "&d&l%money% &5Moras"
+    sub-title: ""
+    message: "&aHas ganado &d&l%money% &5Moras"
+  kit:
+    title: "%kit%"
+    sub-title: ""
+    message: "&aHas desbloqueado el kit %kit%"
+  trail:
+    title: "&e&lTrail %trail%"
+    sub-title: "&3&lExtras &f-> &e&lTrails"
+    message: "&aHas desbloqueado el &e&lTrail %trail%"
+  death-effect:
+    title: "&c&lEfecto %death-effect%"
+    sub-title: "&3&lExtras &f-> &c&lEfectos de Muerte"
+    message: "&aHas desbloqueado el &c&lEfecto de Muerte %death-effect%"
+  win-effect:
+    title: "&d&lEfecto %win-effect%"
+    sub-title: "&3&lExtras &f-> &d&lEfectos de Victoria"
+    message: "&aHas desbloqueado el &d&lEfecto de Victoria %win-effect%"
+rewards:
+  '1-7':
+    type: MONEY
+    value: 25
+  '8':
+    type: CUSTOM
+    custom-title: "&b&lSombrero &7&lHierro"
+    custom-sub-title: "&6&lColeccionables &f-> &b&lSombreros"
+    custom-message: "&aHas desbloqueado el &b&lSombrero &7&lHierro"
+  '9-15':
+    type: MONEY
+    value: 25
+  '16':
+    type: CUSTOM
+    custom-title: "&b&lSombrero &6&lOro"
+    custom-sub-title: "&6&lColeccionables &f-> &b&lSombreros"
+    custom-message: "&aHas desbloqueado el &b&lSombrero &6&lOro"
+  '17-22':
+    type: MONEY
+    value: 25
+  '23':
+    type: MONEY
+    value: 50
+  '24':
+    type: CUSTOM
+    custom-title: "&b&lSombrero &b&lDiamante"
+    custom-sub-title: "&6&lColeccionables &f-> &b&lSombreros"
+    custom-message: "&aHas desbloqueado el &b&lSombrero &b&lDiamante"
+  '25-29':
+    type: MONEY
+    value: 50
+  '30':
+    type: CUSTOM
+    custom-title: "&9&lArtefacto &f&lBola de Nieve"
+    custom-sub-title: "&6&lColeccionables &f-> &9&lArtefactos"
+    custom-message: "&aHas desbloqueado el &9&lArtefacto &f&lBola de Nieve"
+  '31-39':
+    type: MONEY
+    value: 50
+  '40':
+    type: CUSTOM
+    custom-title: "&9&lArtefacto &f&lMartillo de Thor"
+    custom-sub-title: "&6&lColeccionables &f-> &9&lArtefactos"
+    custom-message: "&aHas desbloqueado el &9&lArtefacto &f&lMartillo de Thor"
+  '41-44':
+    type: MONEY
+    value: 50
+  '45':
+    type: CUSTOM
+    custom-title: "&b&lSombrero &5&lF"
+    custom-sub-title: "&6&lColeccionables &f-> &b&lSombreros"
+    custom-message: "&aHas desbloqueado el &b&lSombrero &5&lF"
+  '46-49':
+    type: MONEY
+    value: 50
+  '50':
+    type: CUSTOM
+    custom-title: "&b&lSombrero &c&lBesito"
+    custom-sub-title: "&6&lColeccionables &f-> &b&lSombreros"
+    custom-message: "&aHas desbloqueado el &b&lSombrero &c&lBesito"
+  '51-57':
+    type: MONEY
+    value: 50
+  '58-59':
+    type: MONEY
+    value: 100
+  '60':
+    type: CUSTOM
+    custom-title: "&b&lSombrero &b&lL"
+    custom-sub-title: "&6&lColeccionables &f-> &b&lSombreros"
+    custom-message: "&aHas desbloqueado el &b&lSombrero &b&lL"
+  '61-69':
+    type: MONEY
+    value: 100
+  '70':
+    type: TRAIL
+    value: 1
+  '71-74':
+    type: MONEY
+    value: 100
+  '75':
+    type: CUSTOM
+    custom-title: "&9&lArtefacto &7&lAnzuelo"
+    custom-sub-title: "&6&lColeccionables &f-> &9&lArtefactos"
+    custom-message: "&aHas desbloqueado el &9&lArtefacto &7&lAnzuelo"
+  '76-79':
+    type: MONEY
+    value: 100
+  '80':
+    type: CUSTOM
+    custom-title: "&b&lEfecto &f&lCara&c&lmelo"
+    custom-sub-title: "&6&lColeccionables &f-> &b&lEfectos"
+    custom-message: "&aHas desbloqueado el &b&lEfecto &f&lCara&c&lmelo"
+  '81':
+    type: MONEY
+    value: 100
+  '82':
+    type: TRAIL
+    value: 2
+  '83-89':
+    type: MONEY
+    value: 100
+  '90':
+    type: CUSTOM
+    custom-title: "&6&lMontura &7&lHiperCarrito"
+    custom-sub-title: "&6&lColeccionables &f-> &6&lMonturas"
+    custom-message: "&aHas desbloqueado la &6&lMontura &7&lHiperCarrito"
+  '91':
+    type: MONEY
+    value: 100
+  '92':
+    type: TRAIL
+    value: 3
+  '93-99':
+    type: MONEY
+    value: 100
+  '100':
+    type: CUSTOM
+    custom-title: "&2&lTransformación &8&lVaca"
+    custom-sub-title: "&6&lColeccionables &f-> &2&lTransformaciones"
+    custom-message: "&aHas desbloqueado la &2&lTransformación &8&lVaca"

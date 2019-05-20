@@ -1,0 +1,704 @@
+item-format:
+  level:
+    locked-item:
+      material: INK_SACK
+      data: 8
+    locked-desc:
+      - '&c&lBLOQUEADO'
+      - ''
+      - '&7Debes ser nivel &a%level% &7para'
+      - '&7para desbloquear este &eTrail'
+      - ''
+      - ' &7&l> &2&lDescripción:'
+      - '%description%'
+      - ''
+    unlocked-desc:
+      - '&a&lDESBLOQUEADO'
+      - ''
+      - ' &7&l> &2&lDescripción:'
+      - '%description%'
+      - ''
+  key:
+    locked-item:
+      material: INK_SACK
+      data: 8
+    locked-desc:
+      - '&c&lBLOQUEADO'
+      - ''
+      - '&7Debes ser nivel &a%level% &7y'
+      - '&7usar una &eLlave &7para'
+      - '&7desbloquear este &eTrail'
+      - ''
+      - ' &7&l> &2&lDescripción:'
+      - '%description%'
+      - ''
+    unlocked-desc:
+      - '&a&lDESBLOQUEADO'
+      - ''
+      - ' &7&l> &2&lDescripción:'
+      - '%description%'
+      - ''
+  price:
+    locked-item:
+      material: INK_SACK
+      data: 8
+    locked-desc:
+      - '&c&lBLOQUEADO'
+      - ''
+      - '&aClick para comprar'
+      - '&6&lPrecio: &d&l%price% &5Moras'
+      - ''
+      - ' &7&l> &2&lDescripción:'
+      - '%description%'
+      - ''
+    unlocked-desc:
+      - '&a&lDESBLOQUEADO'
+      - ''
+      - ' &7&l> &2&lDescripción:'
+      - '%description%'
+      - ''
+  permission:
+    '1':
+      permission: ewc.vip1
+      locked-item:
+        material: INK_SACK
+        data: 6
+      locked-desc:
+        - '&c&lBLOQUEADO'
+        - ''
+        - '&7Debes ser &3&lMM &7o un rango'
+        - '&7superior para desbloquear'
+        - ''
+        - ' &7&l> &2&lDescripción:'
+        - '%description%'
+        - ''
+      unlocked-desc:
+        - '&a&lDESBLOQUEADO'
+        - ''
+        - ' &7&l> &2&lDescripción:'
+        - '%description%'
+        - ''
+    '2':
+      permission: ewc.vip2
+      locked-item:
+        material: INK_SACK
+        data: 12
+      locked-desc:
+        - '&c&lBLOQUEADO'
+        - ''
+        - '&7Debes ser &b&lMMC &7o un rango'
+        - '&7superior para desbloquear'
+        - ''
+        - ' &7&l> &2&lDescripción:'
+        - '%description%'
+        - ''
+      unlocked-desc:
+        - '&a&lDESBLOQUEADO'
+        - ''
+        - ' &7&l> &2&lDescripción:'
+        - '%description%'
+        - ''
+    '3':
+      permission: ewc.vip3
+      locked-item:
+        material: INK_SACK
+        data: 10
+      locked-desc:
+        - '&c&lBLOQUEADO'
+        - ''
+        - '&7Debes ser &a&lMMC&e&l+ &7o un rango'
+        - '&7superior para desbloquear'
+        - ''
+        - ' &7&l> &2&lDescripción:'
+        - '%description%'
+        - ''
+      unlocked-desc:
+        - '&a&lDESBLOQUEADO'
+        - ''
+        - ' &7&l> &2&lDescripción:'
+        - '%description%'
+        - ''
+  default:
+    locked-item:
+      material: BARRIER
+    locked-desc:
+      - '&c&lDESHABILITADO'
+      - ''
+      - '&cEste trail se encuentra'
+      - '&cdeshabilitado para ti.'
+    unlocked-desc:
+      - '&a&lDESBLOQUEADO'
+      - ''
+      - ' &7&l> &2&lDescripción:'
+      - '%description%'
+      - ''
+
+# -- Unlock Types -- 
+# DEFAULT: unlocked by default
+# LEVEL: unlocked by level
+# KEY: unlocked using a key
+# PRICE: unlocked by price
+# PERMISSION: unlocked by permission
+# DISABLED: will disable the extra and shows the default locked item and desc
+#
+#
+# -- Avaliable particles --
+# SLIME
+# EXPLOSION_LARGE
+# CLOUD / directional
+# CRIT_MAGIC / directional
+# ENCHANTMENT_TABLE / directional
+# FLAME / directional
+# PORTAL / directional
+# SUSPENDED_DEPTH / directional
+# SMOKE_LARGE / directional
+# VILLAGER_HAPPY / directional
+# VILLAGER_ANGRY
+# WATER_WAKE / directional
+# NOTE / color
+# SPELL
+# DRIP_LAVA
+# FIREWORKS_SPARK / directional
+# HEART
+# REDSTONE / color
+# ITEM_CRACK / directional / requites material and data
+
+# -- Avaliable effects --
+# HELIX / directional
+# CIRCLE / directional
+# HEART / directional
+# COLOR / redstone, note
+# CRIT_MAGIC
+
+
+#--VALUES--
+# XdistOff:YdistOff:ZdistOff:XcenterOff:YcenterOff:ZcenterOff
+
+trails:
+  '1':
+    position: 1
+    unlock-type: KEY
+    level: 70
+    name: '&2&lLimo'
+    desc:
+      - '&7Deja un rastro &2pegajoso'
+      - '&7con cada cosa que lances'
+    menu-item:
+      material: SLIME_BLOCK
+    particles:
+      '1':
+        particle: SLIME
+        period: 1
+        delay: 0
+        amount: 3
+        values: 0:0:0:0:0:0
+  '2':
+    position: 2
+    unlock-type: KEY
+    level: 82
+    name: '&c&lExplosion'
+    desc:
+      - '&7Deja un rastro &cexplosivo'
+      - '&7con cada cosa que lances'
+    menu-item:
+      material: TNT
+    particles:
+      '1':
+        particle: EXPLOSION_LARGE
+        period: 1
+        delay: 0
+        amount: 3
+        values: 0:0:0:0:0:0
+  '3':
+    position: 3
+    unlock-type: KEY
+    level: 92
+    name: '&f&lNube'
+    desc:
+      - '&7Deja un rastro de &bnubes'
+      - '&7con cada cosa que lances'
+    menu-item:
+      material: INK_SACK
+      data: 15
+    particles:
+      '1':
+        particle: CLOUD
+        period: 1
+        delay: 0
+        amount: 3
+        values: 0:0:0:0:0:0
+  '4':
+    position: 4
+    unlock-type: PERMISSION
+    permission: ewc.vip1
+    name: '&e&lMagia'
+    desc:
+      - '&7Deja un rastro de &dmágico'
+      - '&7con cada cosa que lances.'
+    menu-item:
+      material: SPECKLED_MELON
+    particles:
+      '1':
+        particle: CRIT_MAGIC
+        period: 1
+        delay: 0
+        amount: 3
+        values: 0:0:0:0:0:0
+  '5':
+    position: 5
+    unlock-type: PERMISSION
+    permission: ewc.vip1
+    name: '&5&lEncanto'
+    desc:
+      - '&7Deja un rastro de &dencantado'
+      - '&7con cada cosa que lances.'
+    menu-item:
+      material: ENCHANTMENT_TABLE
+    particles:
+      '1':
+        particle: ENCHANTMENT_TABLE
+        period: 1
+        delay: 0
+        amount: 3
+        values: 0:0:0:0:0:0
+  '6':
+    position: 6
+    unlock-type: PERMISSION
+    permission: ewc.vip1
+    name: '&e&lFlama'
+    desc:
+      - '&7Deja un rastro de &eflama'
+      - '&7con cada cosa que lances.'
+    menu-item:
+      material: BLAZE_POWDER
+    particles:
+      '1':
+        particle: FLAME
+        period: 1
+        delay: 0
+        amount: 3
+        values: 0:0:0:0:0:0
+  '7':
+    position: 7
+    unlock-type: PERMISSION
+    permission: ewc.vip1
+    name: '&5&lEnder'
+    desc:
+      - '&7Deja un rastro de &5ender'
+      - '&7con cada cosa que lances.'
+    menu-item:
+      material: EYE_OF_ENDER
+    particles:
+      '1':
+        particle: PORTAL
+        period: 1
+        delay: 0
+        amount: 3
+        values: 0:0:0:0:0:0
+  '8':
+    position: 8
+    unlock-type: PERMISSION
+    permission: ewc.vip1
+    name: '&8&lProfundidades'
+    desc:
+      - '&7Deja un rastro &8profundo'
+      - '&7con cada cosa que lances.'
+    menu-item:
+      material: BEDROCK
+    particles:
+      '1':
+        particle: SUSPENDED_DEPTH
+        period: 1
+        delay: 0
+        amount: 3
+        values: 0:0:0:0:0:0
+  '9':
+    position: 9
+    unlock-type: PERMISSION
+    permission: ewc.vip1
+    name: '&7&lHumo'
+    desc:
+      - '&7Deja un rastro &8profundo'
+      - '&7con cada cosa que lances.'
+    menu-item:
+      material: FURNACE
+    particles:
+      '1':
+        particle: SMOKE_LARGE
+        period: 1
+        delay: 0
+        amount: 3
+        values: 0:0:0:0:0:0
+  '10':
+    position: 10
+    unlock-type: PERMISSION
+    permission: ewc.vip1
+    name: '&a&lFeliz'
+    desc:
+      - '&7Deja un rastro &afeliz'
+      - '&7con cada cosa que lances.'
+    menu-item:
+      material: INK_SACK
+      data: 10
+    particles:
+      '1':
+        particle: VILLAGER_HAPPY
+        period: 1
+        delay: 0
+        amount: 3
+        values: 0:0:0:0:0:0
+  '11':
+    position: 11
+    unlock-type: PERMISSION
+    permission: ewc.vip2
+    name: '&c&lEnojado'
+    desc:
+      - '&7Deja un rastro &cenojado'
+      - '&7con cada cosa que lances.'
+    menu-item:
+      material: NETHER_BRICK
+    particles:
+      '1':
+        particle: VILLAGER_ANGRY
+        period: 1
+        delay: 0
+        amount: 3
+        values: 0:0:0:0:0:0
+  '12':
+    position: 12
+    unlock-type: PERMISSION
+    permission: ewc.vip2
+    name: '&1&lAgua'
+    desc:
+      - '&7Deja un rastro de &9agua'
+      - '&7con cada cosa que lances.'
+    menu-item:
+      material: WATER_BUCKET
+    particles:
+      '1':
+        particle: WATER_WAKE
+        period: 1
+        delay: 0
+        amount: 3
+        values: 0:0:0:0:0:0
+  '13':
+    position: 13
+    unlock-type: PERMISSION
+    permission: ewc.vip2
+    name: '&3&lMúsica'
+    desc:
+      - '&7Deja un rastro &2musical'
+      - '&7con cada cosa que lances.'
+    menu-item:
+      material: RECORD_10
+    particles:
+      '1':
+        particle: NOTE
+        period: 1
+        delay: 0
+        amount: 3
+        values: 0:0:0:0:0:0
+  '14':
+    position: 14
+    unlock-type: PERMISSION
+    permission: ewc.vip2
+    name: '&5&lEspirales'
+    desc:
+      - '&7Deja un rastro de &5espirales'
+      - '&7con cada cosa que lances.'
+    menu-item:
+      material: POTION
+    particles:
+      '1':
+        particle: SPELL
+        period: 1
+        delay: 0
+        amount: 3
+        values: 0:0:0:0:0:0
+  '15':
+    position: 15
+    unlock-type: PERMISSION
+    permission: ewc.vip2
+    name: '&e&lLava'
+    desc:
+      - '&7Deja un rastro de &6lava'
+      - '&7con cada cosa que lances.'
+    menu-item:
+      material: LAVA_BUCKET
+    particles:
+      '1':
+        particle: DRIP_LAVA
+        period: 1
+        delay: 0
+        amount: 3
+        values: 0:0:0:0:0:0
+  '16':
+    position: 16
+    unlock-type: PERMISSION
+    permission: ewc.vip2
+    name: '&f&lCohete'
+    desc:
+      - '&7Deja un rastro &fpirotécnico'
+      - '&7con cada cosa que lances.'
+    menu-item:
+      material: FIREWORK
+    particles:
+      '1':
+        particle: FIREWORKS_SPARK
+        period: 1
+        delay: 0
+        amount: 3
+        values: 0:0:0:0:0:0
+  '17':
+    position: 17
+    unlock-type: PERMISSION
+    permission: ewc.vip2
+    name: '&4&lCorazones'
+    desc:
+      - '&7Deja un rastro de &camor'
+      - '&7con cada cosa que lances.'
+    menu-item:
+      material: INK_SACK
+      data: 1
+    particles:
+      '1':
+        particle: HEART
+        period: 1
+        delay: 0
+        amount: 3
+        values: 0:0:0:0:0:0
+  '18':
+    position: 18
+    unlock-type: PERMISSION
+    permission: ewc.vip3
+    name: '&f&lRadial'
+    desc:
+      - '&7Si te gustan los &fcírculos'
+      - '&7este es tu trail.'
+    menu-item:
+      material: RECORD_9
+    particles:
+      '1':
+        particle: FIREWORKS_SPARK
+        effect: CIRCLE
+        period: 3
+        delay: 2
+        amount: 1
+        values: 0:0:0:0:0:0
+      '2':
+        particle: FLAME
+        period: 1
+        delay: 0
+        amount: 5
+        values: 0.2:0.2:0.2:0:0:0
+  '19':
+    position: 19
+    unlock-type: PERMISSION
+    permission: ewc.vip3
+    name: '&c&lSuper Enamorado'
+    desc:
+      - '&7Vuelvete &ccupido &7con'
+      - '&7este trail, y lanza'
+      - '&7flechazos de amor.'
+    menu-item:
+      material: DOUBLE_PLANT
+      data: 4
+    particles:
+      '1':
+        particle: FIREWORKS_SPARK
+        effect: HEART
+        period: 3
+        delay: 2
+        amount: 1
+        values: 0:0:0:0:0:0
+      '2':
+        particle: HEART
+        period: 1
+        delay: 0
+        amount: 5
+        values: 0.2:0.2:0.2:0:0:0
+  '20':
+    position: 20
+    unlock-type: PERMISSION
+    permission: ewc.vip3
+    name: '&4&lA&c&lr&e&lc&a&lo&b&li&1&lr&d&li&5&ls'
+    desc:
+      - '&7Un increible &darcoiris'
+      - '&7se formará cada vez que'
+      - '&7lanzes un proyectil.'
+    menu-item:
+      material: DOUBLE_PLANT
+      data: 1
+    particles:
+      '1':
+        particle: REDSTONE
+        effect: COLOR
+        period: 1
+        delay: 0
+        amount: 3
+        values: 255:0:0:0:0:-0.6
+      '2':
+        particle: REDSTONE
+        effect: COLOR
+        period: 1
+        delay: 0
+        amount: 3
+        values: 255:165:0:0:0:-0.4
+      '3':
+        particle: REDSTONE
+        effect: COLOR
+        period: 1
+        delay: 0
+        amount: 3
+        values: 255:255:0:0:0:-0.2
+      '4':
+        particle: REDSTONE
+        effect: COLOR
+        period: 1
+        delay: 0
+        amount: 3
+        values: 0:255:0:0:0:0
+      '5':
+        particle: REDSTONE
+        effect: COLOR
+        period: 1
+        delay: 0
+        amount: 3
+        values: 0:255:255:0:0:0.2
+      '6':
+        particle: REDSTONE
+        effect: COLOR
+        period: 1
+        delay: 0
+        amount: 3
+        values: 0:0:255:0:0:0.4
+      '7':
+        particle: REDSTONE
+        effect: COLOR
+        period: 1
+        delay: 0
+        amount: 3
+        values: 255:0:255:0:0:0.6
+  '21':
+    position: 19
+    unlock-type: PERMISSION
+    permission: ewc.vip3
+    name: '&d&lHélice Roja'
+    desc:
+      - '&7Lanza una increible'
+      - '&7hélice roja'
+    menu-item:
+      material: REDSTONE
+    particles:
+      '1':
+        particle: REDSTONE
+        effect: COLOR
+        period: 8
+        delay: 0
+        amount: 3
+        values: 255:0:0:0:0.0:1.0
+      '2':
+        particle: REDSTONE
+        effect: COLOR
+        period: 8
+        delay: 0
+        amount: 3
+        values: 255:0:0:0:0.0:-1.0
+      '3':
+        particle: REDSTONE
+        effect: COLOR
+        period: 8
+        delay: 1
+        amount: 3
+        values: 255:0:0:0:0.37:0.93
+      '4':
+        particle: REDSTONE
+        effect: COLOR
+        period: 8
+        delay: 1
+        amount: 3
+        values: 255:0:0:0:-0.31:-0.95
+      '5':
+        particle: REDSTONE
+        effect: COLOR
+        period: 8
+        delay: 2
+        amount: 3
+        values: 255:0:0:0:0.69:0.72
+      '6':
+        particle: REDSTONE
+        effect: COLOR
+        period: 8
+        delay: 2
+        amount: 3
+        values: 255:0:0:0:-0.64:-0.77
+      '7':
+        particle: REDSTONE
+        effect: COLOR
+        period: 8
+        delay: 3
+        amount: 3
+        values: 255:0:0:0:0.91:0.40
+      '8':
+        particle: REDSTONE
+        effect: COLOR
+        period: 8
+        delay: 3
+        amount: 3
+        values: 255:0:0:0:-0.88:-0.47
+      '9':
+        particle: REDSTONE
+        effect: COLOR
+        period: 8
+        delay: 4
+        amount: 3
+        values: 255:0:0:0:1.0:0.0
+      '10':
+        particle: REDSTONE
+        effect: COLOR
+        period: 8
+        delay: 4
+        amount: 3
+        values: 255:0:0:0:-1.0:0.0
+      '11':
+        particle: REDSTONE
+        effect: COLOR
+        period: 8
+        delay: 5
+        amount: 3
+        values: 255:0:0:0:0.94:-0.34
+      '12':
+        particle: REDSTONE
+        effect: COLOR
+        period: 8
+        delay: 5
+        amount: 3
+        values: 255:0:0:0:-0.96:0.28
+      '13':
+        particle: REDSTONE
+        effect: COLOR
+        period: 8
+        delay: 6
+        amount: 3
+        values: 255:0:0:0:0.74:-0.67
+      '14':
+        particle: REDSTONE
+        effect: COLOR
+        period: 8
+        delay: 6
+        amount: 3
+        values: 255:0:0:0:-0.79:0.62
+      '15':
+        particle: REDSTONE
+        effect: COLOR
+        period: 8
+        delay: 7
+        amount: 3
+        values: 255:0:0:0:0.44:-0.90
+      '16':
+        particle: REDSTONE
+        effect: COLOR
+        period: 8
+        delay: 7
+        amount: 3
+        values: 255:0:0:0:-0.5:0.87

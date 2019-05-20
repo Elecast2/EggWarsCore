@@ -1,0 +1,333 @@
+shops:
+  clasic:
+    name: '&b&lClásico'
+    desc:
+      - '&7El tipo de &5Tienda'
+      - '&7Clásico que siempre'
+      - '&7ha tenido &dMinemora'
+    slot: 0
+    sections:
+      armor:
+        name: '&9&lArmaduras'
+        desc:
+          - '¡Aumenta tu proteccion con armaduras! Click aqui'
+        item: DIAMOND_CHESTPLATE
+        slot: 0
+        offers:
+          '1':
+            material: LEATHER_HELMET
+            enchantments:
+              - PROTECTION_ENVIRONMENTAL:1
+            price:
+              material: IRON_INGOT
+          '2':
+            material: LEATHER_CHESTPLATE
+            enchantments:
+              - PROTECTION_ENVIRONMENTAL:1
+            price:
+              material: IRON_INGOT
+          '3':
+            material: LEATHER_LEGGINGS
+            enchantments:
+              - PROTECTION_ENVIRONMENTAL:1
+            price:
+              material: IRON_INGOT
+          '4':
+            material: LEATHER_BOOTS
+            enchantments:
+              - PROTECTION_ENVIRONMENTAL:1
+            price:
+              material: IRON_INGOT
+          '5':
+            material: CHAINMAIL_HELMET
+            enchantments:
+              - PROTECTION_ENVIRONMENTAL:1
+            price:
+              material: GOLD_INGOT
+              amount: 5
+          '6':
+            material: CHAINMAIL_CHESTPLATE
+            enchantments:
+              - PROTECTION_ENVIRONMENTAL:1
+            price:
+              material: GOLD_INGOT
+              amount: 5
+          '7':
+            material: CHAINMAIL_LEGGINGS
+            enchantments:
+              - PROTECTION_ENVIRONMENTAL:1
+            price:
+              material: GOLD_INGOT
+              amount: 5
+          '8':
+            material: CHAINMAIL_BOOTS
+            enchantments:
+              - PROTECTION_ENVIRONMENTAL:1
+            price:
+              material: GOLD_INGOT
+              amount: 5
+          '9':
+            material: IRON_HELMET
+            enchantments:
+              - PROTECTION_ENVIRONMENTAL:1
+            price:
+              material: DIAMOND
+              amount: 5
+          '10':
+            material: IRON_CHESTPLATE
+            enchantments:
+              - PROTECTION_ENVIRONMENTAL:1
+            price:
+              material: DIAMOND
+              amount: 5
+          '11':
+            material: IRON_LEGGINGS
+            enchantments:
+              - PROTECTION_ENVIRONMENTAL:1
+            price:
+              material: DIAMOND
+              amount: 5
+          '12':
+            material: IRON_BOOTS
+            enchantments:
+              - PROTECTION_ENVIRONMENTAL:1
+            price:
+              material: DIAMOND
+              amount: 5
+          '13':
+            material: DIAMOND_CHESTPLATE
+            enchantments:
+              - PROTECTION_ENVIRONMENTAL:1
+            price:
+              material: DIAMOND
+              amount: 15
+            update:
+              time: 495
+              name: 'Petos de diamante'
+      swords:
+        name: '&b&lArmas'
+        desc:
+          - '¡Compra armas para atacar a tus enemigos!'
+        item: DIAMOND_SWORD
+        slot: 1
+        offers:
+          '1':
+            material: FISHING_ROD
+            price:
+              material: IRON_INGOT
+              amount: 15
+          '2':
+            material: WOOD_SWORD
+            price:
+              material: IRON_INGOT
+          '3':
+            material: STONE_SWORD
+            price:
+              material: IRON_INGOT
+              amount: 5
+          '4':
+            material: STONE_SWORD
+            enchantments:
+              - DAMAGE_ALL:1
+            price:
+              material: GOLD_INGOT
+              amount: 5
+          '5':
+            material: IRON_SWORD
+            enchantments:
+              - DAMAGE_ALL:1
+            price:
+              material: GOLD_INGOT
+              amount: 15
+          '6':
+            material: DIAMOND_SWORD
+            enchantments:
+              - DAMAGE_ALL:1
+            price:
+              material: DIAMOND
+              amount: 15  
+            update:
+              time: 525
+              name: 'Espadas de diamante'
+      bows:
+        name: '&6&lArcos'
+        desc:
+          - 'Protéjete de aquellos que vienen de lejos con un arco'
+        item: BOW
+        slot: 2
+        offers:
+          '1':
+            material: BOW
+            price:
+              material: GOLD_INGOT
+              amount: 15
+          '2':
+            material: BOW
+            enchantments:
+              - ARROW_KNOCKBACK:1
+            price:
+              material: DIAMOND
+              amount: 15
+          '3':
+            material: BOW
+            enchantments:
+              - ARROW_DAMAGE:1
+              - ARROW_KNOCKBACK:1
+            price:
+              material: DIAMOND
+              amount: 30
+          '4':
+            material: ARROW
+            price:
+              material: GOLD_INGOT
+      eat:
+        name: '&c&lComida'
+        desc:
+          - '¿Tienes hambre? Ten algo para comer'
+        item: GRILLED_PORK
+        slot: 3
+        offers:
+          '1':
+            material: GRILLED_PORK
+            amount: 2
+            price:
+              material: IRON_INGOT
+              amount: 4
+          '2':
+            material: GOLDEN_APPLE
+            price:
+              material: GOLD_INGOT
+              amount: 2
+      pickaxes:
+        name: '&a&lPicos'
+        desc:
+          - '¿Necesitas destruir? Usa estos picos'
+        item: DIAMOND_PICKAXE
+        slot: 4
+        offers:
+          '1':
+            material: IRON_PICKAXE
+            price:
+              material: IRON_INGOT
+              amount: 5
+          '2':
+            material: DIAMOND_PICKAXE
+            enchantments:
+              - DIG_SPEED:1
+            price:
+              material: GOLD_INGOT
+              amount: 10
+          '3':
+            material: DIAMOND_PICKAXE
+            enchantments:
+              - DIG_SPEED:3
+            price:
+              material: DIAMOND
+              amount: 10
+          '4':
+            material: DIAMOND_PICKAXE
+            enchantments:
+              - DIG_SPEED:6
+            price:
+              material: DIAMOND
+              display-name: '&b&lSuper Pico'
+              amount: 50
+            update:
+              time: 825
+              name: 'Super Picos'
+      blocks:
+        name: '&e&lBloques'
+        desc:
+          - '¡Ir hacia los demas! Posible solo con bloques'
+        item: SANDSTONE
+        slot: 5
+        offers:
+          '1':
+            material: STAINED_CLAY
+            amount: 2
+            price:
+              material: IRON_INGOT
+          '2':
+            material: ENDER_STONE
+            price:
+              material: IRON_INGOT
+              amount: 2
+          '3':
+            material: GLASS
+            price:
+              material: IRON_INGOT
+              amount: 4
+          '4':
+            material: OBSIDIAN
+            price:
+              material: GOLD_INGOT
+              amount: 10
+      drinks:
+        name: '&5&lPociones'
+        desc:
+          - '¿Aun no es suficiente? ¡Usa estas pociones para sentirte mejor!'
+        item: POTION
+        slot: 6
+        offers:
+          '1':
+            material: POTION
+            data: 8193
+            price:
+              material: GOLD_INGOT
+              amount: 10
+          '2':
+            material: POTION
+            data: 8194
+            price:
+              material: GOLD_INGOT
+              amount: 15
+          '3':
+            material: POTION
+            data: 8225
+            price:
+              material: GOLD_INGOT
+              amount: 30
+      extras:
+        name: '&d&lExtras'
+        desc:
+          - '¿Buscas cosas utiles? ¡Mira esto!'
+        item: TNT
+        slot: 7
+        offers:
+          '1':
+            material: TNT
+            price:
+              material: GOLD_INGOT
+              amount: 3
+          '2':
+            material: FLINT_AND_STEEL
+            price:
+              material: DIAMOND
+          '3':
+            material: CHEST
+            price:
+              material: GOLD_INGOT
+          '4':
+            material: ENDER_CHEST
+            price:
+              material: DIAMOND
+          '5':
+            material: COMPASS
+            display-name: '&c&lRastreador'
+            lore:
+              - '¡Usa este objeto para localizar'
+              - 'a todos tus enemigos!'
+            price:
+              material: GOLD_INGOT
+              amount: 5
+            update:
+              time: 450
+              name: 'Rastreadores'
+          '6':
+            material: ENDER_PEARL
+            price:
+              material: DIAMOND
+              amount: 64
+            update:
+              time: 675
+              name: 'Perlas ender'

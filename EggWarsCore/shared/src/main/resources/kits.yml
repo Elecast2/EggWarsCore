@@ -1,0 +1,296 @@
+item-format:
+  level:
+    locked-item:
+      material: INK_SACK
+      data: 8
+    locked-desc:
+      - '&c&lBLOQUEADO'
+      - ''
+      - '&7Debes ser nivel &a%level% &7para'
+      - '&7para desbloquear este &aKit'
+      - ''
+      - ' &7&l> &2&lDescripción:'
+      - '%description%'
+      - ''
+    unlocked-desc:
+      - '&a&lDESBLOQUEADO'
+      - ''
+      - ' &7&l> &2&lDescripción:'
+      - '%description%'
+      - ''
+  key:
+    locked-item:
+      material: INK_SACK
+      data: 8
+    locked-desc:
+      - '&c&lBLOQUEADO'
+      - ''
+      - '&7Debes ser nivel &a%level% &7y'
+      - '&7usar una &eLlave &7para'
+      - '&7desbloquear este &aKit'
+      - ''
+      - ' &7&l> &2&lDescripción:'
+      - '%description%'
+      - ''
+    unlocked-desc:
+      - '&a&lDESBLOQUEADO'
+      - ''
+      - ' &7&l> &2&lDescripción:'
+      - '%description%'
+      - ''
+  price:
+    locked-item:
+      material: INK_SACK
+      data: 8
+    locked-desc:
+      - '&c&lBLOQUEADO'
+      - ''
+      - '&aClick para comprar'
+      - '&6&lPrecio: &d&l%price% &5Moras'
+      - ''
+      - ' &7&l> &2&lDescripción:'
+      - '%description%'
+      - ''
+    unlocked-desc:
+      - '&a&lDESBLOQUEADO'
+      - ''
+      - ' &7&l> &2&lDescripción:'
+      - '%description%'
+      - ''
+  permission:
+    '1':
+      permission: ewc.vip1
+      locked-item:
+        material: INK_SACK
+        data: 6
+      locked-desc:
+        - '&c&lBLOQUEADO'
+        - ''
+        - '&7Debes ser &3&lMM &7o un rango'
+        - '&7superior para desbloquear'
+        - ''
+        - ' &7&l> &2&lDescripción:'
+        - '%description%'
+        - ''
+      unlocked-desc:
+        - '&a&lDESBLOQUEADO'
+        - ''
+        - ' &7&l> &2&lDescripción:'
+        - '%description%'
+        - ''
+    '2':
+      permission: ewc.vip2
+      locked-item:
+        material: INK_SACK
+        data: 12
+      locked-desc:
+        - '&c&lBLOQUEADO'
+        - ''
+        - '&7Debes ser &b&lMMC &7o un rango'
+        - '&7superior para desbloquear'
+        - ''
+        - ' &7&l> &2&lDescripción:'
+        - '%description%'
+        - ''
+      unlocked-desc:
+        - '&a&lDESBLOQUEADO'
+        - ''
+        - ' &7&l> &2&lDescripción:'
+        - '%description%'
+        - ''
+    '3':
+      permission: ewc.vip3
+      locked-item:
+        material: INK_SACK
+        data: 10
+      locked-desc:
+        - '&c&lBLOQUEADO'
+        - ''
+        - '&7Debes ser &a&lMMC&e&l+ &7o un rango'
+        - '&7superior para desbloquear'
+        - ''
+        - ' &7&l> &2&lDescripción:'
+        - '%description%'
+        - ''
+      unlocked-desc:
+        - '&a&lDESBLOQUEADO'
+        - ''
+        - ' &7&l> &2&lDescripción:'
+        - '%description%'
+        - ''
+  default:
+    locked-item:
+      material: BARRIER
+    locked-desc:
+      - '&c&lDESHABILITADO'
+      - ''
+      - '&cEste kit se encuentra'
+      - '&cdeshabilitado para ti.'
+    unlocked-desc:
+      - '&a&lDESBLOQUEADO'
+      - ''
+      - ' &7&l> &2&lDescripción:'
+      - '%description%'
+      - ''
+
+# -- Unlock Types -- 
+# DEFAULT: unlocked by default
+# LEVEL: unlocked by level
+# KEY: unlocked using a key
+# PRICE: unlocked by price
+# PERMISSION: unlocked by permission
+# DISABLED: will disable the extra and shows the default locked item and desc
+
+# -- Slots --
+# 0-8 hotbar
+# 9-35 inventory
+# Armor Slots: helmet, chestplate, leggings, boots
+
+# -- Give on respawn times --
+# use 0 if you want to give the kit once
+# use -1 if you want to give every time the player respawn
+
+kits:
+  '1':
+    position: 1
+    unlock-type: PRICE
+    price: 250
+    give-on-respawn-times: -1
+    name: '&a&lConstructor'
+    desc:
+      - '&7Usa estos materiales para'
+      - '&7atacar a tus enemigos'
+    menu-item:
+      material: STAINED_CLAY
+    items:
+      '1':
+        slot: 0
+        material: STAINED_CLAY
+        amount: 64
+      '2':
+        slot: 1
+        material: STAINED_CLAY
+        amount: 64
+  '2':
+    position: 2
+    unlock-type: PRICE
+    price: 250
+    give-on-respawn-times: -1
+    name: '&9&lSpider&c&lman'
+    desc:
+      - '&7Con estas telarañas podras'
+      - '&7atrapara a tus amenazas'
+    menu-item:
+      material: WEB
+    items:
+      '1':
+        slot: 0
+        material: WEB
+        amount: 25
+  '3':
+    position: 3
+    unlock-type: PRICE
+    price: 250
+    give-on-respawn-times: -1
+    name: '&c&lRestauración'
+    desc:
+      - '&7Con estas manzanas tendrás el poder'
+      - '&7de sanar tus heridas'
+    menu-item:
+      material: GOLDEN_APPLE
+    items:
+      '1':
+        slot: 0
+        material: GOLDEN_APPLE
+        amount: 8
+  '4':
+    position: 4
+    unlock-type: PRICE
+    price: 250
+    give-on-respawn-times: -1
+    name: '&6&lHerramienta'
+    desc:
+      - '&7Con este Pico seguramente rompas'
+      - '&7mas de lo que imagines'
+    menu-item:
+      material: STONE_PICKAXE
+    items:
+      '1':
+        slot: 0
+        material: STONE_PICKAXE
+        amount: 1
+  '5':
+    position: 5
+    unlock-type: PRICE
+    price: 800
+    give-on-respawn-times: -1
+    name: '&c&lArquero'
+    desc:
+      - '&7Ten estas flechas para acabar con'
+      - '&7quien tenga la osadia de atacarte'
+    menu-item:
+      material: BOW
+    items:
+      '1':
+        slot: 0
+        material: BOW
+        amount: 1
+      '2':
+        slot: 1
+        material: ARROW
+        amount: 16
+  '6':
+    position: 6
+    unlock-type: PRICE
+    price: 800
+    give-on-respawn-times: -1
+    name: '&f&lInstalador de Ventanas'
+    desc:
+      - '&7Los bloques de vidrio son perfectos'
+      - '&7para un ataque con sigilo'
+    menu-item:
+      material: GLASS
+    items:
+      '1':
+        slot: 0
+        material: GLASS
+        amount: 64
+      '2':
+        slot: 1
+        material: GLASS
+        amount: 64
+  '7':
+    position: 7
+    unlock-type: PRICE
+    price: 900
+    give-on-respawn-times: 0
+    name: '&2&lProtector'
+    desc:
+      - '&7Esta obsidiana te ayudara a'
+      - '&7proteger tu huevo'
+    menu-item:
+      material: OBSIDIAN
+    items:
+      '1':
+        slot: 0
+        material: OBSIDIAN
+        amount: 3
+  '8':
+    position: 8
+    unlock-type: PRICE
+    price: 2000
+    give-on-respawn-times: -1
+    name: '&9&lAterrizaje'
+    desc:
+      - '&7Estas botas te daran el poder de'
+      - '&7hacer poderosos ataques aereos'
+    menu-item:
+      material: IRON_BOOTS
+    items:
+      '1':
+        slot: boots
+        material: IRON_BOOTS
+        enchantments:
+          - PROTECTION_FALL: 10
+          - PROTECTION_ENVIRONMENTAL: 1
+        amount: 1

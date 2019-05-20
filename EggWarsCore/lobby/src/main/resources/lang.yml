@@ -1,0 +1,27 @@
+prefix: '&7[&f&l!&7] '
+lobby:
+  motd:
+    - ''
+    - ''
+    - '&f&l&m=====================&7&l&m====================='
+    - '                 &7&oBienvenido a &5&lEGGWARS &8v%version%'
+    - ''
+    - '     &7Consigue beneficios comprando en nuestra &atienda&7!'
+    - '                &7en: &btienda.minemora.net'
+    - '    &e&l* &6Usa los siguientes comandos para mas información &e&l* '
+    - '      &f>> &a¿Como Jugar?: &e/tutorial   &f>> &aReglas: &e/reglas'
+    - ''
+    - '&7&l&m=====================&f&l&m====================='
+time:
+  minute:
+    singular: 'minuto'
+    plural: 'minutos'
+  seconds:
+    singular: 'segundo'
+    plural: 'segundos'
+extras:
+  page: ' &9(Página %page%)'
+  kits-menu-title: '&2&l&nKits'
+  trails-menu-title: '&2&l&nTrails'
+  death-effects-menu-title: '&2&l&nEfectos de Muerte'
+  win-effects-menu-title: '&2&l&nEfectos de Victoria'

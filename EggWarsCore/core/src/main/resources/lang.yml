@@ -1,0 +1,175 @@
+prefix: '&7[&f&l!&7] '
+game:
+  respawn:
+    timer: '&eSeras vulnerable en &c%seconds%'
+    time-over: '&c¡Eres vulnerable!'
+  block:
+    own-block: '&c¡No puedes romper tu propio huevo!'
+    destroyed: "&f¡%player-team% %player% &fha destruido el huevo del equipo %enemy-team%&f!"
+  death-messages:
+    final-death: '&c&l¡MUERTE DEFINITIVA!'
+    explosion-self: '&7¡%victim% &7se fue a lo GRANDE!'
+    explosion: '&7¡%killer% &7ha hecho explotar a %victim%&7!'
+    drowning-self: '&7¡%victim% &7se ha ahogado!'
+    drowning: '&7¡%killer% &7ha ahogado a %victim%&7!'
+    attack: '&7¡%killer% &7asesino a %victim%&7!'
+    fall-self: '&7¡%victim% &7se dio duro contra el suelo!'
+    fall: '&7¡%killer% &7puso a %victim% &7contra el suelo!'
+    fire-self: '&7¡%victim% &7ahora es carne asada!'
+    fire: '&7¡%killer% &7quemo a %victim%&7!'
+    lava-self: '&7¡%victim% &7ardió en lava!'
+    lava: '&7¡%killer% &7asesino a %victim% &7con lava!'
+    magic: '&7¡%killer% &7asesino magicamente a %victim%&7!'
+    poison: '&7¡%killer% &7intoxico a %victim%&7!'
+    projectile: '&7¡%killer% &7le disparo a %victim%&7!'
+    void-self: '&7¡%victim% &7ha caido al vacio!'
+    void: '&7¡%killer% &7tiro al vacio a %victim%&7!'
+    default-self: '&7¡%victim% &7ha muerto!'
+    default: '&7¡%victim% &7ha muerto debido a %killer%&7!'
+lobby:
+  player-join: '&f%player% &7se ha unido a la partida &f(%players%/%max-players%)'
+  player-quit: '&f%player% &7se ha salido de la partida &f(%players%/%max-players%)'
+  time-to-start: '&7La partida iniciará en en &e%seconds% &7segundos'
+  time-to-start-short: '&e%seconds%'
+  time-reduced: '&6El tiempo ha sido reducido a %seconds% segundos'
+  need-more-players: '&cLa partida no puede iniciar porque requiere como mínimo %required% jugadores'
+  joined-to-team: '&a¡Te has unido al equipo %team-color%&l%team-name%&a!'
+  team-is-full: '&c¡Este team se encuentra lleno!'
+  already-on-team: '&a¡Ya te encuentras en ese team!'
+  motd:
+    - '&f&l&m=====================&7&l&m====================='
+    - '    &7&oBienvenido al lobby de espera de &5&lEGGWARS'
+    - ''
+    - '  &6Adquiere rango en nuestra tienda: &btienda.minemora.net'
+    - '  &7y podras disfrutar de numerosos &eefectos unicos&7!'
+    - '    &7tambien podras votar por &edistintas opciones&7!'
+    - '&7&l&m=====================&f&l&m====================='
+time:
+  minute:
+    singular: 'minuto'
+    plural: 'minutos'
+  seconds:
+    singular: 'segundo'
+    plural: 'segundos'
+team-selector:
+  title: '&d&lSelecciona un equipo'
+  display-name: '%team-color%%team-name%'
+  lore:
+    - '&7(&f%players%&e/&f%max-players%&7)'
+    - '&7----------'
+map-vote-menu:
+  title: '&1&lVota por un mapa'
+  display-name: '&6&l%map-name%'
+  lore:
+    - '&7Votos: &a%votes%'
+extras:
+  page: ' &9(Página %page%)'
+  kits-menu-title: '&2&l&nKits'
+  trails-menu-title: '&2&l&nTrails'
+  death-effects-menu-title: '&2&l&nEfectos de Muerte'
+  win-effects-menu-title: '&2&l&nEfectos de Victoria'
+shop:
+  menu-title: '&6&lTIENDA'
+  no-material: '&cNo tienes suficientes minerales para comprar este item'
+  price: '&ePrecio: &f%price% %material%'
+generator:
+  no-material: '&cNo tienes suficientes minerales para mejorar este generador'
+  menu:
+    name-active: '&8Generador de %name% &8- &0Nivel %level%'
+    name-broken: '&8Generador de %name% &8- &0Roto'
+    item-info-active: '&fGenerador de %name% &8- &6Nivel %level%'
+    item-info-broken: '&fGenerador de %name% &8- &6Roto'
+    item-info-lore:
+      - '&9Intervalo de producción: %seconds%'
+    item-upgrade-name: '&aMejora a: &fGenerador de %name% &6- Nivel %next-level%'
+    item-upgrade-lore:
+      - '&9Intervalo de producción: %seconds%'
+      - ''
+      - '&3Costo: &e%price% %material-name%'
+    item-upgrade-max: '&6Ya esta al maximo!'
+  sign:
+    active:
+      - '&0&lGenerador'
+      - '%name%'
+      - '&0Nivel %level%'
+      - '&8Click Derecho'
+    broken:
+      - '&0&lGenerador'
+      - '%name%'
+      - '&0Roto'
+      - '&8Click Derecho'
+arenas-setup:
+  no-arenas: '&cThere are no arenas configured in the arenas.yml file, please use /ewc create'
+  generator:
+    place: '&aA generator has been added successfully!'
+    no-exists: '&cThere are no generators with the id &4%name% &cin generators.yml, please use one of these: &a%generators%'
+    no-number: '&cThe third line has to be a number!'
+    out-of-range: '&cThe number of the third line is out of range! &acorrect range: &6<0-%max%>'
+    remove: '&cYou have removed this generator!'
+command:
+  ewc:
+    correct-usage: '&cYou are using bad the command. &eCorrect usage: &b%command%'
+    no-perm: 'Unknown command. Type "/help" for help.'
+    successful:
+      setname: '&aThe name has been set successfully to: &b%name%'
+      setcenter: '&aThe center has been set successfully to: &b%location%'
+      setradius: '&aThe radius has been set successfully to: &b%radius%'
+      setspectator: '&aThe spectator spawn point has been set successfully to: &b%location%'
+      setspawn: '&aThe spawn point &e%point% &ahas been set successfully to: &b%location%'
+      setblock: '&aThe block &e%point% &ahas been set successfully to: &b%location%'
+      setshop: '&aAn entity of shop has been summoned successfully'
+      save: '&aThe arena &b%name% &ahas been saved successfully.'
+    info:
+      setblock: '&aBreak a block to set the block'
+    create:
+      world-not-found: '&cThe world &4%world-name% &chas not been found, put it on /plugins/EggWarsCore/Arenas'
+      up:
+        - '&f&l&m=====================&7&l&m====================='
+        - ''
+        - '  &eWelcome to EggWarsCore''s Configuration Guide'
+        - '          &aThanks for purchasing it!'
+        - ''
+      mid:
+        - '   &aClick on one of the next worlds to configure it:'
+        - '    &a&lGREEN &f= &7Configured &8| &c&lRED &f= &7Not configured'
+        - '  &7(You can click on green worlds to edit them!)'
+        - ''
+      no-arenas:
+        - '  &cIt seems that you don''t have any arenas configured'
+        - '   &aClick on one of the next worlds to configure it:'
+        - ''
+      no-worlds:
+        - '       &cNo world folders have been found!'
+        - '  &ePut your worlds on &6/plugins/EggWarsCore/Arenas'
+        - '     &eand use the command "&b/ewc create&e" again'
+        - ' &eor use "&b/ewc build <arena-name>&e" to create a new world'
+      down:
+        - ''
+        - '&7&l&m=====================&f&l&m====================='
+    edit:
+      editing:
+        - '&f&l&m=====================&7&l&m====================='
+        - ''
+        - '  &aYou are now editing the arena: &b%world-name%'
+        - '&2&l1.- Use the next commands to configure it:'
+        - ''
+        - ' &7&l> &c/ewc &esetname &6<name> &7(sets the name)'
+        - ' &7&l> &c/ewc &esetcenter &7(sets the center)'
+        - ' &7&l> &c/ewc &esetradius &6<number> &7(sets the radius)'
+        - ' &7&l> &c/ewc &esetspectator &7(sets the spectator spawn point)'
+        - ' &7&l> &c/ewc &eteams &7(to see the id of each team in the config)'
+        - ' &7&l> &c/ewc &esetspawn &6<1-%max-teams%> &7(sets the spawn points)'
+        - ' &7&l> &c/ewc &esetblock &6<1-%max-teams%> &7(sets the block to destroy)'
+        - ' &7&l> &c/ewc &esetshop &7(spawns a no-ai entity configured as shop)'
+        - ''
+        - '&2&l2.- Place a sign to create a generator using the following format:'
+        - ' &7(Or you can use &l/ewc getsign <type> <start-level> &7and place it)'
+        - '   &f&lLine #1 &7= &e[Generator]'
+        - '   &f&lLine #2 &7= &e<type>'
+        - '   &f&lLine #3 &7= &e<start-level>'
+        - '   &f&lLine #4 &7= &e(leave this line empty)'
+        - ''
+        - '&2&l3.- Finish with &b&l/ewc save'
+        - ''
+        - '&7&l&m=====================&f&l&m====================='
+      
