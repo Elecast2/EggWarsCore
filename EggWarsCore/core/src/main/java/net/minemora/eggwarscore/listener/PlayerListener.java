@@ -20,6 +20,7 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -516,6 +517,12 @@ public class PlayerListener extends EggWarsListener {
     	        	}
 				}
 			}
+    	}
+    	if(event.getInventory().getType() == InventoryType.ANVIL) { //TODO FROM CONFIG
+    		event.setCancelled(true);
+    	}
+    	if(event.getInventory().getType() == InventoryType.ENCHANTING) { //TODO FROM CONFIG
+    		event.setCancelled(true);
     	}
     }
     
