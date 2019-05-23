@@ -1,0 +1,240 @@
+#Main Config by Esmorall
+general:
+  use-vault: true
+  holographic-displays: true
+  max-simultaneous-games: 9
+  games-to-restart: 200
+  allow-crafting: false
+  instant-death-on-void: true
+  date-format: 'dd/MM/yyyy'
+  vote-for-map: true
+  max-votable-maps: 4
+  tab-prefix: '%team-color%%team-name% '
+  respawn-protection: true
+  respawn-protection-time: 3
+  leather-armor-when-join-team: true
+  level-rate: 10
+  top-limit: 10
+database:
+  url: 'jdbc:mysql://0.0.0.0:3306/database?useSSL=false'
+  username: 'user'
+  password: 'pass'
+  prefix: 'ewc_'
+chat-format:
+  level-prefix:
+    0: '&a[Nivel %level%] '
+    10: '&b[Nivel %level%] '
+    20: '&c[Nivel %level%] '
+    30: '&d[Nivel %level%] '
+    40: '&1[Nivel %level%] '
+    50: '&2[Nivel %level%] '
+    60: '&3[Nivel %level%] '
+    70: '&4[Nivel %level%] '
+    80: '&5[Nivel %level%] '
+    90: '&6[Nivel %level%] '
+    100: '&e&l[Nivel %level%] '
+    200: '&b&l[Nivel %level%] '
+    300: '&a&l[Nivel %level%] '
+    400: '&5&l[Nivel %level%] '
+    500: '&6&l[&7&lN&f&lIVE&7&lL &f&ki&e&l%level%&f&ki&6&l] '
+  global-prefix: '&f[&7Global&f] '
+  team: '%level-prefix%%team-color%&l%team-name% %team-color%%player-name% %team-color%&l> &7%message%'
+  no-team: '%level-prefix%%player-prefix%&r%player-name%%player-suffix%%message%'
+  spectator-team: '&8[Espectador] %level-prefix%%team-color%&l%team-name% %team-color%%player-name% %team-color%&l> &7%message%'
+  spectator-no-team: '&8[Espectador] %level-prefix%%player-prefix%&r%player-name%%player-suffix%%message%'
+game:
+  max-players-per-team: 4
+  block-to-destroy: DRAGON_EGG
+  min-players-to-start: 12
+  time-to-start: 60
+  time-to-start-full: 10
+  respawn-times:
+    '1':
+      start-time: 1500
+      respawn-time: 3
+    '2':
+      start-time: 2100
+      respawn-time: 4
+    '3':
+      start-time: 2700
+      respawn-time: 5
+    '4':
+      start-time: 3300
+      respawn-time: 6
+generator:
+  #CAUTION enabling no-merge could cause FPS lag
+  no-merge: false
+  merge-groups: 8
+shop:
+  entity-type: VILLAGER
+  click-section-sound: CLICK
+  buy-sound: ITEM_PICKUP
+  no-material-sound: NOTE_BASS
+lobby-items:
+  team:
+    enabled: true
+    slot: 0
+    material: EMERALD
+    display-name: '&d&lEquipo &7(Click derecho)'
+    lore:
+      - '&7Usa este item para elegir'
+      - '&7un &dEquipo &7al que'
+      - '&7quieras unirte.'
+  kits:
+    enabled: true
+    slot: 1
+    material: BLAZE_POWDER
+    display-name: '&a&lKits &7(Click derecho)'
+    lore:
+      - '&7Usa este item para elegir'
+      - '&7un &aKit &7que te ayudará'
+      - '&7dentro del juego.'
+  vote-for-map:
+    enabled: true
+    slot: 2
+    material: DIAMOND
+    display-name: '&b&lVota por Mapa &7(Click derecho)'
+    lore:
+      - '&7Usa ese item para votar'
+      - '&7por un &bmapa&7.'
+  extras:
+    enabled: true
+    slot: 3
+    material: NETHER_STAR
+    display-name: '&b&lExtras &7(Click derecho)'
+    lore:
+      - '&7Usa este item para'
+      - '&7ver el menu de extras.'
+  options:
+    enabled: true
+    slot: 4
+    material: REDSTONE
+    display-name: '&6&lOpciones &7(Click derecho)'
+    lore:
+      - '&7Usa este item para'
+      - '&7ver el menu de opciones.'
+  vote-for-shop:
+    enabled: false
+    slot: 5
+    material: CHEST
+    display-name: '&2&lVote for Shop &7(Right click)'
+    lore:
+      - '&7Use this item to'
+      - '&7vote for shop type.'
+  leave:
+    enabled: true
+    slot: 8
+    material: COMPASS
+    display-name: '&c&lSalir &7(Click derecho)'
+    lore:
+      - '&7Usa este item para'
+      - '&7regresar al &clobby&7.'
+extras:
+  open-menu-sound: CLICK
+  select-sound: CLICK
+  unavailable-sound: NOTE_BASS
+  buy-sound: LEVEL_UP
+  menu-title: '&2&lExtras'
+  bars: 3
+  items:
+    trails:
+      enabled: true
+      slot: 10
+      material: BLAZE_POWDER
+      display-name: '&e&lTrails'
+      lore:
+        - '&7Deja impresionantes'
+        - '&7estelas cada vez que'
+        - '&7dispares algo.'
+    death-effects:
+      enabled: true
+      slot: 13
+      material: SKULL_ITEM
+      display-name: '&c&lEfectos de Muerte'
+      lore:
+        - '&7A nadie le gusta morir,'
+        - '&7pero a veces toca y que'
+        - '&7mejor que hacerlo con estilo.'
+    win-effects:
+      enabled: true
+      slot: 16
+      material: NETHER_STAR
+      display-name: '&b&lEfectos de Victoria'
+      lore:
+        - '&7Si ya ganar es épico'
+        - '&7imagínate ganar con'
+        - '&7un efecto adicional.'
+  option-items:
+    previous-page:
+      #if you use BANNER it will show a left arrow banner
+      material: BANNER
+      display-name: '&7&l&m<-- &c&lPag'
+    next-page:
+      #if you use BANNER it will show a right arrow banner
+      material: BANNER
+      display-name: '&a&lPag &7&l&m-->'
+    random:
+      #if you use SKULL_ITEM it will show a question mark head
+      material: MAGMA_CREAM
+      display-name: '&d&lAleatorio'
+      lore:
+        - '&7Usa esta opción para'
+        - '&7que por cada juego se'
+        - '&7escoga aleatoriamente.'
+    remove:
+      material: REDSTONE_BLOCK
+      display-name: '&4&lQuitar actual'
+      lore:
+        - '&7Usa esta opción para'
+        - '&7desactivar tu selección.'
+    show-all:
+      material: EYE_OF_ENDER
+      display-name: '&2&lMostrar: &7Todo'
+    show-available:
+      material: EYE_OF_ENDER
+      display-name: '&2&lMostrar: &7Disponibles'
+    show-unavailable:
+      material: EYE_OF_ENDER
+      display-name: '&2&lMostrar: &7Sin obtener'
+team:
+  team-selector:
+    select-sound: CLICK
+    team-full-sound: NOTE_BASS
+  teams:
+    '1':
+      name: Rojo
+      color: RED
+    '2':
+      name: Azul
+      color: BLUE
+    '3':
+      name: Amarillo
+      color: YELLOW
+    '4':
+      name: Verde
+      color: GREEN
+    '5':
+      name: Morado
+      color: DARK_PURPLE
+    '6':
+      name: Rosa
+      color: LIGHT_PURPLE
+lobby:
+  spawn:
+    x: 0.5
+    y: 121
+    z: 0.5
+    yaw: 0
+    pitch: 0
+network:
+  mode: squad
+  server-name: teamew1
+  lobbies:
+    lobbyew1:
+      bungee-name: lobbyew1
+      ip: 0.0.0.0
+      port: 25777
+    lobbyew2:
+      bungee-name: lobbyew2
+      ip: 0.0.0.0
+      port: 25778

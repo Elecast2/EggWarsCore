@@ -1,0 +1,258 @@
+#Main Config by Esmorall
+general:
+  use-vault: true
+  holographic-displays: true
+  hd-top-kills: true
+  top-limit: 10
+  top-update-time: 5
+  level-rate: 10
+database:
+  url: 'jdbc:mysql://0.0.0.0:3306/database?useSSL=false'
+  username: 'user'
+  password: 'pass'
+  prefix: 'ewc_'
+chat-format:
+  level-prefix:
+    0: '&a[Nivel %level%] '
+    10: '&b[Nivel %level%] '
+    20: '&c[Nivel %level%] '
+    30: '&d[Nivel %level%] '
+    40: '&1[Nivel %level%] '
+    50: '&2[Nivel %level%] '
+    60: '&3[Nivel %level%] '
+    70: '&4[Nivel %level%] '
+    80: '&5[Nivel %level%] '
+    90: '&6[Nivel %level%] '
+    100: '&e&l[Nivel %level%] '
+    200: '&b&l[Nivel %level%] '
+    300: '&a&l[Nivel %level%] '
+    400: '&5&l[Nivel %level%] '
+    500: '&6&l[&7&lN&f&lIVE&7&lL &f&ki&e&l%level%&f&ki&6&l] '
+  format: '%level-prefix%%player-prefix%&r%player-name%%player-suffix%%message%'
+lobby-items:
+  join:
+    enabled: true
+    slot: 0
+    material: DIAMOND
+    display-name: '&b&lJugar &7(Click derecho)'
+    lore:
+      - '&7Usa este item para elegir'
+      - '&7un modo de juego y acceder'
+      - '&7a el de forma rápida.'
+  kits:
+    enabled: true
+    slot: 2
+    material: BLAZE_POWDER
+    display-name: '&a&lKits &7(Click derecho)'
+    lore:
+      - '&7Usa este item para elegir'
+      - '&7un &aKit &7que te ayudará'
+      - '&7dentro del juego.'
+  extras:
+    enabled: true
+    slot: 3
+    material: NETHER_STAR
+    display-name: '&b&lExtras &7(Click derecho)'
+    lore:
+      - '&7Usa este item para'
+      - '&7ver el menu de extras.'
+  lobbies:
+    enabled: true
+    slot: 7
+    material: WATCH
+    display-name: '&e&lLobbies &7(Click derecho)'
+    lore:
+      - '&7Usa este item para'
+      - '&7ir a otro lobby.'
+  leave:
+    enabled: true
+    slot: 8
+    material: COMPASS
+    display-name: '&c&lSalir &7(Click derecho)'
+    lore:
+      - '&7Usa este item para'
+      - '&7regresar al &clobby principal&7.'
+extras:
+  open-menu-sound: CLICK
+  select-sound: CLICK
+  unavailable-sound: NOTE_BASS
+  buy-sound: LEVEL_UP
+  menu-title: '&2&lExtras'
+  bars: 3
+  items:
+    trails:
+      enabled: true
+      slot: 10
+      material: BLAZE_POWDER
+      display-name: '&e&lTrails'
+      lore:
+        - '&7Deja impresionantes'
+        - '&7estelas cada vez que'
+        - '&7dispares algo.'
+    death-effects:
+      enabled: true
+      slot: 13
+      material: SKULL_ITEM
+      display-name: '&c&lEfectos de Muerte'
+      lore:
+        - '&7A nadie le gusta morir,'
+        - '&7pero a veces toca y que'
+        - '&7mejor que hacerlo con estilo.'
+    win-effects:
+      enabled: true
+      slot: 16
+      material: NETHER_STAR
+      display-name: '&b&lEfectos de Victoria'
+      lore:
+        - '&7Si ya ganar es épico'
+        - '&7imagínate ganar con'
+        - '&7un efecto adicional.'
+  option-items:
+    previous-page:
+      #if you use BANNER it will show a left arrow banner
+      material: BANNER
+      display-name: '&7&l&m<-- &c&lPag'
+    next-page:
+      #if you use BANNER it will show a right arrow banner
+      material: BANNER
+      display-name: ' &a&lPag &7&l&m-->'
+    random:
+      #if you use SKULL_ITEM it will show a question mark head
+      material: MAGMA_CREAM
+      display-name: '&d&lAleatorio'
+      lore:
+        - '&7Usa esta opción para'
+        - '&7que por cada juego se'
+        - '&7escoga aleatoriamente.'
+    remove:
+      material: REDSTONE_BLOCK
+      display-name: '&4&lQuitar actual'
+      lore:
+        - '&7Usa esta opción para'
+        - '&7desactivar tu selección.'
+    show-all:
+      material: EYE_OF_ENDER
+      display-name: '&2&lMostrar: &7Todo'
+    show-available:
+      material: EYE_OF_ENDER
+      display-name: '&2&lMostrar: &7Disponibles'
+    show-unavailable:
+      material: EYE_OF_ENDER
+      display-name: '&2&lMostrar: &7Sin obtener'
+play-menu:
+  title: '&8&l&nJugar:'
+  bars: 4
+parkour:
+  enabled: true
+  points:
+    '1':
+      x: -19
+      y: 69
+      z: -1
+    '2':
+      x: -45
+      y: 82
+      z: 46
+    '3':
+      x: -36
+      y: 89
+      z: 39
+    '4':
+      x: -18
+      y: 101
+      z: 64
+    '5':
+      x: 15
+      y: 100
+      z: 65
+    '6':
+      x: 42
+      y: 91
+      z: 25
+modes:
+  solo:
+    id: 0
+    max-players: 12
+    item:
+      material: DIAMOND
+      display-name: '&a&lSOLO'
+      lore:
+        - ''
+        - '&7¡Enfréntate a todos tu solo!'
+        - ''
+    menu-title: '&8&nSolo:'
+    slot: 10
+    quick-join-item:
+      slot: 19
+      material: ENDER_PEARL
+      display-name: '&5&lPartida Rápida: &a&lSOLO'
+  duo:
+    id: 1
+    max-players: 24
+    item:
+      material: DIAMOND_BOOTS
+      display-name: '&b&lDÚO'
+      lore:
+        - ''
+        - '&7¡Es mas épico con un compañero!'
+        - ''
+    menu-title: '&8&nDúo:'
+    slot: 12
+    quick-join-item:
+      slot: 21
+      material: ENDER_PEARL
+      display-name: '&5&lPartida Rápida: &b&lDÚO'
+  squad:
+    id: 2
+    max-players: 24
+    item:
+      material: DIAMOND_CHESTPLATE
+      display-name: '&c&lESCUADRÓN'
+      lore:
+        - ''
+        - '&7¡Con 4 la diversión esta al máximo!'
+        - ''
+    menu-title: '&8&nEscuadrón:'
+    slot: 14
+    quick-join-item:
+      slot: 23
+      material: ENDER_PEARL
+      display-name: '&5&lPartida Rápida: &c&lESCUADRÓN'
+  mtl:
+    id: 3
+    max-players: 24
+    item:
+      material: REDSTONE
+      display-name: '&d&lMTL'
+      lore:
+        - ''
+        - '&7¡Modos experimentales y únicos!'
+        - ''
+    menu-title: '&8&nMTL:'
+    slot: 16
+    quick-join-item:
+      slot: 25
+      material: ENDER_PEARL
+      display-name: '&5&lPartida Rápida: &d&lMTL'
+leave-servers:
+  - lobby1
+  - lobby2
+  - lobby3
+  - lobby4
+lobby:
+  spawn:
+    x: -3.5
+    y: 69
+    z: -0.5
+    yaw: 0
+    pitch: 0
+lobbies-menu:
+  enabled: true
+  current-lobby: 1
+  lobbies:
+    '1':
+      bungee-name: lobbyew1
+    '2':
+      bungee-name: lobbyew2
+network:
+  port: 25776
