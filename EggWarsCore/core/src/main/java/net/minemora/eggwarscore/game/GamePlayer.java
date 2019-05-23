@@ -47,7 +47,7 @@ public class GamePlayer extends PlayerStats {
 	private String currentVotedTime;
 	private boolean joining;
 	private long lastRespawnTime = 0;
-	private int spamKillCount = 0;
+	private int spawnKillCount = 0;
 	private int mapVotesMultiplier = 1;
 
 	public GamePlayer(Player player) {
@@ -97,27 +97,27 @@ public class GamePlayer extends PlayerStats {
 		updateCurrentDeaths();
 		Player player = getPlayer();
 		boolean hasKiller = false;
-		boolean spamKill = false;
+		boolean spawnKill = false;
 		if(lastDamager != null) {
 			if(GamePlayer.get(lastDamager) != null) {
 				Player killer = Bukkit.getPlayer(lastDamager);
 				if(getLastKiller() != null) {
 					if(getLastKiller().equals(lastDamager) && (System.currentTimeMillis() - getLastRespawnTime()) <= 
 							(6000 + 1000*ConfigMain.get().getInt("general.respawn-protection-time"))) { //TODO FROM CONFIG
-						setSpamKillCount(getSpamKillCount() + 1);
-						if(getSpamKillCount() > 2) {
-							spamKill = true;
+						setSpawnKillCount(getSpawnKillCount() + 1);
+						if(getSpawnKillCount() > 2) {
+							spawnKill = true;
 							if(killer!=null) {
 								//TODO LANG
-								killer.sendMessage(ChatUtils.format("&c¡No hagas spam kill! &7(Las estadísticas de este asesinato no contarán)"));
+								killer.sendMessage(ChatUtils.format("&c¡No hagas spawm kill! &7(Las estadísticas de este asesinato no contarán)"));
 							}
 						}
 					}
 					else {
-						setSpamKillCount(0);
+						setSpawnKillCount(0);
 					}
 				}
-				if(!spamKill) {
+				if(!spawnKill) {
 					GamePlayer.get(lastDamager).updateCurrentKills();
 					game.broadcastKill(cause, player.getName(), lastDamager, false);
 					if(killer!=null) {
@@ -528,12 +528,12 @@ public class GamePlayer extends PlayerStats {
 		this.lastRespawnTime = lastRespawnTime;
 	}
 
-	public int getSpamKillCount() {
-		return spamKillCount;
+	public int getSpawnKillCount() {
+		return spawnKillCount;
 	}
 
-	public void setSpamKillCount(int spamKillCount) {
-		this.spamKillCount = spamKillCount;
+	public void setSpawnKillCount(int spawnKillCount) {
+		this.spawnKillCount = spawnKillCount;
 	}
 
 	public String getCurrentVotedTime() {

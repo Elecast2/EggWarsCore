@@ -3,6 +3,7 @@ package net.minemora.eggwarscore.listener;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.EntityType;
@@ -228,8 +229,14 @@ public class PlayerListener extends EggWarsListener {
     		return;
     	}
     	for(Location loc : gp.getGame().getGameArena().getSpawnPoints().values()) {
-    		if(loc.getBlock().equals(event.getBlock()) || loc.getBlock().getRelative(BlockFace.UP).equals(event.getBlock())) {
-    			event.getPlayer().sendMessage(ChatUtils.format("&cNo puedes contruir en el punto de aparición"));//TODO LANG
+    		Block up = loc.getBlock().getRelative(BlockFace.UP);
+    		if(loc.getBlock().equals(event.getBlock()) || up.equals(event.getBlock())
+    				|| up.getRelative(BlockFace.NORTH).equals(event.getBlock())
+    				|| up.getRelative(BlockFace.EAST).equals(event.getBlock())
+    				|| up.getRelative(BlockFace.SOUTH).equals(event.getBlock())
+    				|| up.getRelative(BlockFace.WEST).equals(event.getBlock())
+    				|| up.getRelative(BlockFace.UP).equals(event.getBlock())) {
+    			event.getPlayer().sendMessage(ChatUtils.format("&cNo puedes contruir cerca de el punto de aparición"));//TODO LANG
     			event.setCancelled(true);
         		return;
     		}
