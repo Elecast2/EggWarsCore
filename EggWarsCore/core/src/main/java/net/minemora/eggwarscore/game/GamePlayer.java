@@ -138,6 +138,7 @@ public class GamePlayer extends PlayerStats {
 		}
 		addDeath();
 		restore();
+		player.getOpenInventory().close();
 		player.playSound(player.getLocation(), Sound.ENDERDRAGON_HIT, 1, 0.1f); //TODO CONFIG
 		if(getDeathEffect() != null) {
 			getDeathEffect().play(player);
