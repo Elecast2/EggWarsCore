@@ -15,7 +15,6 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
-import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.plugin.Plugin;
 
 import net.minemora.eggwarscore.listener.EggWarsListener;
@@ -68,6 +67,7 @@ public class LobbyProtection extends EggWarsListener {
 		}
 	}
 
+	/*
 	@EventHandler
 	public void onWeatherChange(WeatherChangeEvent event) {
 		if (event.getWorld().equals(Bukkit.getWorlds().get(0))) {
@@ -80,6 +80,7 @@ public class LobbyProtection extends EggWarsListener {
 			event.setCancelled(true);
 		}
 	}
+	*/
 	
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event) {

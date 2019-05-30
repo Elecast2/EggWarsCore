@@ -25,9 +25,7 @@ import net.minemora.eggwarscore.menu.QuickGameMenu;
 import net.minemora.eggwarscore.npc.NPC;
 import net.minemora.eggwarscore.npc.NPCManager;
 import net.minemora.eggwarscore.scoreboard.ScoreboardManager;
-import net.minemora.eggwarscore.shared.VaultManager;
 import net.minemora.eggwarscore.utils.ChatUtils;
-import net.minemora.eggwarscore.utils.Utils;
 
 public class LobbyPlayer extends PlayerStats {
 	
@@ -56,13 +54,10 @@ public class LobbyPlayer extends PlayerStats {
 		}
 		ScoreboardManager.setLobbyScoreboard(player);
 		loadNPCs(player);
-		if(VaultManager.hasPermission(player, "ewc.lobby.join")) {
-			Bukkit.broadcastMessage(ChatUtils.format("&7[&d+&7] " + VaultManager.getPlayerPrefix(player)
-			+ player.getName() + " &7ha entrado a &5EggWars&7")); //TODO LANG
-		}
-		if(VaultManager.isEnabled()) {
-			loadTags(player);  //TODO CONFIGURABLE
-		}
+		//if(VaultManager.hasPermission(player, "ewc.lobby.join")) {
+		//	Bukkit.broadcastMessage(ChatUtils.format("&7[&d+&7] " + VaultManager.getPlayerPrefix(player)
+		//	+ player.getName() + " &7ha entrado a &5EggWars&7")); //TODO LANG
+		//}
 		if(HolographicDisplaysHook.isEnabled()) {
 			//TODO IF QUICKGAMEHOLOGRAM IS ENABLED
 			loadQuickGameHolo(player);
@@ -84,26 +79,6 @@ public class LobbyPlayer extends PlayerStats {
 				}
 			}
 		}.runTaskAsynchronously(EggWarsCoreLobby.getPlugin());
-	}
-	
-	private void loadTags(Player player) {
-		
-		boolean hasGroup = false;
-		String pgroup = VaultManager.getPlayerGroup(player);
-		if(!pgroup.equals(VaultManager.getDefaultGroup())) {
-			hasGroup = true;
-		}
-
-		for(Player lp : Bukkit.getOnlinePlayers()) {
-			if(hasGroup) {
-				Utils.setTagPrefix(lp, player.getName(), pgroup, VaultManager.getTagGroupPrefix(pgroup));
-			}
-			String group = VaultManager.getPlayerGroup(lp);
-			if(group.equals(VaultManager.getDefaultGroup())) {
-				continue;
-			}
-			Utils.setTagPrefix(player, lp.getName(), group, VaultManager.getTagGroupPrefix(group));
-		}
 	}
 	
 	private void loadQuickGameHolo(Player player) {
