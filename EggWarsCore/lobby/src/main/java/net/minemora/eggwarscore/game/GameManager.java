@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
 
 import org.bukkit.entity.Player;
 
@@ -17,7 +18,7 @@ import net.minemora.eggwarscore.utils.Utils;
 public final class GameManager {
 	
 	//TODO que cada modo sea un objeto separado
-	private static Map<String,Set<GamesConnection>> games = new HashMap<>();
+	private static Map<String,SortedSet<GamesConnection>> games = new HashMap<>();
 	private static Map<String,GamesMenu> gamesMenus = new HashMap<>();
 	private static Map<String,Game> sendQueue = new HashMap<>();
 	private static Map<String,Integer> maxPlayersPerMode = new HashMap<>();
@@ -121,7 +122,7 @@ public final class GameManager {
 		return null;
 	}
 
-	public synchronized static Map<String,Set<GamesConnection>> getGames() {
+	public synchronized static Map<String,SortedSet<GamesConnection>> getGames() {
 		return games;
 	}
 

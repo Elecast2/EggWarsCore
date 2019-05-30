@@ -229,6 +229,7 @@ lobby:
 network:
   mode: squad
   server-name: teamew1
+  sort: 1
   lobbies:
     lobbyew1:
       bungee-name: lobbyew1

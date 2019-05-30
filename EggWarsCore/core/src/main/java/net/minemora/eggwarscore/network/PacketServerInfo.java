@@ -2,7 +2,6 @@ package net.minemora.eggwarscore.network;
 
 import java.io.PrintWriter;
 
-import net.minemora.eggwarscore.config.ConfigMain;
 import net.minemora.eggwarscore.game.GameLobby;
 import net.minemora.eggwarscore.game.GameManager;
 
@@ -16,8 +15,8 @@ public class PacketServerInfo extends Packet {
 	public void send() {
 		//index:players:status
 		//status: 0 = waiting, 1: ingame, -1 = restarting
-		String mode = ConfigMain.get().getString("network.mode");
-		out.println("ServerInfo$" + mode + "$" + gamesToString());
+		//String mode = ConfigMain.get().getString("network.mode");
+		out.println("ServerInfo$" + gamesToString());
 		out.flush();
 	}
 	

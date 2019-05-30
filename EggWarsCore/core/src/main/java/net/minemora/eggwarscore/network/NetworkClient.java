@@ -31,6 +31,7 @@ public class NetworkClient extends Thread {
 	private PrintWriter out = null;
 	private BufferedReader in = null;
 	private String serverName;
+	private int sort;
 	
 	private static Map<String,GameLobby> registeredPlayers = new HashMap<>();
 	
@@ -38,6 +39,7 @@ public class NetworkClient extends Thread {
 		this.host = host;
 		this.port = port;
 		this.serverName = ConfigMain.get().getString("network.server-name");
+		this.sort = ConfigMain.get().getInt("network.sort");
 	}
 	
 	public void run() {
@@ -50,8 +52,7 @@ public class NetworkClient extends Thread {
 			socket.setTcpNoDelay(true);
 			out = new PrintWriter(socket.getOutputStream(), true);
 		    in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-		    beat = new HeartBeat(out, this);
-		    new InfoBeat(out, this);
+		    beat = new HeartBeat(out, this);  
 		} catch (IOException e) {
 			EggWarsCore.getPlugin().getLogger().severe(CmdColor.RED + "Cant reach Lobby " + host + ":" + port + ", trying again..." + CmdColor.RESET);
 			try {
@@ -64,9 +65,9 @@ public class NetworkClient extends Thread {
 		}
 		
 		EggWarsCore.getPlugin().getLogger().info(CmdColor.GREEN + "Lobby Server connected! " + host + ":" + port + CmdColor.RESET);
-		
-		new PacketServerName(out, serverName).send();
-		
+		String mode = ConfigMain.get().getString("network.mode");
+		new PacketServerName(out, mode, serverName, sort).send();
+		new InfoBeat(out, this);
 		String inputLine = null;
 		
 		while (!shutdown) {
@@ -176,5 +177,9 @@ public class NetworkClient extends Thread {
 
 	public static Map<String,GameLobby> getRegisteredPlayers() {
 		return registeredPlayers;
+	}
+
+	public int getSort() {
+		return sort;
 	}
 }

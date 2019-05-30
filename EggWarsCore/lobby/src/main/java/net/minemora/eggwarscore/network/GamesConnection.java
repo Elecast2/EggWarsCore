@@ -1,10 +1,12 @@
 package net.minemora.eggwarscore.network;
 
 import java.net.Socket;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.bukkit.Bukkit;
 
@@ -19,6 +21,7 @@ public class GamesConnection extends ClientConnection {
 	private Map<Integer,Game> games = new HashMap<>();
 	private String mode;
 	private String serverName = null;
+	private int sort;
 	private long lastHeartBeat = 0;
 
 	public GamesConnection(Socket clientSocket) {
@@ -32,9 +35,11 @@ public class GamesConnection extends ClientConnection {
 			return; //TODO shutdown aca?
 		}
 		if(inputLine.startsWith("ServerInfo")) {
+			if(mode == null) {
+				return;
+			}
 			String[] sections = inputLine.split("\\$");
-			String mode = sections[1];
-			String[] sGames = sections[2].split(",");
+			String[] sGames = sections[1].split(",");
 			for(String gameStr : sGames) {
 				String[] data = gameStr.split(":");
 				int id = Integer.parseInt(data[0]);
@@ -65,14 +70,10 @@ public class GamesConnection extends ClientConnection {
 					}
 				}
 			}
-			if(!GameManager.getGames().containsKey(mode)) {
-				GameManager.getGames().put(mode, new HashSet<GamesConnection>());
-			}
 			if(!GameManager.getGamesMenus().containsKey(mode)) {
 				GameManager.getGamesMenus().put(mode, new GamesMenu(mode));
 			}
 			if(!GameManager.getGames().get(mode).contains(this)) {
-				this.mode = mode;
 				GameManager.getGames().get(mode).add(this);
 				GameManager.getGamesMenus().get(mode).update();
 			}
@@ -116,9 +117,11 @@ public class GamesConnection extends ClientConnection {
 		}
 		else if(inputLine.startsWith("ServerName")) {
 			String[] sections = inputLine.split("\\$");
-			this.serverName = sections[1];
-			for(Game game : games.values()) {
-				game.setServerName(serverName);
+			this.mode = sections[1];
+			this.serverName = sections[2];
+			this.sort = Integer.parseInt(sections[3]);
+			if(!GameManager.getGames().containsKey(mode)) {
+				GameManager.getGames().put(mode, new TreeSet<GamesConnection>(Comparator.comparing(GamesConnection::getSort)));
 			}
 			EggWarsCoreLobby.getPlugin().getLogger().info(CmdColor.GREEN + "Server " + serverName + " is ready!" + CmdColor.RESET);
 		}
@@ -180,5 +183,9 @@ public class GamesConnection extends ClientConnection {
 
 	public long getLastHeartBeat() {
 		return lastHeartBeat;
+	}
+
+	public int getSort() {
+		return sort;
 	}
 }
