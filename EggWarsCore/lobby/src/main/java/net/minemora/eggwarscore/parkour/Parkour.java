@@ -149,6 +149,7 @@ public class Parkour extends EggWarsListener {
 			if(!players.containsKey(name)) {
 				UltraCosmeticsHook.clear(player);
 				UltraCosmeticsHook.removeItem(player);
+				player.closeInventory();
 				if(player.getAllowFlight()) {
 					player.setAllowFlight(false);
 					player.sendMessage(ChatUtils.format("&7Modo de vuelo: &cdesactivado"));
