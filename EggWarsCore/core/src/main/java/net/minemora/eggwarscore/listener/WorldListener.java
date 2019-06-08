@@ -2,12 +2,14 @@ package net.minemora.eggwarscore.listener;
 
 import java.util.Iterator;
 
+import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.ItemDespawnEvent;
+import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.event.world.WorldInitEvent;
 
@@ -57,5 +59,18 @@ public class WorldListener extends EggWarsListener {
 	@EventHandler
 	public void onItemDespawn(ItemDespawnEvent event) {
 		event.setCancelled(true); //TODO FROM CONFIG
+	}
+	
+	@EventHandler
+	public void onWeatherChange(WeatherChangeEvent event) {
+		if (event.getWorld().equals(Bukkit.getWorlds().get(0))) {
+			if(event.getWorld().isThundering()) {
+				event.getWorld().setThundering(false);
+			}
+			if(event.getWorld().hasStorm()) {
+				event.getWorld().setStorm(false);
+			}
+			event.setCancelled(true);
+		}
 	}
 }
