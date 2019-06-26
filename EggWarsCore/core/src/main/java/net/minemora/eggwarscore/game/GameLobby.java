@@ -24,12 +24,14 @@ import net.minemora.eggwarscore.lobby.LobbyItem;
 import net.minemora.eggwarscore.menu.MapVoteMenu;
 import net.minemora.eggwarscore.menu.TeamMenu;
 import net.minemora.eggwarscore.menu.TimeVoteMenu;
+import net.minemora.eggwarscore.reportsystem.ReportSystemHook;
 import net.minemora.eggwarscore.scoreboard.ScoreboardManager;
 import net.minemora.eggwarscore.shared.VaultManager;
 import net.minemora.eggwarscore.team.Team;
 import net.minemora.eggwarscore.team.TeamManager;
 import net.minemora.eggwarscore.utils.ChatUtils;
 import net.minemora.eggwarscore.utils.Utils;
+import net.minemora.reportsystem.ReportSystemAPI;
 
 public class GameLobby extends Multicast {
 
@@ -132,6 +134,15 @@ public class GameLobby extends Multicast {
 		if(!isCounting()) {
 			if(getPlayersCount() >= ConfigMain.get().getInt("game.min-players-to-start")) {
 				startCountDown();
+			}
+		}
+		if(ReportSystemHook.isEnabled()) {
+			if(ReportSystemAPI.processQueue(player)) {
+				return;
+			}
+			if(ReportSystemAPI.isSpy(player.getName())) {
+				revealPlayersToPlayer(player);
+				return;
 			}
 		}
 		showPlayer(player);

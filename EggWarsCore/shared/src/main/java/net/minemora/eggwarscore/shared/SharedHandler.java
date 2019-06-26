@@ -5,9 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import net.minemora.eggwarscore.NMSCheck;
 import net.minemora.eggwarscore.chat.ChatManager;
-import net.minemora.eggwarscore.commands.Rules;
 import net.minemora.eggwarscore.commands.Stats;
-import net.minemora.eggwarscore.commands.Tutorial;
 import net.minemora.eggwarscore.config.ConfigLang;
 import net.minemora.eggwarscore.config.ConfigMain;
 import net.minemora.eggwarscore.config.ConfigScoreboard;
@@ -43,8 +41,6 @@ public final class SharedHandler {
 		Database.getDatabase().setup();
 		new LobbyProtection(plugin);
 		plug.getCommand("stats").setExecutor(new Stats());
-		plug.getCommand("rules").setExecutor(new Rules());
-		plug.getCommand("tutorial").setExecutor(new Tutorial());
 	}
 
 	public static Plugin getPlugin() {

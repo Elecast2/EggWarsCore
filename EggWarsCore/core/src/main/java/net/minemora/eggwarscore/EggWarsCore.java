@@ -19,6 +19,7 @@ import net.minemora.eggwarscore.listener.PlayerListener;
 import net.minemora.eggwarscore.listener.WorldListener;
 import net.minemora.eggwarscore.lobby.LobbyItemManager;
 import net.minemora.eggwarscore.network.NetworkManager;
+import net.minemora.eggwarscore.reportsystem.ReportSystemHook;
 import net.minemora.eggwarscore.scoreboard.ScoreboardManager;
 import net.minemora.eggwarscore.shared.SharedHandler;
 import net.minemora.eggwarscore.shop.ShopManager;
@@ -55,6 +56,7 @@ public class EggWarsCore extends JavaPlugin {
 		GameManager.setup();
 		NetworkManager.setup();
 		HolographicDisplaysHook.register();
+		ReportSystemHook.setup();
 	}
 
 	@Override

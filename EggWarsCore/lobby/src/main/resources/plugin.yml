@@ -5,11 +5,6 @@ softdepend: [Vault,HolographicDisplays,ProtocolLib,UltraCosmetics]
 commands:
    ewc:
       usage: /<command>
-   rules:
-      usage: /<command>
-      aliases: [reglas]
    stats:
       usage: /<command>
       aliases: [estadisticas]
-   tutorial:
-      usage: /<command>

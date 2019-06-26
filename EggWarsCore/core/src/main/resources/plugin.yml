@@ -1,7 +1,7 @@
 name: EggWarsCore
 main: net.minemora.eggwarscore.EggWarsCore
 version: 1.0.0
-softdepend: [Vault,HolographicDisplays]
+softdepend: [Vault,HolographicDisplays, ReportSystem]
 commands:
    ewc:
       usage: /<command>
@@ -13,11 +13,6 @@ commands:
       aliases: [jugar]
    debug:
       usage: /<command>
-   rules:
-      usage: /<command>
-      aliases: [reglas]
    stats:
       usage: /<command>
       aliases: [estadisticas]
-   tutorial:
-      usage: /<command>
