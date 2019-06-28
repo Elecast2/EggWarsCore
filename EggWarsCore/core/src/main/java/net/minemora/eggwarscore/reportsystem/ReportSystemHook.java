@@ -1,10 +1,15 @@
 package net.minemora.eggwarscore.reportsystem;
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
 import net.minemora.eggwarscore.EggWarsCore;
+import net.minemora.eggwarscore.game.Game;
+import net.minemora.eggwarscore.game.GameLobby;
 import net.minemora.eggwarscore.game.GamePlayer;
+import net.minemora.eggwarscore.network.NetworkClient;
+import net.minemora.reportsystem.QueueAddEvent;
 import net.minemora.reportsystem.ReportSystemAPI;
 import net.minemora.reportsystem.VisibilityManager;
 
@@ -45,6 +50,28 @@ public class ReportSystemHook {
 					}
 				}
 			}
+		});
+		
+		ReportSystemAPI.setQueueAddEvent(new QueueAddEvent() {
+
+			@Override
+			public void onQueueAdd(String playerName, String targetName) {
+				Player target = Bukkit.getPlayer(targetName);
+				if(target == null) {
+					return;
+				}
+				GamePlayer tgp = GamePlayer.get(targetName);
+				if(tgp == null) {
+					return;
+				}
+				if(tgp.getMulticast() instanceof Game) {
+					NetworkClient.getRegisteredPlayers().put(playerName, tgp.getGame().getGameLobby());
+				}
+				else if(tgp.getMulticast() instanceof GameLobby) {
+					NetworkClient.getRegisteredPlayers().put(playerName, tgp.getGameLobby());
+				}
+			}
+			
 		});
 		
 		ReportSystemAPI.setProcessQueueOnJoin(false);
