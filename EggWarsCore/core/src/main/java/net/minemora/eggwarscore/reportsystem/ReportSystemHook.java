@@ -31,22 +31,23 @@ public class ReportSystemHook {
 				if(gp == null) {
 					return;
 				}
-				if(gp.getGame() == null) {
+				if(gp.getGameLobby() == null) {
 					return;
 				}
 				if(enable) {
 					player.setGameMode(GameMode.SPECTATOR);
-					for(Player lp : gp.getGame().getBukkitPlayers()) {
+					for(Player lp : gp.getMulticast().getBukkitPlayers()) {
+						GamePlayer lgp = GamePlayer.get(lp.getName());
 						lp.hidePlayer(player);
+						if(!lgp.isDead()) {
+							player.showPlayer(lp);
+						}
 					}
 				}
 				else {
-					player.setGameMode(GameMode.ADVENTURE);
-					for(Player lp : gp.getGame().getBukkitPlayers()) {
-						GamePlayer lgp = GamePlayer.get(lp.getName());
-						if(!lgp.isDead()) {
-							lp.showPlayer(player);
-						}
+					player.setGameMode(GameMode.SURVIVAL);
+					for(Player lp : gp.getMulticast().getBukkitPlayers()) {
+						lp.showPlayer(player);
 					}
 				}
 			}

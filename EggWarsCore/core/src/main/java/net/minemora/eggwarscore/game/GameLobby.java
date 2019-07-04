@@ -105,9 +105,20 @@ public class GameLobby extends Multicast {
 		player.setGameMode(GameMode.ADVENTURE);
 		player.teleport(Lobby.getLobby().getSpawn());
 		player.sendMessage(ChatUtils.format(ConfigLang.get().getStringList("lobby.motd")));
-		broadcast(player, ConfigLang.get().getString("lobby.player-join").replaceAll("%player%", player.getName())
-				.replaceAll("%players%", String.valueOf(getPlayersCount()))
-				.replaceAll("%max-players%", String.valueOf(TeamManager.getMaxPlayers()*TeamManager.getTeams().size())));
+		boolean bcjoin = false;
+		if(ReportSystemHook.isEnabled()) {
+			if(!ReportSystemAPI.isInQueue(player.getName())) {
+				bcjoin = true;
+			}
+		}
+		else {
+			bcjoin = true;
+		}
+		if(bcjoin) {
+			broadcast(player, ConfigLang.get().getString("lobby.player-join").replaceAll("%player%", player.getName())
+					.replaceAll("%players%", String.valueOf(getPlayersCount()))
+					.replaceAll("%max-players%", String.valueOf(TeamManager.getMaxPlayers()*TeamManager.getTeams().size())));
+		}
 		GamePlayer gp = GamePlayer.get(player.getName());
 		if(gp.getGame()!=null) {
 			gp.removeFromGame();

@@ -119,6 +119,9 @@ public class Database {
 					ps.setParkourTime(0);
 				}
 				else {
+					if(!result.getString("name").equals(ps.getPlayerName())){
+						update("UPDATE " + prefix + "players SET name = '" + ps.getPlayerName() + "' WHERE uuid = '" + uid + "';");
+					}
 					ps.setKills(result.getInt(Stat.KILLS.getColumnName()));
 					ps.setDeaths(result.getInt(Stat.DEATHS.getColumnName()));
 					ps.setWins(result.getInt(Stat.WINS.getColumnName()));
