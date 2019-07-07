@@ -25,6 +25,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import net.minemora.eggwarscore.EggWarsCore;
 import net.minemora.eggwarscore.config.ConfigLang;
 import net.minemora.eggwarscore.config.ConfigMain;
+import net.minemora.eggwarscore.reportsystem.ReportSystemHook;
 import net.minemora.eggwarscore.scoreboard.ScoreboardManager;
 import net.minemora.eggwarscore.shop.Offer;
 import net.minemora.eggwarscore.shop.Shop;
@@ -33,6 +34,7 @@ import net.minemora.eggwarscore.shop.ShopSection;
 import net.minemora.eggwarscore.team.TeamManager;
 import net.minemora.eggwarscore.utils.ChatUtils;
 import net.minemora.eggwarscore.utils.Utils;
+import net.minemora.reportsystem.ReportSystemAPI;
 
 public class Game extends Multicast {
 	
@@ -127,7 +129,15 @@ public class Game extends Multicast {
 			world.loadChunk(world.getChunkAt(loc));
 		}
 		player.teleport(loc);
-		player.setGameMode(GameMode.SURVIVAL);
+		boolean gameMode = true;
+		if(ReportSystemHook.isEnabled()) {
+			if(ReportSystemAPI.isSpy(player.getName())) {
+				gameMode = false;
+			}
+		}
+		if(gameMode) {
+			player.setGameMode(GameMode.SURVIVAL);
+		}
 		gp.restore();
 		if(gp.getKit()!= null) {
 			gp.getKit().equip(player, gp.getColor());

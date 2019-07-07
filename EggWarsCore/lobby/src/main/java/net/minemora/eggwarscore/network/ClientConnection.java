@@ -6,6 +6,9 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import net.minemora.eggwarscore.EggWarsCoreLobby;
+import net.minemora.eggwarscore.utils.CmdColor;
+
 public abstract class ClientConnection extends Thread {
 	
 	private Socket socket;
@@ -34,6 +37,8 @@ public abstract class ClientConnection extends Thread {
 			try {
 				inputLine = in.readLine();
 			} catch (IOException e) {
+				EggWarsCoreLobby.getPlugin().getLogger().severe(CmdColor.RED + "Trying to use a socket closed? or just stoping the server (02)" 
+						+ CmdColor.RESET);
 				break;
 			}
 			
