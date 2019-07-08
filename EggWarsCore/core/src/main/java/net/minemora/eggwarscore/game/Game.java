@@ -25,6 +25,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import net.minemora.eggwarscore.EggWarsCore;
 import net.minemora.eggwarscore.config.ConfigLang;
 import net.minemora.eggwarscore.config.ConfigMain;
+import net.minemora.eggwarscore.lobby.Lobby;
 import net.minemora.eggwarscore.reportsystem.ReportSystemHook;
 import net.minemora.eggwarscore.scoreboard.ScoreboardManager;
 import net.minemora.eggwarscore.shop.Offer;
@@ -397,6 +398,7 @@ public class Game extends Multicast {
 				if(Bukkit.getPlayer(playerName) == null) {
 					continue;
 				}
+				Bukkit.getPlayer(playerName).teleport(Lobby.getLobby().getSpawn());
 				GamePlayer.sendToLobby(Bukkit.getPlayer(playerName));;
 			}
 			boolean restart = true;

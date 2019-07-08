@@ -57,6 +57,9 @@ public class ReportSystemHook {
 
 			@Override
 			public void onQueueAdd(String playerName, String targetName) {
+				if(targetName == null) {
+					return;
+				}
 				Player target = Bukkit.getPlayer(targetName);
 				if(target == null) {
 					return;

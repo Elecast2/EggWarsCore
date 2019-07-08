@@ -15,7 +15,6 @@ import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.entity.Player;
 import org.bukkit.World.Environment;
-import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 import net.minemora.eggwarscore.EggWarsCore;
 import net.minemora.eggwarscore.arena.Arena;
@@ -96,7 +95,7 @@ public class GameArena {
 		World world = getWorld();
 		if(world.getPlayers() != null) {//TODO posiblemente esta no sea la razon del null y sea el world
 			for(Player player : world.getPlayers()) {
-				player.teleport(Lobby.getLobby().getSpawn(), TeleportCause.END_PORTAL);
+				player.teleport(Lobby.getLobby().getSpawn());
 				System.out.println("ESTO NO DEBERIA EJECUTARSE");
 			}
 		}
