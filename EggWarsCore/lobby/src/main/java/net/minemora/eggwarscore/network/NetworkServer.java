@@ -30,7 +30,8 @@ public final class NetworkServer extends Thread {
 		try {
 			serverSocket = new ServerSocket(port);
 		} catch (IOException e) {
-			EggWarsCoreLobby.getPlugin().getLogger().severe(CmdColor.RED + "Can't initialize network connection!" + CmdColor.RESET);
+			EggWarsCoreLobby.getPlugin().getLogger().severe(CmdColor.RED + "Can't initialize network connection, port " 
+					+ port + " is probably in use!" + CmdColor.RESET);
 			EggWarsCoreLobby.getPlugin().getServer().getPluginManager().disablePlugin(EggWarsCoreLobby.getPlugin());
 			e.printStackTrace();
 			return;

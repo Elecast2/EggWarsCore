@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -56,6 +57,7 @@ public class GameLobby extends Multicast {
 	}
 	
 	public void reset() {
+		getPlayers().clear();
 		Date date = Calendar.getInstance().getTime();
         DateFormat formatter = new SimpleDateFormat(ConfigMain.get().getString("general.date-format"));
         dateString = formatter.format(date);
@@ -102,19 +104,21 @@ public class GameLobby extends Multicast {
 			return;
 		}
 		getPlayers().add(player.getName());
-		player.setGameMode(GameMode.ADVENTURE);
 		player.teleport(Lobby.getLobby().getSpawn());
 		player.sendMessage(ChatUtils.format(ConfigLang.get().getStringList("lobby.motd")));
-		boolean bcjoin = false;
+		boolean noSpy = true;
 		if(ReportSystemHook.isEnabled()) {
-			if(!ReportSystemAPI.isInQueue(player.getName())) {
-				bcjoin = true;
+			if(ReportSystemAPI.isInQueue(player.getName())) {
+				if(!ReportSystemAPI.isQueueVisible(player.getName())) {
+					noSpy = false;
+				}
+			}
+			else if(ReportSystemAPI.isSpy(player.getName())) {
+				noSpy = false;
 			}
 		}
-		else {
-			bcjoin = true;
-		}
-		if(bcjoin) {
+		if(noSpy) {
+			player.setGameMode(GameMode.ADVENTURE);
 			broadcast(player, ConfigLang.get().getString("lobby.player-join").replaceAll("%player%", player.getName())
 					.replaceAll("%players%", String.valueOf(getPlayersCount()))
 					.replaceAll("%max-players%", String.valueOf(TeamManager.getMaxPlayers()*TeamManager.getTeams().size())));
@@ -231,7 +235,7 @@ public class GameLobby extends Multicast {
 
 	public void startGame() {
 		started = true;
-		game = new Game(this, getPlayers(), getVotedMap(), "clasic", getVotedTime()); //TODO cambiar classic por getVotedShop
+		game = new Game(this, new HashSet<>(getPlayers()), getVotedMap(), "clasic", getVotedTime()); //TODO cambiar classic por getVotedShop
 		reset();
 	}
 

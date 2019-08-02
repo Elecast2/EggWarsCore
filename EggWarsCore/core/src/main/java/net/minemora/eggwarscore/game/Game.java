@@ -472,24 +472,26 @@ public class Game extends Multicast {
 		ScoreboardManager.getGameScoreboard().update(this, "symbol-" + id, ScoreboardManager.getDeathSymbol());
 	}
 	
-	public static void evaluateDamage(EntityDamageEvent event, Player victim, Player damager) {
+	public static boolean evaluateDamage(EntityDamageEvent event, Player victim, Player damager) {
 		if(GamePlayer.get(damager.getName()).isInvulnerable()) {
 			event.setCancelled(true);
-			return;
+			return true;
 		}
 		GamePlayer gp = GamePlayer.get(victim.getName());
 		if(gp.isInvulnerable()) {
 			event.setCancelled(true);
-			return;
+			return true;
 		}
 		if(gp.getGameTeam().equals(GamePlayer.get(damager.getName()).getGameTeam())) {
 			if(damager.getName().equals(victim.getName())) {
-				return;
+				return false;
 			}
 			event.setCancelled(true);
+			return true;
 		}
 		else {
 			gp.setLastDamager(damager.getName());
+			return false;
 		}
 	}
 	

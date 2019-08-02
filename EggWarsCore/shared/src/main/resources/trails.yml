@@ -204,7 +204,7 @@ trails:
       material: TNT
     particles:
       '1':
-        particle: EXPLOSION_LARGE
+        particle: EXPLOSION_NORMAL
         period: 1
         delay: 0
         amount: 3

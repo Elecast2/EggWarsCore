@@ -38,6 +38,8 @@ public class GameGenerator {
 	private int level;
 	private BukkitTask currentTask = null;
 	private GeneratorMenu menu;
+	private Item counterItem = null;
+	private int count = 0;
 
 	public GameGenerator(ArenaGenerator arenaGenerator, GameArena gameArena) {
 		this.arenaGenerator = arenaGenerator;
@@ -50,17 +52,29 @@ public class GameGenerator {
 	}
 
 	private void dropItem() {
-		ItemStack item = new ItemStack(arenaGenerator.getGenerator().getMaterial());
-		if(GeneratorManager.isNoMerge()) {
-			ItemMeta meta = item.getItemMeta();
-			meta.setDisplayName("nomerge");
-			meta.setLore(Arrays.asList(new String[]{String.valueOf(ThreadLocalRandom.current().nextInt(GeneratorManager.getMergeGroups()))}));
-		   	item.setItemMeta(meta);
+		if((count <= 10) || counterItem == null || !counterItem.isValid()) { //TODO configurable
+			ItemStack item = new ItemStack(arenaGenerator.getGenerator().getMaterial());
+			if(GeneratorManager.isNoMerge()) {
+				ItemMeta meta = item.getItemMeta();
+				meta.setDisplayName("nomerge");
+				meta.setLore(Arrays.asList(new String[]{String.valueOf(ThreadLocalRandom.current().nextInt(GeneratorManager.getMergeGroups()))}));
+			   	item.setItemMeta(meta);
+			}
+			if(counterItem == null || !counterItem.isValid()) {
+				ItemMeta meta = item.getItemMeta();
+				meta.setDisplayName("nomerge");
+				meta.setLore(Arrays.asList(new String[]{"counter"}));
+			   	item.setItemMeta(meta);
+			}
+			Item drop = location.getWorld().dropItem(dropLocation, item);
+			drop.setPickupDelay(0);
+			drop.setVelocity(new Vector(ThreadLocalRandom.current()
+					.nextDouble(-0.05,0.05),0.1,ThreadLocalRandom.current().nextDouble(-0.05,0.05)));
+			if(counterItem == null || !counterItem.isValid()) {
+				counterItem = drop;
+			}
 		}
-		Item drop = location.getWorld().dropItem(dropLocation, item);
-		drop.setPickupDelay(0);
-		drop.setVelocity(new Vector(ThreadLocalRandom.current()
-				.nextDouble(-0.05,0.05),0.1,ThreadLocalRandom.current().nextDouble(-0.05,0.05)));
+		count++;
 	}
 
 	private void setLevel(int level) {
@@ -167,5 +181,21 @@ public class GameGenerator {
 
 	public void setMenu(GeneratorMenu menu) {
 		this.menu = menu;
+	}
+
+	public Item getCounterItem() {
+		return counterItem;
+	}
+
+	public void setCounterItem(Item counterItem) {
+		this.counterItem = counterItem;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
 	}
 }

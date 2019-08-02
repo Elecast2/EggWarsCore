@@ -95,9 +95,21 @@ public class PlayerListener extends EggWarsListener {
 	
     @EventHandler
     public void onEntityPickupItem(PlayerPickupItemEvent event) {
-    	if(event.getItem().getItemStack().hasItemMeta()) {
+    	if(event.getItem().getItemStack().getItemMeta() != null) {
     		if(event.getItem().getItemStack().getItemMeta().getDisplayName() != null) {
 		    	if(event.getItem().getItemStack().getItemMeta().getDisplayName().equals("nomerge")) {
+		    		GamePlayer gp = GamePlayer.get(event.getPlayer().getName());
+		    		for(GameGenerator gm : gp.getGame().getGameArena().getGenerators()) {
+		        		if(!event.getItem().equals(gm.getCounterItem())) {
+		        			continue;
+		        		}
+		        		if(gm.getCount() > 10) {
+		        			event.getPlayer().getInventory().addItem(
+		        					new ItemStack(gm.getArenaGenerator().getGenerator().getMaterial(), (gm.getCount() - 10)));
+		        		}
+		        		gm.setCounterItem(null);
+		        		gm.setCount(0);
+		        	}
 		    		event.getItem().getItemStack().setItemMeta(null);
 		    		return;
 		    	}
@@ -117,11 +129,13 @@ public class PlayerListener extends EggWarsListener {
     		
     		event.getItem().getItemStack().setDurability(Utils.colorToIdColor(
     				Utils.chatColorToColor(gp.getGameTeam().getTeam().getColor())));
+    		return;
 		}
     	if(event.getItem().getItemStack().getItemMeta() instanceof LeatherArmorMeta) {
 			LeatherArmorMeta meta = (LeatherArmorMeta) event.getItem().getItemStack().getItemMeta();
 			meta.setColor(Utils.chatColorToColor(gp.getGameTeam().getTeam().getColor()));
 			event.getItem().getItemStack().setItemMeta(meta);
+			return;
 		}
     }
     
@@ -157,11 +171,15 @@ public class PlayerListener extends EggWarsListener {
 		if(event instanceof EntityDamageByEntityEvent) {
 			EntityDamageByEntityEvent dmgByEntEvent = (EntityDamageByEntityEvent) event;
 			if(dmgByEntEvent.getDamager() instanceof Player) {
-				Game.evaluateDamage(event, (Player) event.getEntity(), (Player) dmgByEntEvent.getDamager());
+				if(Game.evaluateDamage(event, (Player) event.getEntity(), (Player) dmgByEntEvent.getDamager())) {
+					return;
+				}
 			}
 			else if (dmgByEntEvent.getDamager() instanceof Projectile) {
 				if(((Projectile)dmgByEntEvent.getDamager()).getShooter() instanceof Player) {
-					Game.evaluateDamage(event, (Player) event.getEntity(), (Player)((Projectile)dmgByEntEvent.getDamager()).getShooter());
+					if(Game.evaluateDamage(event, (Player) event.getEntity(), (Player)((Projectile)dmgByEntEvent.getDamager()).getShooter())) {
+						return;
+					}
 				}
 			}
 		}

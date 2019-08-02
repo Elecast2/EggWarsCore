@@ -64,7 +64,7 @@ public class ReportSystemHook {
 				if(target == null) {
 					return;
 				}
-				GamePlayer tgp = GamePlayer.get(targetName);
+				GamePlayer tgp = GamePlayer.get(target.getName());
 				if(tgp == null) {
 					return;
 				}

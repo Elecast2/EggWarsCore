@@ -45,6 +45,12 @@ public class GamesMenu extends Menu {
 				}
 				lore.add(ChatUtils.format("&c&lEN JUEGO"));
 			}
+			else if(game.isRestarting()){
+				if(getInventory().getItem(slot).getDurability() != (short) 7) {
+					getInventory().getItem(slot).setDurability((short) 7);
+				}
+				lore.add(ChatUtils.format("&8&lREINICIANDO"));
+			}
 			else if(game.getPlayerCount() >= GameManager.getMaxPlayers(game.getMode())/2) {
 				if(getInventory().getItem(slot).getDurability() != (short) 4) {
 					getInventory().getItem(slot).setDurability((short) 4);
@@ -56,12 +62,6 @@ public class GamesMenu extends Menu {
 					getInventory().getItem(slot).setDurability((short) 5);
 				}
 				lore.add(ChatUtils.format("&a&lENTRAR"));
-			}
-			else if(game.isRestarting()){
-				if(getInventory().getItem(slot).getDurability() != (short) 7) {
-					getInventory().getItem(slot).setDurability((short) 7);
-				}
-				lore.add(ChatUtils.format("&8&lREINICIANDO"));
 			}
 			else {
 				if(getInventory().getItem(slot).getDurability() != (short) 0) {
