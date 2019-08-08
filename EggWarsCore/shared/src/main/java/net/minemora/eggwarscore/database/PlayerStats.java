@@ -256,14 +256,14 @@ public abstract class PlayerStats {
 	}
 	
 	private void loadMultipliers(Player player) {
-		if(VaultManager.hasPermission(player, "ewc.boost.exp.2")) {
-			setExpMultiplier(2);
-		}
-		if(VaultManager.hasPermission(player, "ewc.boost.exp.3")) {
-			setExpMultiplier(3);
-		}
 		if(VaultManager.hasPermission(player, "ewc.boost.exp.4")) {
 			setExpMultiplier(4);
+		}
+		else if(VaultManager.hasPermission(player, "ewc.boost.exp.3")) {
+			setExpMultiplier(3);
+		}
+		else if(VaultManager.hasPermission(player, "ewc.boost.exp.2")) {
+			setExpMultiplier(2);
 		}
 	}
 	

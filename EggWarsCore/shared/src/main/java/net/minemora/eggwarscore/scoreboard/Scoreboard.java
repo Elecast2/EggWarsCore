@@ -179,6 +179,9 @@ public class Scoreboard {
 				else {
 					value = "";
 				}
+				if(value == null) {
+					value = "";
+				}
 				text = text.replaceAll("%" + phText + "%", value);
 			}
 		}

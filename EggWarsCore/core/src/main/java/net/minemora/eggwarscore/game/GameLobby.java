@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.bukkit.GameMode;
 import org.bukkit.Sound;
@@ -274,8 +275,8 @@ public class GameLobby extends Multicast {
 			updateMapVotes(mapName, add);
 			player.playSound(player.getLocation(), Sound.CLICK, 10, 1); //TODO CONF
 		}
-		player.sendMessage(ChatUtils.format("&f¡Has votado por el mapa &b" + mapName + " &fy ahora tiene &a" 
-				+ mapVotes.get(mapName) + " &fvotos!")); //TODO LANG
+		player.sendMessage(ChatUtils.format("&f¡Has votado por el mapa &b" + ArenaManager.getArena(mapName).getArenaName() 
+				+ " &fy ahora tiene &a" + mapVotes.get(mapName) + " &fvotos!")); //TODO LANG
 		if(gp.getMapVotesMultiplier() == 2) { //TODO CONFIG AND LANG
 			player.sendMessage(ChatUtils.format("&e¡Tu voto ha valido &b&lx2 &egracias a tu rango &3&lMM&e!"));
 		}
@@ -284,6 +285,12 @@ public class GameLobby extends Multicast {
 		}
 		else if(gp.getMapVotesMultiplier() == 4) {
 			player.sendMessage(ChatUtils.format("&e¡Tu voto ha valido &b&lx4 &egracias a tu rango &a&lMMC&e&l+&e!"));
+		}
+		else {
+			if(ThreadLocalRandom.current().nextInt(3) == 1) {
+				player.sendMessage(ChatUtils.format("¿Sabías que con &3&lMM&f, &b&lMMC &fy &a&lMMC&e&l+ &ftu voto por "
+						+ "mapa vale &ax2&f, &ax3 &fy &ax4 &frespectivamente? &eAdquiérelo aquí &6&l-> &b&ntienda.minemora.net"));
+			}
 		}
 	}
 	

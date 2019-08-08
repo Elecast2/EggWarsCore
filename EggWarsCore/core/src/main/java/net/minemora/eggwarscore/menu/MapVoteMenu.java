@@ -73,7 +73,7 @@ public class MapVoteMenu extends Menu {
 			for(ItemStack item : mapItems.keySet()) {
 				if(event.getCurrentItem().equals(item)) {
 					String mapName = mapItems.get(item);
-					gameLobby.updateMapVotes(gp, mapName, 1*gp.getMapVotesMultiplier());//TODO aplicar multiplicador de rango
+					gameLobby.updateMapVotes(gp, mapName, 1*gp.getMapVotesMultiplier());
 					break;
 				}
 				//TODO procurar que los votos se reduscan al desconectarse solo si esta en lobby

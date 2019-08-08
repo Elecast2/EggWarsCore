@@ -48,16 +48,13 @@ public class LobbyPlayer extends PlayerStats {
 		restore();
 	}
 	
+	@Override
 	public void loadPlayer(Player player) {
 		for(LobbyItem lobbyItem : Lobby.getLobby().getLobbyItems().values()) {
 			player.getInventory().setItem(lobbyItem.getSlot(), lobbyItem.getItem());
 		}
 		ScoreboardManager.setLobbyScoreboard(player);
 		loadNPCs(player);
-		//if(VaultManager.hasPermission(player, "ewc.lobby.join")) {
-		//	Bukkit.broadcastMessage(ChatUtils.format("&7[&d+&7] " + VaultManager.getPlayerPrefix(player)
-		//	+ player.getName() + " &7ha entrado a &5EggWars&7")); //TODO LANG
-		//}
 		if(HolographicDisplaysHook.isEnabled()) {
 			//TODO IF QUICKGAMEHOLOGRAM IS ENABLED
 			loadQuickGameHolo(player);
