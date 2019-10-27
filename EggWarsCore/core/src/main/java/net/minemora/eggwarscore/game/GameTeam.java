@@ -108,6 +108,8 @@ public class GameTeam extends Multicast {
 			}
 			else {
 				sbteam = scoreboard.registerNewTeam(gameTeam.getTeam().getName());
+				sbteam.setAllowFriendlyFire(false);
+				sbteam.setCanSeeFriendlyInvisibles(true);
 			}
 			sbteam.setPrefix(TeamManager.getTabPrefix(gameTeam.getTeam()));
 			for(String playerName : gameTeam.getPlayers()) {
