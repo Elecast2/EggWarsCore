@@ -291,7 +291,6 @@ public class GamePlayer extends PlayerStats {
 		if(getMulticast() instanceof Game) {
 			Game game = getGame();
 			boolean checkForWinners = true;
-			removeFromGame();
 			if(!isDead()) {
 				ScoreboardManager.getGameScoreboard().update(game, "team-alive-" + getGameTeam().getTeam().getId(), 
 						String.valueOf(getGameTeam().getAliveCount()));
@@ -301,6 +300,7 @@ public class GamePlayer extends PlayerStats {
 				}
 				game.broadcast(getPlayerName() + " &7ha abandonado la partida!"); //TODO LANG
 			}
+			removeFromGame();
 			if(checkForWinners) {
 				game.checkForWinners();
 			}
