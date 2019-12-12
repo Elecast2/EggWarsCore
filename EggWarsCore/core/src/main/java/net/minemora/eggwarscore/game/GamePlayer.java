@@ -49,6 +49,7 @@ public class GamePlayer extends PlayerStats {
 	private long lastRespawnTime = 0;
 	private int spawnKillCount = 0;
 	private int mapVotesMultiplier = 1;
+	private long lastTimeDamagedByPlayer = 0;
 
 	public GamePlayer(Player player) {
 		super(player);
@@ -289,13 +290,20 @@ public class GamePlayer extends PlayerStats {
 	public void remove() {
 		if(getMulticast() instanceof Game) {
 			Game game = getGame();
+			boolean checkForWinners = true;
 			removeFromGame();
 			if(!isDead()) {
 				ScoreboardManager.getGameScoreboard().update(game, "team-alive-" + getGameTeam().getTeam().getId(), 
 						String.valueOf(getGameTeam().getAliveCount()));
+				if((System.currentTimeMillis() - getLastTimeDamagedByPlayer()) < 5000) {
+					setDead(getPlayer().getLastDamageCause().getCause());
+					checkForWinners = false;
+				}
 				game.broadcast(getPlayerName() + " &7ha abandonado la partida!"); //TODO LANG
 			}
-			game.checkForWinners();
+			if(checkForWinners) {
+				game.checkForWinners();
+			}
 		}
 		else {
 			if(gameLobby != null) {
@@ -551,5 +559,13 @@ public class GamePlayer extends PlayerStats {
 
 	public void setMapVotesMultiplier(int mapVotesMultiplier) {
 		this.mapVotesMultiplier = mapVotesMultiplier;
+	}
+
+	public long getLastTimeDamagedByPlayer() {
+		return lastTimeDamagedByPlayer;
+	}
+
+	public void setLastTimeDamagedByPlayer(long lastTimeDamagedByPlayer) {
+		this.lastTimeDamagedByPlayer = lastTimeDamagedByPlayer;
 	}
 }

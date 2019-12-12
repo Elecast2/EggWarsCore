@@ -491,6 +491,7 @@ public class Game extends Multicast {
 		}
 		else {
 			gp.setLastDamager(damager.getName());
+			gp.setLastTimeDamagedByPlayer(System.currentTimeMillis());
 			return false;
 		}
 	}
