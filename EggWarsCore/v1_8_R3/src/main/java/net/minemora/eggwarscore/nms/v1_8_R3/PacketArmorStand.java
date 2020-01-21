@@ -124,11 +124,8 @@ public class PacketArmorStand implements IPacketArmorStand {
 	public void destroy() {
 		PacketPlayOutEntityDestroy packetdestroy = new PacketPlayOutEntityDestroy(NMSArmorStand.getId());
 		//TODO check if if empty or null
-		for(Entity ent : location.getWorld().getNearbyEntities(location, 32, 32, 32)) {
-        	if(ent instanceof Player) {
-        		Player p = (Player)ent;
-        		((CraftPlayer)p).getHandle().playerConnection.sendPacket(packetdestroy);
-        	}
+		for(Player p : NMSArmorStand.getBukkitEntity().getWorld().getPlayers()) {
+        	((CraftPlayer)p).getHandle().playerConnection.sendPacket(packetdestroy);
 		}
 	}
 
