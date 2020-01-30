@@ -22,7 +22,7 @@ public final class LobbyItemManager {
 					@Override
 					public void perform(Player player) {
 						PlayMenu.getMenu().open(player);
-						player.playSound(player.getLocation(), Sound.ITEM_PICKUP, 10, 1); //TODO FROM CONFIG
+						player.playSound(player.getLocation(), Sound.ITEM_PICKUP, 0.5f, 1); //TODO FROM CONFIG
 					}
 				});
 				break;

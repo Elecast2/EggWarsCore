@@ -72,15 +72,15 @@ public class ExtrasMenu extends Menu {
 			Player player = (Player) event.getWhoClicked();
 			PlayerStats ps = PlayerStats.get(player.getName());
 			if (event.getCurrentItem().equals(trailItem)) {
-				player.playSound(player.getLocation(), Sound.valueOf(ConfigMain.get().getString("extras.open-menu-sound")), 10, 1);
+				player.playSound(player.getLocation(), Sound.valueOf(ConfigMain.get().getString("extras.open-menu-sound")), 0.5f, 1);
 				ps.getTrailMenu().open(player);
 			}
 			else if (event.getCurrentItem().equals(deathEffectItem)) {
-				player.playSound(player.getLocation(), Sound.valueOf(ConfigMain.get().getString("extras.open-menu-sound")), 10, 1);
+				player.playSound(player.getLocation(), Sound.valueOf(ConfigMain.get().getString("extras.open-menu-sound")), 0.5f, 1);
 				ps.getDeathEffectMenu().open(player);
 			}
 			else if (event.getCurrentItem().equals(winEffectItem)) {
-				player.playSound(player.getLocation(), Sound.valueOf(ConfigMain.get().getString("extras.open-menu-sound")), 10, 1);
+				player.playSound(player.getLocation(), Sound.valueOf(ConfigMain.get().getString("extras.open-menu-sound")), 0.5f, 1);
 				ps.getWinEffectMenu().open(player);
 			}
 		}

@@ -7,6 +7,8 @@ import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -105,7 +107,7 @@ public class TimeVoteMenu extends Menu {
 				}
 				//TODO procurar que los votos se reduscan al desconectarse solo si esta en lobby
 			}
-			
+			((Player) event.getWhoClicked()).playSound(event.getWhoClicked().getLocation(), Sound.CLICK, 0.5f, 1);
 			event.getWhoClicked().closeInventory();
 		}
 	}

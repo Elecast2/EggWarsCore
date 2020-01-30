@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -144,9 +145,11 @@ public class LobbiesMenu extends Menu {
 				if(event.getSlot() == layout[i]) {
 					if(current == i+1) {
 						event.getWhoClicked().sendMessage(ChatUtils.format("&c¡Ya te encuentras conectado a ese lobby!")); //TODO LANG or BASS
+						((Player) event.getWhoClicked()).playSound(event.getWhoClicked().getLocation(), Sound.NOTE_BASS, 0.5f, 1);
 					}
 					else {
 						BungeeHandler.sendPlayer((Player) event.getWhoClicked(), lobbies.get(i+1));
+						((Player) event.getWhoClicked()).playSound(event.getWhoClicked().getLocation(), Sound.CLICK, 0.5f, 1);
 					}
 					break;
 				}

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -70,6 +71,7 @@ public final class OptionsMenu extends Menu {
 				Player player = (Player)event.getWhoClicked();
 				if(GamePlayer.get(player.getName()) != null) {
 					GamePlayer.get(player.getName()).getGameLobby().getTimeVoteMenu().open(player);
+					((Player) event.getWhoClicked()).playSound(event.getWhoClicked().getLocation(), Sound.CLICK, 0.5f, 1);
 				}
 			}
 		}

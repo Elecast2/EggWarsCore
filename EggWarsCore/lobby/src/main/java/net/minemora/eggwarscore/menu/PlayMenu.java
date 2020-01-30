@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -68,15 +69,18 @@ public class PlayMenu extends Menu {
 					if(!GameManager.getGamesMenus().containsKey(modes.get(item))) {
 						player.closeInventory();
 						player.sendMessage("no hay juegos disponibles"); //TODO from lang
+						player.playSound(player.getLocation(), Sound.NOTE_BASS, 0.5f, 1);
 						return;
 					}
 					GameManager.getGamesMenus().get(modes.get(item)).open(player);
+					player.playSound(player.getLocation(), Sound.CLICK, 0.5f, 1);
 					return;
 				}
 			}
 			for(ItemStack item : modesQuick.keySet()) {
 				if(event.getCurrentItem().equals(item)) {
 					GameManager.attemptToSendPlayer(player, GameManager.getQuickGame(modesQuick.get(item)));
+					player.playSound(player.getLocation(), Sound.CLICK, 0.5f, 1);
 					return;
 				}
 			}

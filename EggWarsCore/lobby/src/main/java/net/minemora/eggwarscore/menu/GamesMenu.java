@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
@@ -125,7 +126,7 @@ public class GamesMenu extends Menu {
 			}
 			event.setCancelled(true); 
 			event.getWhoClicked().closeInventory();
-			
+			((Player) event.getWhoClicked()).playSound(event.getWhoClicked().getLocation(), Sound.CLICK, 0.5f, 1);
 			GameManager.attemptToSendPlayer((Player)event.getWhoClicked(), games.get(event.getSlot()));
 			
 		}

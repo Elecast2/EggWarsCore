@@ -80,14 +80,14 @@ public class QuickGameMenu extends Menu {
 			Player player = (Player) event.getWhoClicked();
 			int mode = event.getSlot();
 			if(lobbyPlayer.getMode() == mode) {
-				player.playSound(player.getLocation(), Sound.NOTE_BASS, 10, 1); //TODO CONFIG
+				player.playSound(player.getLocation(), Sound.NOTE_BASS, 0.5f, 1); //TODO CONFIG
 				player.sendMessage(ChatUtils.format("&c¡Ya tienes seleccionado este modo!")); //TODO LANG
 			}
 			else {
 				lobbyPlayer.setMode(mode);
 				lobbyPlayer.updateQuickGameLine();
 				Database.set(Stat.MODE, player, mode);
-				player.playSound(player.getLocation(), Sound.CLICK, 10, 1); //TODO CONFIG
+				player.playSound(player.getLocation(), Sound.CLICK, 0.5f, 1); //TODO CONFIG
 				player.sendMessage(ChatUtils.format("&a¡Modo seleccionado correctamente!")); //TODO LANG
 				update();
 			}
