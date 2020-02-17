@@ -154,4 +154,11 @@ public class NMSHandler implements NMS {
         PacketPlayOutChat packetPlayOutChat = new PacketPlayOutChat(ChatSerializer.a("{\"text\": \"" + message + "\"}"), (byte) 2);
         cp.getHandle().playerConnection.sendPacket(packetPlayOutChat);
 	}
+	
+	@Override
+	public void removeWorldFromMemory(org.bukkit.World world) {
+		WorldServer ws = ((CraftWorld)world).getHandle();
+		ws.chunkProviderServer.chunks.clear();
+		ws.chunkProviderServer = null;
+	}
 }

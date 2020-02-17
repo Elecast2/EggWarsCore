@@ -1,6 +1,7 @@
 package net.minemora.eggwarscore.nms;
 
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -26,5 +27,7 @@ public interface NMS {
 	
 	public IPacketArmorStand getNewPacketArmorStand(Location location, ItemStack helmet, ItemStack chestPlate, 
 			ItemStack leggings, ItemStack boots, ItemStack itemInRightArm);
+	
+	public void removeWorldFromMemory(World world);
 
 }

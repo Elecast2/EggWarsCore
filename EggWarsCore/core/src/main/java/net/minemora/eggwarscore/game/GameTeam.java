@@ -59,6 +59,8 @@ public class GameTeam extends Multicast {
 			}
 			else {
 				sbteam = scoreboard.registerNewTeam(team.getName());
+				sbteam.setAllowFriendlyFire(false);
+				sbteam.setCanSeeFriendlyInvisibles(true);
 			}
 			if(!sbteam.getEntries().contains(playerName)) {
 				sbteam.addEntry(playerName);

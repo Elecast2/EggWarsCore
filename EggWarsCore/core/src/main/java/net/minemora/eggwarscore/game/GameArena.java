@@ -16,6 +16,7 @@ import org.bukkit.WorldCreator;
 import org.bukkit.entity.Player;
 import org.bukkit.World.Environment;
 
+import net.minemora.eggwarscore.shared.SharedHandler;
 import net.minemora.eggwarscore.EggWarsCore;
 import net.minemora.eggwarscore.arena.Arena;
 import net.minemora.eggwarscore.arena.ArenaManager;
@@ -100,6 +101,7 @@ public class GameArena {
 			}
 		}
 		Bukkit.unloadWorld(world, true);
+		SharedHandler.getNmsHandler().removeWorldFromMemory(world);
 		File worldFolder = new File(loadedWorldName);
 		try {
 			FileUtils.deleteDirectory(worldFolder);

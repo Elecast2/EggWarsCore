@@ -138,4 +138,9 @@ public class NMSHandler implements NMS {
 	public void sendActionBar(Player player, String message) {
 		player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new ComponentBuilder(message).create());
 	}
+
+	@Override
+	public void removeWorldFromMemory(org.bukkit.World world) {
+		return;
+	}
 }
