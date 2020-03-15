@@ -1,6 +1,7 @@
 package net.minemora.eggwarscore.nms.v1_8_R3;
 
 import java.lang.reflect.Field;
+import java.util.Set;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -23,6 +24,8 @@ import com.mojang.authlib.properties.Property;
 import net.minecraft.server.v1_8_R3.BlockPosition;
 import net.minecraft.server.v1_8_R3.DataWatcher;
 import net.minecraft.server.v1_8_R3.EntityPlayer;
+import net.minecraft.server.v1_8_R3.EntityTracker;
+import net.minecraft.server.v1_8_R3.EntityTrackerEntry;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent;
 import net.minecraft.server.v1_8_R3.MinecraftServer;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
@@ -155,10 +158,33 @@ public class NMSHandler implements NMS {
         cp.getHandle().playerConnection.sendPacket(packetPlayOutChat);
 	}
 	
+	private static Field trackedField;
+	
+	static {
+		try {
+        	trackedField = EntityTracker.class.getDeclaredField("c");
+            trackedField.setAccessible(true);
+        } catch (IllegalArgumentException | NoSuchFieldException | SecurityException e) {
+            e.printStackTrace();
+        }
+	}
+	
 	@Override
 	public void removeWorldFromMemory(org.bukkit.World world) {
 		WorldServer ws = ((CraftWorld)world).getHandle();
 		ws.chunkProviderServer.chunks.clear();
+		ws.chunkProviderServer.unloadQueue.clear();
 		ws.chunkProviderServer = null;
+		ws.entityList.clear();
+		ws.h.clear();
+		ws.tileEntityList.clear();
+		ws.tracker.trackedEntities.c();
+        try {
+            @SuppressWarnings("unchecked")
+			Set<EntityTrackerEntry> trackedSet = (Set<EntityTrackerEntry>) trackedField.get(ws.tracker);
+            trackedSet.clear();
+        } catch (IllegalArgumentException | IllegalAccessException | SecurityException e) {
+            e.printStackTrace();
+        }
 	}
 }

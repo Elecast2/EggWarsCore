@@ -22,6 +22,7 @@ public class DeathEffectManager extends IExtraManager {
 		DeathEffectDab.getInstance().load(this);
 		DeathEffectFloss.getInstance().load(this);
 		DeathEffectHype.getInstance().load(this);
+		DeathEffectGodDeath.getInstance().load(this);
 	}
 	
 	public static DeathEffectManager getInstance() {
