@@ -25,6 +25,7 @@ import net.minemora.eggwarscore.menu.QuickGameMenu;
 import net.minemora.eggwarscore.npc.NPC;
 import net.minemora.eggwarscore.npc.NPCManager;
 import net.minemora.eggwarscore.scoreboard.ScoreboardManager;
+import net.minemora.eggwarscore.shared.SharedHandler;
 import net.minemora.eggwarscore.utils.ChatUtils;
 
 public class LobbyPlayer extends PlayerStats {
@@ -55,13 +56,17 @@ public class LobbyPlayer extends PlayerStats {
 		}
 		ScoreboardManager.setLobbyScoreboard(player);
 		loadNPCs(player);
-		if(HolographicDisplaysHook.isEnabled()) {
-			//TODO IF QUICKGAMEHOLOGRAM IS ENABLED
-			loadQuickGameHolo(player);
-			//TODO IF PARKOUR AND PARKOUR HOLO IS ENABLED
-			loadParkourHolo(player);
-		}
-		
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				if(HolographicDisplaysHook.isEnabled()) {
+					//TODO IF QUICKGAMEHOLOGRAM IS ENABLED
+					loadQuickGameHolo(player);
+					//TODO IF PARKOUR AND PARKOUR HOLO IS ENABLED
+					loadParkourHolo(player);
+				}
+			}
+		}.runTask(SharedHandler.getPlugin());
 	}
 	
 	private void loadNPCs(Player player) {

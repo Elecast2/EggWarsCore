@@ -92,16 +92,11 @@ public abstract class PlayerStats {
 			@Override
 			public void run() {
 				Database.getDatabase().loadStats(ps);
-				new BukkitRunnable() {
-					@Override
-					public void run() {
-						getPlayersStats().put(player.getName(), ps);
-						loadExtras(player);
-						loadMultipliers(player);
-						updateExpBar(player);
-						ps.loadPlayer(player);
-					}
-				}.runTask(SharedHandler.getPlugin());
+				getPlayersStats().put(player.getName(), ps);
+				loadExtras(player);
+				loadMultipliers(player);
+				updateExpBar(player);
+				ps.loadPlayer(player);
 			}
 		}.runTaskAsynchronously(SharedHandler.getPlugin());
 	}

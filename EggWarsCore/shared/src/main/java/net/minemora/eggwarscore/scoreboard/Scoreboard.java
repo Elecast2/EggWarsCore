@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
@@ -15,6 +16,7 @@ import org.bukkit.scoreboard.Team;
 
 import net.minemora.eggwarscore.config.ConfigScoreboard;
 import net.minemora.eggwarscore.game.Multicast;
+import net.minemora.eggwarscore.shared.SharedHandler;
 import net.minemora.eggwarscore.utils.ChatUtils;
 import net.minemora.eggwarscore.utils.Utils;
 
@@ -68,30 +70,36 @@ public class Scoreboard {
 				}
 			}
 		}
-		org.bukkit.scoreboard.Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-		Objective obj = scoreboard.registerNewObjective(player.getName(), "dummy");
-		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
-		obj.setDisplayName(ChatUtils.format(finalTitle));
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				org.bukkit.scoreboard.Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+				Objective obj = scoreboard.registerNewObjective(player.getName(), "dummy");
+				obj.setDisplaySlot(DisplaySlot.SIDEBAR);
+				obj.setDisplayName(ChatUtils.format(finalTitle));
+				
+				for(int i : lines.keySet()) {
+					
+					String finalText = getFinalText(player, lines.get(i).getText());
+					
+					if(lines.get(i).isDynamic()) {
+						DynamicText dText = new DynamicText(finalText);
+						String entry = ChatUtils.format("&m" + indexToEntry(i) + "&" + Utils.getLastColor(dText.getPrefix()));
+						Team team = scoreboard.registerNewTeam(lines.get(i).getTeamName());
+						team.addEntry(entry);
+						team.setPrefix(ChatUtils.format(dText.getPrefix()));
+						team.setSuffix(ChatUtils.format(dText.getSuffix()));
+				        obj.getScore(entry).setScore(16-i);
+					}
+					else {
+						Score score = obj.getScore(ChatUtils.format(finalText.length() > 32 ? finalText.substring(0, 32) : finalText));
+						score.setScore(16-i);
+					}
+				}
+				player.setScoreboard(scoreboard);
+			}
+		}.runTask(SharedHandler.getPlugin());
 		
-		for(int i : lines.keySet()) {
-			
-			String finalText = getFinalText(player, lines.get(i).getText());
-			
-			if(lines.get(i).isDynamic()) {
-				DynamicText dText = new DynamicText(finalText);
-				String entry = ChatUtils.format("&m" + indexToEntry(i) + "&" + Utils.getLastColor(dText.getPrefix()));
-				Team team = scoreboard.registerNewTeam(lines.get(i).getTeamName());
-				team.addEntry(entry);
-				team.setPrefix(ChatUtils.format(dText.getPrefix()));
-				team.setSuffix(ChatUtils.format(dText.getSuffix()));
-		        obj.getScore(entry).setScore(16-i);
-			}
-			else {
-				Score score = obj.getScore(ChatUtils.format(finalText.length() > 32 ? finalText.substring(0, 32) : finalText));
-				score.setScore(16-i);
-			}
-		}
-		player.setScoreboard(scoreboard);
 	}
 	
 	public void updateTitle(Multicast multicast, String text, String value) {

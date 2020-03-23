@@ -123,7 +123,7 @@ item-format:
       permission: ewc.dios
       locked-item:
         material: INK_SACK
-        data: 10
+        data: 11
       locked-desc:
         - '&c&lBLOQUEADO'
         - ''

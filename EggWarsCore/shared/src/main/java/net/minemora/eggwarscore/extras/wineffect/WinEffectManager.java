@@ -22,6 +22,7 @@ public class WinEffectManager extends IExtraManager {
 		WinEffectGhosts.getInstance().load(this);
 		WinEffectDancers.getInstance().load(this);
 		WinEffectThriller.getInstance().load(this);
+		WinEffectGodVictory.getInstance().load(this);
 	}
 	
 	public static WinEffectManager getInstance() {

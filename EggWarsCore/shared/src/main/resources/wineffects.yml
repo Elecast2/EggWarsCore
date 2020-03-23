@@ -119,6 +119,26 @@ item-format:
         - ' &7&l> &2&lDescripción:'
         - '%description%'
         - ''
+    '4':
+      permission: ewc.dios
+      locked-item:
+        material: INK_SACK
+        data: 11
+      locked-desc:
+        - '&c&lBLOQUEADO'
+        - ''
+        - '&7Debes ser &E&lDIOS'
+        - '&7para desbloquear'
+        - ''
+        - ' &7&l> &2&lDescripción:'
+        - '%description%'
+        - ''
+      unlocked-desc:
+        - '&a&lDESBLOQUEADO'
+        - ''
+        - ' &7&l> &2&lDescripción:'
+        - '%description%'
+        - ''
   default:
     locked-item:
       material: BARRIER
@@ -232,3 +252,13 @@ win-effects:
       - '&7Thriller night.'
     menu-item:
       material: RECORD_8
+  godvictory:
+    position: 10
+    unlock-type: PERMISSION
+    permission: ewc.dios
+    name: '&e&lGod&6&lVictory'
+    desc:
+      - '&7Muestra toda la fuerza de'
+      - '&7un DIOS al ganar.'
+    menu-item:
+      material: GOLD_AXE

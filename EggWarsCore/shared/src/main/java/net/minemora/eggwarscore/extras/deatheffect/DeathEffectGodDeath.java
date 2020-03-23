@@ -16,7 +16,7 @@ public class DeathEffectGodDeath extends DeathEffect {
 	private static DeathEffectGodDeath instance;
 
 	private DeathEffectGodDeath() {
-		super("goddeath", 1);
+		super("goddeath", 10);
 	}
 
 	@Override

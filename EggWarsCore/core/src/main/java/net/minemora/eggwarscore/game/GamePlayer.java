@@ -68,7 +68,12 @@ public class GamePlayer extends PlayerStats {
 			return;
 		}
 		loadMultipliers(player);
-		loadPlayerFromNetwork(player);
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				loadPlayerFromNetwork(player);
+			}
+		}.runTask(SharedHandler.getPlugin());
 	}
 	
 	private void loadMultipliers(Player player) {  //TODO CONFIG
