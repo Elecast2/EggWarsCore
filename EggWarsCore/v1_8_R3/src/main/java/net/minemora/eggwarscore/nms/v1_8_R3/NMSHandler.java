@@ -42,6 +42,7 @@ import net.minecraft.server.v1_8_R3.World;
 import net.minecraft.server.v1_8_R3.WorldServer;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent.ChatSerializer;
 import net.minemora.eggwarscore.nms.AArmorStandPose;
+import net.minemora.eggwarscore.nms.APlayerHolo;
 import net.minemora.eggwarscore.nms.IPacketArmorStand;
 import net.minemora.eggwarscore.nms.NMS;
 
@@ -186,5 +187,10 @@ public class NMSHandler implements NMS {
         } catch (IllegalArgumentException | IllegalAccessException | SecurityException e) {
             e.printStackTrace();
         }
+	}
+
+	@Override
+	public APlayerHolo createPlayerHolo(Player player, Location location, String text) {
+		return new PlayerHolo(player, location, text);
 	}
 }

@@ -29,5 +29,7 @@ public interface NMS {
 			ItemStack leggings, ItemStack boots, ItemStack itemInRightArm);
 	
 	public void removeWorldFromMemory(World world);
+	
+	public APlayerHolo createPlayerHolo(Player player, Location location, String text);
 
 }

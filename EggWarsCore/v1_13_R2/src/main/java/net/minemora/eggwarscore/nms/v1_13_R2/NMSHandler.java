@@ -39,6 +39,7 @@ import net.minecraft.server.v1_13_R2.PacketPlayOutNamedEntitySpawn;
 import net.minecraft.server.v1_13_R2.PacketPlayOutPlayerInfo;
 import net.minecraft.server.v1_13_R2.PlayerConnection;
 import net.minemora.eggwarscore.nms.AArmorStandPose;
+import net.minemora.eggwarscore.nms.APlayerHolo;
 import net.minemora.eggwarscore.nms.IPacketArmorStand;
 import net.minemora.eggwarscore.nms.NMS;
 
@@ -145,5 +146,11 @@ public class NMSHandler implements NMS {
 	@Override
 	public void removeWorldFromMemory(org.bukkit.World world) {
 		return;
+	}
+
+	@Override
+	public APlayerHolo createPlayerHolo(Player player, Location location, String text) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

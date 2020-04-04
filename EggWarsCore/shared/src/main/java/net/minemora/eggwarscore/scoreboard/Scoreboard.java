@@ -73,6 +73,9 @@ public class Scoreboard {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
+				if(!player.isOnline()) {
+					return;
+				}
 				org.bukkit.scoreboard.Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 				Objective obj = scoreboard.registerNewObjective(player.getName(), "dummy");
 				obj.setDisplaySlot(DisplaySlot.SIDEBAR);

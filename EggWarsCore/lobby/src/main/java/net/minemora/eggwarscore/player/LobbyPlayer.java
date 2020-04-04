@@ -8,11 +8,6 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.gmail.filoghost.holographicdisplays.api.Hologram;
-import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
-import com.gmail.filoghost.holographicdisplays.api.VisibilityManager;
-import com.gmail.filoghost.holographicdisplays.api.line.TextLine;
-
 import net.minemora.eggwarscore.EggWarsCoreLobby;
 import net.minemora.eggwarscore.config.ConfigLang;
 import net.minemora.eggwarscore.database.PlayerStats;
@@ -22,6 +17,7 @@ import net.minemora.eggwarscore.lobby.Lobby;
 import net.minemora.eggwarscore.lobby.LobbyItem;
 import net.minemora.eggwarscore.menu.DailyRewardsMenu;
 import net.minemora.eggwarscore.menu.QuickGameMenu;
+import net.minemora.eggwarscore.nms.APlayerHolo;
 import net.minemora.eggwarscore.npc.NPC;
 import net.minemora.eggwarscore.npc.NPCManager;
 import net.minemora.eggwarscore.scoreboard.ScoreboardManager;
@@ -33,13 +29,38 @@ public class LobbyPlayer extends PlayerStats {
 	private QuickGameMenu quickGameMenu;
 	private DailyRewardsMenu dailyRewardsMenu;
 	
+	/*
 	private Hologram quickGameHolo;
 	private TextLine quickGameLine;
 	
 	private Hologram parkourHolo;
 	private TextLine parkourLine;
+	*/
+	
+	private APlayerHolo quickGameHolo;
+	private APlayerHolo parkourHolo;
 	
 	private boolean timeTrial = false;
+	
+	private static boolean quickJoinHoloEnabled = false;
+	private static boolean parkourHoloEnabled = false;
+	private static Location quickJoinHoloLocation;
+	private static Location parkourHoloLocation;
+	
+	
+	public static void setupHolos() {
+		NPC npc = NPCManager.getNPC("quick-join");
+		if(npc != null) {
+			quickJoinHoloEnabled = true;
+			quickJoinHoloLocation = npc.getLocation().clone();
+		}
+		
+		npc = NPCManager.getNPC("parkour");
+		if(npc != null) {
+			parkourHoloEnabled = true;
+			parkourHoloLocation = npc.getLocation().clone();
+		}
+	}
 
 	public LobbyPlayer(Player player) {
 		super(player);
@@ -56,17 +77,10 @@ public class LobbyPlayer extends PlayerStats {
 		}
 		ScoreboardManager.setLobbyScoreboard(player);
 		loadNPCs(player);
-		new BukkitRunnable() {
-			@Override
-			public void run() {
-				if(HolographicDisplaysHook.isEnabled()) {
-					//TODO IF QUICKGAMEHOLOGRAM IS ENABLED
-					loadQuickGameHolo(player);
-					//TODO IF PARKOUR AND PARKOUR HOLO IS ENABLED
-					loadParkourHolo(player);
-				}
-			}
-		}.runTask(SharedHandler.getPlugin());
+		if(HolographicDisplaysHook.isEnabled()) {
+			loadQuickGameHolo(player);
+			loadParkourHolo(player);
+		}
 	}
 	
 	private void loadNPCs(Player player) {
@@ -84,12 +98,68 @@ public class LobbyPlayer extends PlayerStats {
 	}
 	
 	private void loadQuickGameHolo(Player player) {
-		NPC npc = NPCManager.getNPC("quick-join");
-		if(npc == null) {
+		if(!quickJoinHoloEnabled) {
 			return;
 		}
-		Location loc = npc.getLocation().clone().add(0, 2.868, 0);
-		quickGameHolo = HologramsAPI.createHologram(EggWarsCoreLobby.getPlugin(), loc);
+		quickGameHolo = SharedHandler.getNmsHandler().createPlayerHolo(player, 
+				quickJoinHoloLocation, ChatUtils.format("&7Modo: " + GameManager.getModeDisplayName(getMode())));
+	}
+	
+	private void loadParkourHolo(Player player) {
+		if(!parkourHoloEnabled) {
+			return;
+		}
+		String text;
+		if(isParkourDone()) {
+			if(getParkourTime() == 0) {
+				text = ChatUtils.format("&aMarca tu primer tiempo"); //TODO LANG
+			}
+			else {
+				text = ChatUtils.format("&7Tu mejor tiempo: &a" 
+    					+ String.format("%02d:%02d", getParkourTime() / 60, getParkourTime() % 60)); //TODO LANG
+			}
+		}
+		else {
+			text = ChatUtils.format("&7Pasa el Parkour para desbloquear"); //TODO LANG
+		}
+		parkourHolo = SharedHandler.getNmsHandler().createPlayerHolo(player, parkourHoloLocation, text);
+	}
+	
+	public void updateParkourLine() {
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				if(isParkourDone()) {
+					if(getParkourTime() == 0) {
+						parkourHolo.updateText(ChatUtils.format("&aMarca tu primer tiempo")); //TODO LANG
+					}
+					else {
+						parkourHolo.updateText(ChatUtils.format("&7Tu mejor tiempo: &a" 
+		    					+ String.format("%02d:%02d", getParkourTime() / 60, getParkourTime() % 60))); //TODO LANG
+					}
+				}
+				else {
+					parkourHolo.updateText(ChatUtils.format("&7Pasa el Parkour para desbloquear")); //TODO LANG
+				}
+			}
+		}.runTaskAsynchronously(SharedHandler.getPlugin());
+	}
+	
+	public void updateQuickGameLine() {
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				quickGameHolo.updateText(ChatUtils.format("&7Modo: " + GameManager.getModeDisplayName(getMode()))); //TODO LANG
+			}
+		}.runTaskAsynchronously(SharedHandler.getPlugin());
+	}
+	
+	/*
+	private void loadQuickGameHolo(Player player) {
+		if(!quickJoinHoloEnabled) {
+			return;
+		}
+		quickGameHolo = HologramsAPI.createHologram(EggWarsCoreLobby.getPlugin(), quickJoinHoloLocation);
 		quickGameHolo.appendTextLine(ChatUtils.format("&f&k|&r &a&lPARTIDA RÁPIDA &f&k|")); //TODO LANG
 		quickGameLine = quickGameHolo.appendTextLine(ChatUtils.format("&7Modo: " + GameManager.getModeDisplayName(getMode()))); //TODO LANG
 		VisibilityManager visibilityManager = quickGameHolo.getVisibilityManager();
@@ -98,12 +168,10 @@ public class LobbyPlayer extends PlayerStats {
 	}
 	
 	private void loadParkourHolo(Player player) {
-		NPC npc = NPCManager.getNPC("parkour");
-		if(npc == null) {
+		if(!parkourHoloEnabled) {
 			return;
 		}
-		Location loc = npc.getLocation().clone().add(0, 2.868, 0);
-		parkourHolo = HologramsAPI.createHologram(EggWarsCoreLobby.getPlugin(), loc);
+		parkourHolo = HologramsAPI.createHologram(EggWarsCoreLobby.getPlugin(), parkourHoloLocation);
 		parkourHolo.appendTextLine(ChatUtils.format("&f&k|&r &6&lCONTRARELOJ &f&k|")); //TODO LANG
 		if(isParkourDone()) {
 			if(getParkourTime() == 0) {
@@ -142,6 +210,7 @@ public class LobbyPlayer extends PlayerStats {
 	public void updateQuickGameLine() {
 		quickGameLine.setText(ChatUtils.format("&7Modo: " + GameManager.getModeDisplayName(getMode()))); //TODO LANG
 	}
+	*/
 	
 	public void restore() {
 		Player player = Bukkit.getPlayer(getPlayerName());
@@ -168,12 +237,14 @@ public class LobbyPlayer extends PlayerStats {
 		if(dailyRewardsMenu != null) {
 			HandlerList.unregisterAll(dailyRewardsMenu);
 		}
+		/*
 		if(quickGameHolo != null) {
 			quickGameHolo.delete();
 		}
 		if(parkourHolo != null) {
 			parkourHolo.delete();
 		}
+		*/
 		removePlayer();
 	}
 	
@@ -200,6 +271,7 @@ public class LobbyPlayer extends PlayerStats {
 		return dailyRewardsMenu;
 	}
 
+	/*
 	public Hologram getQuickGameHolo() {
 		return quickGameHolo;
 	}
@@ -207,6 +279,7 @@ public class LobbyPlayer extends PlayerStats {
 	public TextLine getQuickGameLine() {
 		return quickGameLine;
 	}
+	*/
 
 	public boolean isTimeTrial() {
 		return timeTrial;

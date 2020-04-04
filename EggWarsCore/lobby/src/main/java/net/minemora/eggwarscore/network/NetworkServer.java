@@ -45,6 +45,7 @@ public final class NetworkServer extends Thread {
             } catch (IOException e) {
             	EggWarsCoreLobby.getPlugin().getLogger().severe(CmdColor.RED + "Trying to use a socket closed? or just stoping the server (01)" 
 						+ CmdColor.RESET);
+            	e.printStackTrace();
                 break;
             }
             new GamesConnection(socket).start();
