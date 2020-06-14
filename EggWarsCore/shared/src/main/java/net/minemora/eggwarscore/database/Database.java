@@ -117,6 +117,7 @@ public class Database {
 					ps.setMode(0);
 					ps.setParkourDone(false);
 					ps.setParkourTime(0);
+					ps.setHidePlayers(false);
 				}
 				else {
 					if(!result.getString("name").equals(ps.getPlayerName())){
@@ -136,6 +137,7 @@ public class Database {
 					ps.setMode(result.getInt(Stat.MODE.getColumnName()));
 					ps.setParkourDone(result.getBoolean(Stat.PARKOUR_DONE.getColumnName()));
 					ps.setParkourTime(result.getInt(Stat.PARKOUR_TIME.getColumnName()));
+					ps.setHidePlayers(result.getBoolean(Stat.HIDE_PLAYERS.getColumnName()));
 				}				
 			}
 		} catch (SQLException e) {
@@ -250,8 +252,20 @@ public class Database {
 		asyncUpdate(sql);
 	}
 	
-	public static LinkedHashMap<String, Integer> getTopKills(){
-		return getDatabase().getTop("kills", ConfigMain.get().getInt("general.top-limit"));
+	public static LinkedHashMap<String, Integer> getTopKills(int limit) {
+		return getDatabase().getTop("kills", limit);
+	}
+	
+	public static LinkedHashMap<String, Integer> getTopDeaths(int limit) {
+		return getDatabase().getTop("deaths", limit);
+	}
+	
+	public static LinkedHashMap<String, Integer> getTopWins(int limit) {
+		return getDatabase().getTop("wins", limit);
+	}
+	
+	public static LinkedHashMap<String, Integer> getTopEggs(int limit) {
+		return getDatabase().getTop("destroyedEggs", limit);
 	}
 	
 	private LinkedHashMap<String, Integer> getTop(String column, int limit) {

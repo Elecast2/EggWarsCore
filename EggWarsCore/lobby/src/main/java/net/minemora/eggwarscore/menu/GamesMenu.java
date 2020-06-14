@@ -95,7 +95,7 @@ public class GamesMenu extends Menu {
 			return;
 		}
 		setBars(numberToBars(games.size()));
-		Inventory inv = Bukkit.createInventory(null, 9*getBars(), "Juegos:"); //TODO title from config
+		Inventory inv = Bukkit.createInventory(null, 9*getBars(), mode.toUpperCase()); //TODO title from config
 		for(int slot : games.keySet()) {
 			inv.setItem(slot, new ItemStack(Material.WOOL)); //TODO material from config and depend of game status
 		}

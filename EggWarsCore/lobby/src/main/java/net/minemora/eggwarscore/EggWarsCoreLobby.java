@@ -17,6 +17,7 @@ import net.minemora.eggwarscore.parkour.Parkour;
 import net.minemora.eggwarscore.player.LobbyPlayer;
 import net.minemora.eggwarscore.protocollib.ProtocolLibHook;
 import net.minemora.eggwarscore.rchest.RewardChest;
+import net.minemora.eggwarscore.reportsystem.ReportSystemHook;
 import net.minemora.eggwarscore.scoreboard.ScoreboardManager;
 import net.minemora.eggwarscore.shared.SharedHandler;
 import net.minemora.eggwarscore.uc.UltraCosmeticsHook;
@@ -46,6 +47,7 @@ public class EggWarsCoreLobby extends JavaPlugin {
 		UltraCosmeticsHook.setup();
 		Parkour.setup();
 		LobbyPlayer.setupHolos();
+		ReportSystemHook.setup();
 	}
 
 	@Override

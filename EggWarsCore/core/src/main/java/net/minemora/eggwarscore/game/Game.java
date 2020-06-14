@@ -36,6 +36,8 @@ import net.minemora.eggwarscore.team.TeamManager;
 import net.minemora.eggwarscore.utils.ChatUtils;
 import net.minemora.eggwarscore.utils.Utils;
 import net.minemora.reportsystem.ReportSystemAPI;
+import net.minemora.reportsystem.util.ParticleEffect;
+import net.minemora.reportsystem.util.UtilParticles;
 
 public class Game extends Multicast {
 	
@@ -241,9 +243,12 @@ public class Game extends Multicast {
 						if(timeElapsed == offer.getTime()) {
 							broadcastMessage(ChatUtils.format("&e&lTIENDA ACTUALIZADA &aSe han añadido &b" + offer.getName() 
 							+ " &aa la seccion " + section.getName() + " &apor " + offer.getFormattedPrice()));//TODO LANG
-							//TODO SOUND CONFIG
-							//TODO GET ALDEANOS Y PLAY PARTICLES AND SMALL LEVEL SOUND
-							playSound(Sound.NOTE_PIANO, 10, 1.3f);
+							//TODO from CONFIG
+							playSound(Sound.LEVEL_UP, 10, 1.3f);
+							for(Location loc : gameArena.getShops()) {
+								loc.getWorld().playSound(loc, Sound.VILLAGER_YES, 2, 1.3f);
+								UtilParticles.display(ParticleEffect.VILLAGER_HAPPY, loc);
+							}
 							announceShop = true;
 						}
 					}

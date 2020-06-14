@@ -137,6 +137,8 @@ public class GameLobby extends Multicast {
 		gp.setDatabaseSets(0);
 		gp.setJoining(false);
 		gp.setSpawnKillCount(0);
+		gp.setSpawnKillAlerts(0);
+		gp.setAfkDeathsCount(0);
 		gp.setLastKiller(null);
 		ScoreboardManager.getLobbyScoreboard().update(this, "players", String.valueOf(getPlayers().size()));
 		ScoreboardManager.setLobbyScoreboard(player, this);

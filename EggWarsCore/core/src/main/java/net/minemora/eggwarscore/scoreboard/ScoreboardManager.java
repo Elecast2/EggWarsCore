@@ -68,7 +68,7 @@ public final class ScoreboardManager {
 			defaults.put(Placeholder.get("map-votes-" + i), "-");
 			i++;
 		}
-		lobbyScoreboard.set(player, defaults);
+		lobbyScoreboard.setSync(player, defaults);
 	}
 	
 	public static void setGameScoreboard(Game game) {
@@ -93,7 +93,7 @@ public final class ScoreboardManager {
 			defaults.put(Placeholder.get("team-alive-" + i), String.valueOf(game.getGameTeams().get(i).getAliveCount()));
 			defaults.put(Placeholder.get("symbol-" + i), game.getGameTeams().get(i).isEggDestroyed() ? deathSymbol : aliveSymbol);
 		}	
-		gameScoreboard.set(player, defaults);
+		gameScoreboard.setSync(player, defaults);
 	}
 	
 	public static String getAliveSymbol() {

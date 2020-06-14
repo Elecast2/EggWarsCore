@@ -15,7 +15,8 @@ public enum Stat {
 	DEATH_EFFECT("deathEffect", int.class),
 	MODE("mode", int.class),
 	PARKOUR_DONE("parkourDone", int.class),
-	PARKOUR_TIME("parkourTime", int.class);
+	PARKOUR_TIME("parkourTime", int.class),
+	HIDE_PLAYERS("hidePlayers", int.class);
 	
 	private final String columnName;
 	private final Class<?> type;

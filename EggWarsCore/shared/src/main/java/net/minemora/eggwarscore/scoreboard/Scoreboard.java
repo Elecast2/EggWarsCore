@@ -74,6 +74,7 @@ public class Scoreboard {
 			@Override
 			public void run() {
 				if(!player.isOnline()) {
+					System.out.println("player" + player.getName() + " not online creating score");
 					return;
 				}
 				org.bukkit.scoreboard.Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
@@ -102,6 +103,48 @@ public class Scoreboard {
 				player.setScoreboard(scoreboard);
 			}
 		}.runTask(SharedHandler.getPlugin());
+		
+	}
+	
+	public void setSync(Player player, Map<Placeholder,String> defaults) {
+		if(!placeholdersCache.containsKey(player.getName())) {
+			placeholdersCache.put(player.getName(), defaults);
+		}
+		else {
+			placeholdersCache.get(player.getName()).putAll(defaults);
+		}
+		String finalTitle = title;
+		for(Placeholder ph : defaults.keySet()) {
+			if(ph.isTitle()) {
+				if(finalTitle.contains("%" + ph.getText() + "%")) {
+					finalTitle.replaceAll("%" + ph.getText() + "%", defaults.get(ph));
+				}
+			}
+		}
+		org.bukkit.scoreboard.Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+		Objective obj = scoreboard.registerNewObjective(player.getName(), "dummy");
+		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
+		obj.setDisplayName(ChatUtils.format(finalTitle));
+		
+		for(int i : lines.keySet()) {
+			
+			String finalText = getFinalText(player, lines.get(i).getText());
+			
+			if(lines.get(i).isDynamic()) {
+				DynamicText dText = new DynamicText(finalText);
+				String entry = ChatUtils.format("&m" + indexToEntry(i) + "&" + Utils.getLastColor(dText.getPrefix()));
+				Team team = scoreboard.registerNewTeam(lines.get(i).getTeamName());
+				team.addEntry(entry);
+				team.setPrefix(ChatUtils.format(dText.getPrefix()));
+				team.setSuffix(ChatUtils.format(dText.getSuffix()));
+		        obj.getScore(entry).setScore(16-i);
+			}
+			else {
+				Score score = obj.getScore(ChatUtils.format(finalText.length() > 32 ? finalText.substring(0, 32) : finalText));
+				score.setScore(16-i);
+			}
+		}
+		player.setScoreboard(scoreboard);
 		
 	}
 	

@@ -20,9 +20,11 @@ import net.minemora.eggwarscore.menu.QuickGameMenu;
 import net.minemora.eggwarscore.nms.APlayerHolo;
 import net.minemora.eggwarscore.npc.NPC;
 import net.minemora.eggwarscore.npc.NPCManager;
+import net.minemora.eggwarscore.reportsystem.ReportSystemHook;
 import net.minemora.eggwarscore.scoreboard.ScoreboardManager;
 import net.minemora.eggwarscore.shared.SharedHandler;
 import net.minemora.eggwarscore.utils.ChatUtils;
+import net.minemora.reportsystem.ReportSystemAPI;
 
 public class LobbyPlayer extends PlayerStats {
 	
@@ -81,6 +83,24 @@ public class LobbyPlayer extends PlayerStats {
 			loadQuickGameHolo(player);
 			loadParkourHolo(player);
 		}
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				for(Player lp : Bukkit.getOnlinePlayers()) {
+					LobbyPlayer lgp = LobbyPlayer.get(lp.getName());
+					if(lgp != null) {
+						if(lgp.isHidePlayers()) {
+							lp.hidePlayer(player);
+						}
+					}
+				}
+				if(isHidePlayers()) {
+		    		for(Player lp : Bukkit.getOnlinePlayers()) {
+		    			player.hidePlayer(lp);
+		    		}
+		    	}
+			}
+		}.runTask(EggWarsCoreLobby.getPlugin());
 	}
 	
 	private void loadNPCs(Player player) {
@@ -211,6 +231,27 @@ public class LobbyPlayer extends PlayerStats {
 		quickGameLine.setText(ChatUtils.format("&7Modo: " + GameManager.getModeDisplayName(getMode()))); //TODO LANG
 	}
 	*/
+	
+	public void toggleVisibility(boolean hide) {
+		Player player = getPlayer();
+    	if(!hide) {
+    		setHidePlayers(false);
+    		for(Player lp : Bukkit.getOnlinePlayers()) {
+    			if(ReportSystemHook.isEnabled()) {
+    				if(ReportSystemAPI.isSpy(lp.getName())) {
+    					continue;
+    				}
+    			}
+    			player.showPlayer(lp);
+    		}
+    	}
+    	else {
+    		setHidePlayers(true);
+    		for(Player lp : Bukkit.getOnlinePlayers()) {
+    			player.hidePlayer(lp);
+    		}
+    	}
+    }
 	
 	public void restore() {
 		Player player = Bukkit.getPlayer(getPlayerName());

@@ -64,6 +64,7 @@ public abstract class PlayerStats {
 	
 	private boolean parkourDone;
 	private int parkourTime;
+	private boolean hidePlayers;
 	
 	private Trail trail;
 	private TrailMenu trailMenu;
@@ -818,6 +819,14 @@ public abstract class PlayerStats {
 
 	public void setParkourTime(int parkourTime) {
 		this.parkourTime = parkourTime;
+	}
+
+	public boolean isHidePlayers() {
+		return hidePlayers;
+	}
+
+	public void setHidePlayers(boolean hidePlayers) {
+		this.hidePlayers = hidePlayers;
 	}
 
 }

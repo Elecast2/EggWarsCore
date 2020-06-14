@@ -1,10 +1,10 @@
 package net.minemora.eggwarscore.listener;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -137,6 +137,10 @@ public class PlayerListener extends EggWarsListener {
 			event.getItem().getItemStack().setItemMeta(meta);
 			return;
 		}
+    	if(event.getItem().getItemStack().getType() == Material.REDSTONE_BLOCK) {
+    		event.setCancelled(true);
+    		return;
+    	}
     }
     
     @EventHandler
@@ -246,20 +250,20 @@ public class PlayerListener extends EggWarsListener {
     	if(gp.getGame() == null) { //TODO cambiar por otro tipo de check
     		return;
     	}
+    	Block placed = event.getBlock();
     	for(Location loc : gp.getGame().getGameArena().getSpawnPoints().values()) {
-    		Block up = loc.getBlock().getRelative(BlockFace.UP);
-    		if(loc.getBlock().equals(event.getBlock()) || up.equals(event.getBlock())
-    				|| up.getRelative(BlockFace.NORTH).equals(event.getBlock())
-    				|| up.getRelative(BlockFace.EAST).equals(event.getBlock())
-    				|| up.getRelative(BlockFace.SOUTH).equals(event.getBlock())
-    				|| up.getRelative(BlockFace.WEST).equals(event.getBlock())
-    				|| up.getRelative(BlockFace.UP).equals(event.getBlock())) {
+    		if(loc.distanceSquared(placed.getLocation()) < ((TeamManager.getMaxPlayers() >= 4) ? 7 : 5) && placed.getLocation().getBlockY() >= loc.getBlockY()) {
     			event.getPlayer().sendMessage(ChatUtils.format("&cNo puedes contruir cerca de el punto de aparición"));//TODO LANG
     			event.setCancelled(true);
         		return;
     		}
     	}
-    	gp.getGame().getPlacedBlocks().add(event.getBlock());
+    	if(placed.getLocation().distanceSquared(gp.getGame().getGameArena().getCenter()) > 26000) { //TODO CONFIG
+    		event.getPlayer().sendMessage(ChatUtils.format("&cNo puedes contruir tan lejos"));//TODO LANG
+    		event.setCancelled(true);
+    		return;
+    	}
+    	gp.getGame().getPlacedBlocks().add(placed);
     }
     
     @EventHandler
@@ -522,6 +526,11 @@ public class PlayerListener extends EggWarsListener {
     	if(Kit.isBinded(event.getItemDrop().getItemStack())) {
     		event.getPlayer().sendMessage(ChatUtils.format("&cNo puedes lanzar un item atado a ti")); //TODO LANG
     		event.setCancelled(true);
+    		return;
+    	}
+    	if(event.getPlayer().getGameMode() == GameMode.SPECTATOR) {
+    		event.setCancelled(true);
+    		return;
     	}
     }
     

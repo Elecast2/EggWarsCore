@@ -5,6 +5,7 @@ import java.util.Set;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
@@ -50,6 +51,8 @@ public class GamePlayer extends PlayerStats {
 	private int spawnKillCount = 0;
 	private int mapVotesMultiplier = 1;
 	private long lastTimeDamagedByPlayer = 0;
+	private int spawnKillAlerts = 0;
+	private int afkDeathsCount = 0;
 
 	public GamePlayer(Player player) {
 		super(player);
@@ -106,17 +109,41 @@ public class GamePlayer extends PlayerStats {
 		boolean spawnKill = false;
 		if(lastDamager != null) {
 			if(GamePlayer.get(lastDamager) != null) {
+				GamePlayer killerGP = GamePlayer.get(lastDamager);
 				Player killer = Bukkit.getPlayer(lastDamager);
+				Location spawnLocation = game.getGameArena().getSpawnPoints().get(gameTeam.getTeam().getId());
+				if(player.getLocation().getPitch() == spawnLocation.getPitch() && player.getLocation().getYaw() == spawnLocation.getYaw()) {
+					setAfkDeathsCount(getAfkDeathsCount() + 1);
+				}
+				if(getAfkDeathsCount() > 8) {
+					setDead(DamageCause.ENTITY_ATTACK);
+					return;
+				}
 				if(getLastKiller() != null) {
 					if(getLastKiller().equals(lastDamager) && (System.currentTimeMillis() - getLastRespawnTime()) <= 
-							(6000 + 1000*ConfigMain.get().getInt("general.respawn-protection-time"))) { //TODO FROM CONFIG
+							(9000 + 1000*ConfigMain.get().getInt("general.respawn-protection-time"))) { //TODO FROM CONFIG
 						setSpawnKillCount(getSpawnKillCount() + 1);
 						if(getSpawnKillCount() > 2) {
 							spawnKill = true;
 							if(killer!=null) {
 								//TODO LANG
 								killer.sendMessage(ChatUtils.format("&c¡No hagas spawm kill! &7(Las estadísticas de este asesinato no contarán)"));
+								killerGP.setSpawnKillAlerts(killerGP.getSpawnKillAlerts() + 1);
 							}
+						}
+					}
+					else if(killerGP.getSpawnKillAlerts() > 20) {
+						spawnKill = true;
+						if(killer!=null) {
+							//TODO LANG
+							killer.sendMessage(ChatUtils.format("&c¡Has hecho mucho spawm kill! &7(Las estadísticas de tus asesinatos no serán contadas en esta partida)"));
+						}
+					}
+					else if(killerGP.getCurrentKills() > 100) {
+						spawnKill = true;
+						if(killer!=null) {
+							//TODO LANG
+							killer.sendMessage(ChatUtils.format("&c¡Has superado el limite máximo de asesinatos por partida! &7(Las estadísticas de tus asesinatos no serán contadas en esta partida)"));
 						}
 					}
 					else {
@@ -124,11 +151,11 @@ public class GamePlayer extends PlayerStats {
 					}
 				}
 				if(!spawnKill) {
-					GamePlayer.get(lastDamager).updateCurrentKills();
+					killerGP.updateCurrentKills();
 					game.broadcastKill(cause, player.getName(), lastDamager, false);
 					if(killer!=null) {
-						GamePlayer.get(lastDamager).addKill();
-						GamePlayer.get(lastDamager).addExp(1); //TODO cantidad de exp configurable
+						killerGP.addKill();
+						killerGP.addExp(1); //TODO cantidad de exp configurable
 					}
 					getGame().updateTopKills(lastDamager);
 				}
@@ -142,7 +169,9 @@ public class GamePlayer extends PlayerStats {
 		if(!hasKiller) {
 			game.broadcastKill(cause, player.getName(), false);
 		}
-		addDeath();
+		if(!spawnKill) {
+			addDeath();
+		}
 		restore();
 		player.getOpenInventory().close();
 		player.playSound(player.getLocation(), Sound.ENDERDRAGON_HIT, 1, 0.1f); //TODO CONFIG
@@ -572,5 +601,21 @@ public class GamePlayer extends PlayerStats {
 
 	public void setLastTimeDamagedByPlayer(long lastTimeDamagedByPlayer) {
 		this.lastTimeDamagedByPlayer = lastTimeDamagedByPlayer;
+	}
+
+	public int getSpawnKillAlerts() {
+		return spawnKillAlerts;
+	}
+
+	public void setSpawnKillAlerts(int spawnKillAlerts) {
+		this.spawnKillAlerts = spawnKillAlerts;
+	}
+
+	public int getAfkDeathsCount() {
+		return afkDeathsCount;
+	}
+
+	public void setAfkDeathsCount(int afkDeathsCount) {
+		this.afkDeathsCount = afkDeathsCount;
 	}
 }

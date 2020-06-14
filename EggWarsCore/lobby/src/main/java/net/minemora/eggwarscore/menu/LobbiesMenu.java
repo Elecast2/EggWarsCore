@@ -16,11 +16,15 @@ import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import net.minemora.eggwarscore.EggWarsCoreLobby;
 import net.minemora.eggwarscore.bungee.BungeeHandler;
 import net.minemora.eggwarscore.bungee.BungeeListener;
 import net.minemora.eggwarscore.config.ConfigMain;
+import net.minemora.eggwarscore.database.Database;
+import net.minemora.eggwarscore.database.Stat;
+import net.minemora.eggwarscore.player.LobbyPlayer;
 import net.minemora.eggwarscore.utils.ChatUtils;
 
 public class LobbiesMenu extends Menu {
@@ -79,6 +83,11 @@ public class LobbiesMenu extends Menu {
 			}
 			inv.setItem(layout[i-1], item);
 		}
+		ItemStack item =  new ItemStack(Material.EYE_OF_ENDER);
+		ItemMeta meta = item.getItemMeta();
+		meta.setDisplayName(ChatUtils.format("&2&lCambiar visibilidad de jugadores"));
+		item.setItemMeta(meta);
+		inv.setItem(22, item);
 		setInventory(inv);
 	}
 	
@@ -146,15 +155,43 @@ public class LobbiesMenu extends Menu {
 					if(current == i+1) {
 						event.getWhoClicked().sendMessage(ChatUtils.format("&c¡Ya te encuentras conectado a ese lobby!")); //TODO LANG or BASS
 						((Player) event.getWhoClicked()).playSound(event.getWhoClicked().getLocation(), Sound.NOTE_BASS, 0.5f, 1);
+						return;
 					}
 					else {
 						BungeeHandler.sendPlayer((Player) event.getWhoClicked(), lobbies.get(i+1));
 						((Player) event.getWhoClicked()).playSound(event.getWhoClicked().getLocation(), Sound.CLICK, 0.5f, 1);
+						return;
 					}
-					break;
+				}
+			}
+			if(event.getSlot() == 22) {
+				Player player = (Player) event.getWhoClicked();
+				LobbyPlayer lobbyPlayer = LobbyPlayer.get(player.getName());
+				if(lobbyPlayer.isHidePlayers()) {
+					lobbyPlayer.toggleVisibility(false);
+					player.playSound(event.getWhoClicked().getLocation(), Sound.CLICK, 0.5f, 1);
+					player.sendMessage(ChatUtils.format("&a&l¡La visibilidad de jugadores ha sido cambiada a &2&lvisibles&a&l!"));
+					new BukkitRunnable() {
+						@Override
+						public void run() {
+							Database.set(Stat.HIDE_PLAYERS, player, 0);
+						}
+					}.runTaskAsynchronously(getPlugin());
+				}
+				else {
+					lobbyPlayer.toggleVisibility(true);
+					player.playSound(event.getWhoClicked().getLocation(), Sound.CLICK, 0.5f, 1);
+					player.sendMessage(ChatUtils.format("&a&l¡La visibilidad de jugadores ha sido cambiada a &c&locultos&a&l!"));
+					new BukkitRunnable() {
+						@Override
+						public void run() {
+							Database.set(Stat.HIDE_PLAYERS, player, 1);
+						}
+					}.runTaskAsynchronously(getPlugin());
 				}
 			}
 		}
+		
 	}
 	
 	public Map<Integer, String> getLobbies() {

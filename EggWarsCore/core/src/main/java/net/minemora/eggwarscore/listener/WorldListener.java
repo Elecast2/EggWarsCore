@@ -36,7 +36,7 @@ public class WorldListener extends EggWarsListener {
 			return;
 		}
 		Game game = Game.getByWorldName(event.getEntity().getWorld().getName());
-		if(game== null) {
+		if(game == null) {
 			return;
 		}
 		Iterator<Block> iter = event.blockList().iterator();
