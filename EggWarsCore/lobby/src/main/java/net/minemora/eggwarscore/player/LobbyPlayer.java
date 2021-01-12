@@ -103,7 +103,7 @@ public class LobbyPlayer extends PlayerStats {
 		}.runTask(EggWarsCoreLobby.getPlugin());
 	}
 	
-	private void loadNPCs(Player player) {
+	protected void loadNPCs(Player player) {
 		if(NPCManager.getNPCs().isEmpty()) {
 			return;
 		}
@@ -117,7 +117,7 @@ public class LobbyPlayer extends PlayerStats {
 		}.runTaskAsynchronously(EggWarsCoreLobby.getPlugin());
 	}
 	
-	private void loadQuickGameHolo(Player player) {
+	protected void loadQuickGameHolo(Player player) {
 		if(!quickJoinHoloEnabled) {
 			return;
 		}
@@ -125,7 +125,7 @@ public class LobbyPlayer extends PlayerStats {
 				quickJoinHoloLocation, ChatUtils.format("&7Modo: " + GameManager.getModeDisplayName(getMode())));
 	}
 	
-	private void loadParkourHolo(Player player) {
+	protected void loadParkourHolo(Player player) {
 		if(!parkourHoloEnabled) {
 			return;
 		}

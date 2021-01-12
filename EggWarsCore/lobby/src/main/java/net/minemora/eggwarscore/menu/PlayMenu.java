@@ -15,8 +15,11 @@ import org.bukkit.inventory.ItemStack;
 
 import net.minemora.eggwarscore.config.ConfigMain;
 import net.minemora.eggwarscore.game.GameManager;
+import net.minemora.eggwarscore.moraparty.MoraPartyHook;
 import net.minemora.eggwarscore.utils.ChatUtils;
 import net.minemora.eggwarscore.utils.ItemConfig;
+import net.minemora.moraparty.MoraPartyAPI;
+import net.minemora.moraparty.Party;
 
 public class PlayMenu extends Menu {
 	
@@ -79,6 +82,14 @@ public class PlayMenu extends Menu {
 			}
 			for(ItemStack item : modesQuick.keySet()) {
 				if(event.getCurrentItem().equals(item)) {
+					if(MoraPartyHook.isEnabled()) {
+						if(MoraPartyAPI.isLeader(player.getName())) {
+							Party party = MoraPartyAPI.getPartyFromLeader(player.getName());
+							GameManager.attemptToSendTeam(player, party.getMembers(), GameManager.getQuickGameForTeam(modesQuick.get(item), party.getMembers().size()));
+							player.playSound(player.getLocation(), Sound.CLICK, 0.5f, 1);
+							return;
+						}
+					}
 					GameManager.attemptToSendPlayer(player, GameManager.getQuickGame(modesQuick.get(item)));
 					player.playSound(player.getLocation(), Sound.CLICK, 0.5f, 1);
 					return;

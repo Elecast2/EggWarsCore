@@ -5,6 +5,7 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -63,14 +64,14 @@ public class PlayerListener extends EggWarsListener {
 	
 	@EventHandler
 	public void onAsyncPlayerPreLogin(AsyncPlayerPreLoginEvent event) {
-		if(!NetworkClient.getRegisteredPlayers().containsKey(event.getName())) {
+		if(!NetworkClient.getRegisteredPlayers().containsKey(event.getName().toLowerCase())) {
 			event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, "Player is not on the list");
 			return;
 		}
 		if(TeamManager.getMaxPlayers()*TeamManager.getTeams().size() == 
-				NetworkClient.getRegisteredPlayers().get(event.getName()).getPlayersCount()) {
+				NetworkClient.getRegisteredPlayers().get(event.getName().toLowerCase()).getPlayersCount()) {
 			event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, "This game is full");
-			NetworkClient.getRegisteredPlayers().remove(event.getName());
+			NetworkClient.getRegisteredPlayers().remove(event.getName().toLowerCase());
 		}
 	}
 	
@@ -253,9 +254,17 @@ public class PlayerListener extends EggWarsListener {
     	Block placed = event.getBlock();
     	for(Location loc : gp.getGame().getGameArena().getSpawnPoints().values()) {
     		if(loc.distanceSquared(placed.getLocation()) < ((TeamManager.getMaxPlayers() >= 4) ? 7 : 5) && placed.getLocation().getBlockY() >= loc.getBlockY()) {
-    			event.getPlayer().sendMessage(ChatUtils.format("&cNo puedes contruir cerca de el punto de aparición"));//TODO LANG
-    			event.setCancelled(true);
-        		return;
+    			boolean cancel = true;
+    			if(placed.getRelative(BlockFace.NORTH).getType() == Material.DRAGON_EGG || placed.getRelative(BlockFace.SOUTH).getType() == Material.DRAGON_EGG || 
+    					placed.getRelative(BlockFace.EAST).getType() == Material.DRAGON_EGG || placed.getRelative(BlockFace.WEST).getType() == Material.DRAGON_EGG || 
+    					placed.getRelative(BlockFace.DOWN).getType() == Material.DRAGON_EGG) {
+    				cancel = false;
+    			}
+    			if(cancel) {
+    				event.getPlayer().sendMessage(ChatUtils.format("&cNo puedes contruir cerca de el punto de aparición"));//TODO LANG
+        			event.setCancelled(true);
+            		return;
+    			}
     		}
     	}
     	if(placed.getLocation().distanceSquared(gp.getGame().getGameArena().getCenter()) > 26000) { //TODO CONFIG

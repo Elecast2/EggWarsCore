@@ -1,0 +1,396 @@
+tournament-name: "Eggwars Kings"
+allowed-groups: [A,B,C,D]
+groups:
+   A:
+      group-name: "&eGrupo A"
+      game-id: 0
+      games-played: 0
+      teams:
+         - 1
+         - 2
+         - 3
+         - 4
+   B:
+      group-name: "&9Grupo B"
+      game-id: 1
+      games-played: 0
+      teams:
+         - 5
+         - 6
+         - 7
+         - 8
+   C:
+      group-name: "&cGrupo C"
+      game-id: 2
+      games-played: 0
+      teams:
+         - 9
+         - 10
+         - 11
+         - 12
+   D:
+      group-name: "&aGrupo D"
+      game-id: 3
+      games-played: 0
+      teams:
+         - 13
+         - 14
+         - 15
+         - 16
+   E:
+      group-name: "&6Grupo E"
+      game-id: 0
+      games-played: 0
+      teams:
+         - 17
+         - 18
+         - 19
+         - 20
+   F:
+      group-name: "&dGrupo F"
+      game-id: 1
+      games-played: 0
+      teams:
+         - 21
+         - 22
+         - 23
+         - 24
+   G:
+      group-name: "&bGrupo G"
+      game-id: 2
+      games-played: 0
+      teams:
+         - 25
+         - 26
+         - 27
+         - 28
+   H:
+      group-name: "&fGrupo H"
+      game-id: 3
+      games-played: 0
+      teams:
+         - 29
+         - 30
+         - 31
+         - 32
+teams:
+   '1':
+      team-name: "Equipo 1"
+      game-team-id: 1
+      sign-location: "-37,98,-12"
+      points: 0
+      members:
+         - asd1
+         - asd2
+         - asd3
+         - asd4
+   '2':
+      team-name: "Equipo 2"
+      game-team-id: 2
+      sign-location: "-36,98,-12"
+      points: 0
+      members:
+         - asd1
+         - asd2
+         - asd3
+         - asd4
+   '3':
+      team-name: "Equipo 3"
+      game-team-id: 3
+      sign-location: "-37,97,-12"
+      points: 0
+      members:
+         - asd1
+         - asd2
+         - asd3
+         - asd4
+   '4':
+      team-name: "Equipo 4"
+      game-team-id: 4
+      sign-location: "-36,97,-12"
+      points: 0
+      members:
+         - asd1
+         - asd2
+         - asd3
+         - asd4
+   '5':
+      team-name: "Equipo 5"
+      game-team-id: 1
+      sign-location: "-34,98,-12"
+      points: 0
+      members:
+         - asd1
+         - asd2
+         - asd3
+         - asd4
+   '6':
+      team-name: "Equipo 6"
+      game-team-id: 2
+      sign-location: "-33,98,-12"
+      points: 0
+      members:
+         - asd1
+         - asd2
+         - asd3
+         - asd4
+   '7':
+      team-name: "Equipo 7"
+      game-team-id: 3
+      sign-location: "-34,97,-12"
+      points: 0
+      members:
+         - asd1
+         - asd2
+         - asd3
+         - asd4
+   '8':
+      team-name: "Equipo 8"
+      game-team-id: 4
+      sign-location: "-33,97,-12"
+      points: 0
+      members:
+         - asd1
+         - asd2
+         - asd3
+         - asd4
+   '9':
+      team-name: "Equipo 9"
+      game-team-id: 1
+      sign-location: "-31,98,-12"
+      points: 0
+      members:
+         - asd1
+         - asd2
+         - asd3
+         - asd4
+   '10':
+      team-name: "Equipo 10"
+      game-team-id: 2
+      sign-location: "-30,98,-12"
+      points: 0
+      members:
+         - asd1
+         - asd2
+         - asd3
+         - asd4
+   '11':
+      team-name: "Equipo 11"
+      game-team-id: 3
+      sign-location: "-31,97,-12"
+      points: 0
+      members:
+         - asd1
+         - asd2
+         - asd3
+         - asd4
+   '12':
+      team-name: "Equipo 12"
+      game-team-id: 4
+      sign-location: "-30,97,-12"
+      points: 0
+      members:
+         - asd1
+         - asd2
+         - asd3
+         - asd4
+   '13':
+      team-name: "Equipo 13"
+      game-team-id: 1
+      sign-location: "-28,98,-12"
+      points: 0
+      members:
+         - asd1
+         - asd2
+         - asd3
+         - asd4
+   '14':
+      team-name: "Equipo 14"
+      game-team-id: 2
+      sign-location: "-27,98,-12"
+      points: 0
+      members:
+         - asd1
+         - asd2
+         - asd3
+         - asd4
+   '15':
+      team-name: "Equipo 15"
+      game-team-id: 3
+      sign-location: "-28,97,-12"
+      points: 0
+      members:
+         - asd1
+         - asd2
+         - asd3
+         - asd4
+   '16':
+      team-name: "Equipo 16"
+      game-team-id: 4
+      sign-location: "-27,97,-12"
+      points: 0
+      members:
+         - asd1
+         - asd2
+         - asd3
+         - asd4
+   '17':
+      team-name: "Equipo 17"
+      game-team-id: 1
+      sign-location: "-25,98,-12"
+      points: 0
+      members:
+         - asd1
+         - asd2
+         - asd3
+         - asd4
+   '18':
+      team-name: "Equipo 18"
+      game-team-id: 2
+      sign-location: "-24,98,-12"
+      points: 0
+      members:
+         - asd1
+         - asd2
+         - asd3
+         - asd4
+   '19':
+      team-name: "Equipo 19"
+      game-team-id: 3
+      sign-location: "-25,97,-12"
+      points: 0
+      members:
+         - asd1
+         - asd2
+         - asd3
+         - asd4
+   '20':
+      team-name: "Equipo 20"
+      game-team-id: 4
+      sign-location: "-24,97,-12"
+      points: 0
+      members:
+         - asd1
+         - asd2
+         - asd3
+         - asd4
+   '21':
+      team-name: "Equipo 21"
+      game-team-id: 1
+      sign-location: "-22,98,-12"
+      points: 0
+      members:
+         - asd1
+         - asd2
+         - asd3
+         - asd4
+   '22':
+      team-name: "Equipo 22"
+      game-team-id: 2
+      sign-location: "-21,98,-12"
+      points: 0
+      members:
+         - asd1
+         - asd2
+         - asd3
+         - asd4
+   '23':
+      team-name: "Equipo 23"
+      game-team-id: 3
+      sign-location: "-22,97,-12"
+      points: 0
+      members:
+         - asd1
+         - asd2
+         - asd3
+         - asd4
+   '24':
+      team-name: "Equipo 24"
+      game-team-id: 4
+      sign-location: "-21,97,-12"
+      points: 0
+      members:
+         - asd1
+         - asd2
+         - asd3
+         - asd4
+   '25':
+      team-name: "Equipo 25"
+      game-team-id: 1
+      sign-location: "-19,98,-12"
+      points: 0
+      members:
+         - asd1
+         - asd2
+         - asd3
+         - asd4
+   '26':
+      team-name: "Equipo 26"
+      game-team-id: 2
+      sign-location: "-18,98,-12"
+      points: 0
+      members:
+         - asd1
+         - asd2
+         - asd3
+         - asd4
+   '27':
+      team-name: "Equipo 27"
+      game-team-id: 3
+      sign-location: "-19,97,-12"
+      points: 0
+      members:
+         - asd1
+         - asd2
+         - asd3
+         - asd4
+   '28':
+      team-name: "Equipo 28"
+      game-team-id: 4
+      sign-location: "-18,97,-12"
+      points: 0
+      members:
+         - asd1
+         - asd2
+         - asd3
+         - asd4
+   '29':
+      team-name: "Equipo 29"
+      game-team-id: 1
+      sign-location: "-16,98,-12"
+      points: 0
+      members:
+         - asd1
+         - asd2
+         - asd3
+         - asd4
+   '30':
+      team-name: "Equipo 30"
+      game-team-id: 2
+      sign-location: "-15,98,-12"
+      points: 0
+      members:
+         - asd1
+         - asd2
+         - asd3
+         - asd4
+   '31':
+      team-name: "Equipo 31"
+      game-team-id: 3
+      sign-location: "-16,97,-12"
+      points: 0
+      members:
+         - asd1
+         - asd2
+         - asd3
+         - asd4
+   '32':
+      team-name: "Equipo 32"
+      game-team-id: 4
+      sign-location: "-15,97,-12"
+      points: 0
+      members:
+         - asd1
+         - asd2
+         - asd3
+         - asd128

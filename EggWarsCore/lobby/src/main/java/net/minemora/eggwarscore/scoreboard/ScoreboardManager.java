@@ -5,7 +5,9 @@ import java.util.Map;
 
 import org.bukkit.entity.Player;
 
+import net.minemora.eggwarscore.game.GameManager;
 import net.minemora.eggwarscore.player.LobbyPlayer;
+import net.minemora.eggwarscore.player.TournamentLobbyPlayer;
 import net.minemora.eggwarscore.shared.VaultManager;
 
 public final class ScoreboardManager {
@@ -19,17 +21,21 @@ public final class ScoreboardManager {
 	}
 
 	public static void loadPlaceholders() {
-		new Placeholder("player", false);
-		new Placeholder("group", false);
-		new Placeholder("boost", false);
-		new Placeholder("level", true);
-		new Placeholder("exp", true);
-		new Placeholder("keys", true);
-		new Placeholder("money", true);
-		new Placeholder("kills", false);
-		new Placeholder("deaths", false);
-		new Placeholder("wins", false);
-		new Placeholder("eggs", false);
+		loadPlaceholder("player", false);
+		loadPlaceholder("group", false);
+		loadPlaceholder("boost", false);
+		loadPlaceholder("level", true);
+		loadPlaceholder("exp", true);
+		loadPlaceholder("keys", true);
+		loadPlaceholder("money", true);
+		loadPlaceholder("kills", false);
+		loadPlaceholder("deaths", false);
+		loadPlaceholder("wins", false);
+		loadPlaceholder("eggs", false);
+	}
+	
+	public static void loadPlaceholder(String placeholder, boolean dynamic) {
+		new Placeholder(placeholder, dynamic);
 	}
 	
 	public static void setLobbyScoreboard(Player player) {
@@ -46,6 +52,17 @@ public final class ScoreboardManager {
 		defaults.put(Placeholder.get("deaths"), String.valueOf(lp.getDeaths()));
 		defaults.put(Placeholder.get("wins"), String.valueOf(lp.getWins()));
 		defaults.put(Placeholder.get("eggs"), String.valueOf(lp.getDestroyedEggs()));
+		if(GameManager.isTournamentMode()) {
+			TournamentLobbyPlayer tlp = (TournamentLobbyPlayer) lp;
+			if(tlp.isStaff() && !tlp.isPlayer()) {
+				defaults.put(Placeholder.get("tournament-team"), "STAFF");
+				defaults.put(Placeholder.get("tournament-points"), String.valueOf(0));
+			}
+			else {
+				defaults.put(Placeholder.get("tournament-team"), tlp.getTeam().getTeamName());
+				defaults.put(Placeholder.get("tournament-points"), String.valueOf(tlp.getTeam().getPoints()));
+			}
+		}
 		lobbyScoreboard.set(player, defaults);
 	}
 	

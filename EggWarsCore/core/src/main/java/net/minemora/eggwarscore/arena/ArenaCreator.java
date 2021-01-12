@@ -224,6 +224,7 @@ public class ArenaCreator extends EggWarsListener {
 		}
 
 		ConfigArenas.getInstance().save();
+		ArenaManager.loadArenas();
 	}
 	
 	@EventHandler

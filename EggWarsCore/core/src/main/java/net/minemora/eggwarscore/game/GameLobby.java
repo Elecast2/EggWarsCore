@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.bukkit.GameMode;
@@ -51,6 +53,8 @@ public class GameLobby extends Multicast {
 	private TimeVoteMenu timeVoteMenu;
 	
 	private boolean started;
+	
+	private Map<Set<String>,GameTeam> reservedTeams = new HashMap<>();
 
 	public GameLobby(int id) {
 		this.id = id;
@@ -65,6 +69,7 @@ public class GameLobby extends Multicast {
         mapVotes.clear();
         timeVotes.clear();
         gameTeams.clear();
+        reservedTeams.clear();
         for(Team team : TeamManager.getTeams().values()) {
 			gameTeams.put(team.getId(), new GameTeam(team));
 		}
@@ -156,6 +161,7 @@ public class GameLobby extends Multicast {
 		}
 		if(ReportSystemHook.isEnabled()) {
 			if(ReportSystemAPI.processQueue(player)) {
+				revealPlayersToPlayer(player);
 				return;
 			}
 			if(ReportSystemAPI.isSpy(player.getName())) {
@@ -164,6 +170,19 @@ public class GameLobby extends Multicast {
 			}
 		}
 		showPlayer(player);
+		if(GameManager.isTournamentMode()) {
+			TournamentTeam tteam = TournamentManager.getInstance().getTeamFromPlayerName(player.getName());
+			if(tteam != null) {
+				getGameTeams().get(tteam.getGameTeamId()).addPlayer(player);
+			}
+		}
+		for(Set<String> subTeam : reservedTeams.keySet()) {
+			if(subTeam.contains(player.getName().toLowerCase())) {
+				GameTeam gameTeam = reservedTeams.get(subTeam);
+				gameTeam.addPlayer(player);
+				break;
+			}
+		}
 	}
 	
 	private void loadTags(Player player) {
@@ -249,6 +268,17 @@ public class GameLobby extends Multicast {
 			if (mapVotes.get(map) >= votes) {
 				votes = mapVotes.get(map);
 				votedMap = map;
+			}
+		}
+		if(GameManager.isTournamentMode()) {
+			int size = mapVotes.keySet().size();
+			int item = new Random().nextInt(size);
+			int i = 0;
+			for(String name : mapVotes.keySet())
+			{
+			    if (i == item)
+			        return name;
+			    i++;
 			}
 		}
 		return votedMap;
@@ -377,6 +407,43 @@ public class GameLobby extends Multicast {
 		}
 		return false;
 	}
+	
+	public int getFreeTeams() {
+		int count = 0;
+		for(GameTeam team : gameTeams.values()) {
+			if(team.getPlayersCount() == 0) {
+				count++;
+			}
+		}
+		return count;
+	}
+	
+	public GameTeam getEmptyGameTeam() {
+		for(GameTeam gameTeam : gameTeams.values()) {
+			if(reservedTeams.containsValue(gameTeam)) {
+				continue;
+			}
+			if(gameTeam.getPlayersCount() == 0) {
+				return gameTeam;
+			}
+		}
+		return getTeamWithLessPlayers();
+	}
+	
+	public GameTeam getTeamWithLessPlayers() {
+		GameTeam toReturn = null;
+		int size = TeamManager.getMaxPlayers();
+		for(GameTeam gameTeam : gameTeams.values()) {
+			if(reservedTeams.containsValue(gameTeam)) {
+				continue;
+			}
+			if(gameTeam.getPlayersCount() < size) {
+				toReturn = gameTeam;
+				size = gameTeam.getPlayersCount();
+			}
+		}
+		return toReturn;
+	}
 
 	public Map<String, Integer> getMapVotes() {
 		return mapVotes;
@@ -432,5 +499,9 @@ public class GameLobby extends Multicast {
 
 	public Map<String, Integer> getTimeVotes() {
 		return timeVotes;
+	}
+
+	public Map<Set<String>,GameTeam> getReservedTeams() {
+		return reservedTeams;
 	}
 }

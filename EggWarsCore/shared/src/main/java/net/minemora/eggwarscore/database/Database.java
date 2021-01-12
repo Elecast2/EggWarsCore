@@ -90,6 +90,9 @@ public class Database {
 	}
 	//RUN THIS ASYNC
 	public void loadStats(PlayerStats ps) {
+		if(ps.getPlayer() == null) {
+			return;
+		}
 		loadMainStats(ps);
 		loadExtras(ps);
 		ps.setLoaded(true);

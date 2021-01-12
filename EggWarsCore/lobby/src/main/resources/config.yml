@@ -6,6 +6,7 @@ general:
   top-limit: 10
   top-update-time: 5
   level-rate: 10
+  tournament-mode: false
 database:
   url: 'jdbc:mysql://0.0.0.0:3306/database?useSSL=false'
   username: 'user'
@@ -173,6 +174,7 @@ modes:
   solo:
     id: 0
     max-players: 12
+    max-players-per-team: 1
     item:
       material: DIAMOND
       display-name: '&a&lSOLO'
@@ -189,6 +191,7 @@ modes:
   duo:
     id: 1
     max-players: 24
+    max-players-per-team: 2
     item:
       material: DIAMOND_BOOTS
       display-name: '&b&lDÚO'
@@ -205,6 +208,7 @@ modes:
   squad:
     id: 2
     max-players: 24
+    max-players-per-team: 4
     item:
       material: DIAMOND_CHESTPLATE
       display-name: '&c&lESCUADRÓN'
@@ -218,22 +222,6 @@ modes:
       slot: 23
       material: ENDER_PEARL
       display-name: '&5&lPartida Rápida: &c&lESCUADRÓN'
-  mtl:
-    id: 3
-    max-players: 24
-    item:
-      material: REDSTONE
-      display-name: '&d&lMTL'
-      lore:
-        - ''
-        - '&7¡Modos experimentales y únicos!'
-        - ''
-    menu-title: '&8&nMTL:'
-    slot: 16
-    quick-join-item:
-      slot: 25
-      material: ENDER_PEARL
-      display-name: '&5&lPartida Rápida: &d&lMTL'
 leave-servers:
   - lobby1
   - lobby2

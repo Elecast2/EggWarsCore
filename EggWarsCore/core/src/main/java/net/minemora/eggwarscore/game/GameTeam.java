@@ -1,20 +1,25 @@
 package net.minemora.eggwarscore.game;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.scoreboard.Objective;
 
+import net.minemora.eggwarscore.config.ConfigMain;
 import net.minemora.eggwarscore.team.Team;
 import net.minemora.eggwarscore.team.TeamManager;
+import net.minemora.eggwarscore.utils.Utils;
 
 public class GameTeam extends Multicast {
 
 	private Team team;
 	private boolean eggDestroyed = false;
 	private Inventory enderChest = Bukkit.createInventory(null, 27, "Ender Chest"); //TODO LANG Y SIZE CONFIG also if enabled
+	private List<String> disconnectedPlayers = new ArrayList<>();
 
 	public GameTeam(Team team /* TODO los demas constructores */) {
 		this.team = team;
@@ -34,7 +39,21 @@ public class GameTeam extends Multicast {
 		return alive;
 	}
 	
-	public void addPlayer(String playerName) {
+	public void addPlayer(Player player) {
+		String playerName = player.getName();
+		GamePlayer gp = GamePlayer.get(playerName);
+		if(gp.getGameTeam() != null) {
+			gp.getGameTeam().getPlayers().remove(playerName);
+		}
+		getPlayers().add(playerName);
+		gp.setGameTeam(this);
+		setTag(playerName);
+		if(ConfigMain.get().getBoolean("general.leather-armor-when-join-team")) {
+			Utils.dyePlayer(player, Utils.chatColorToColor(getTeam().getColor()));
+		}
+	}
+	
+	public void addPlayerOnly(String playerName) {
 		GamePlayer gp = GamePlayer.get(playerName);
 		if(gp.getGameTeam() != null) {
 			gp.getGameTeam().getPlayers().remove(playerName);
@@ -138,5 +157,9 @@ public class GameTeam extends Multicast {
 
 	public void setEnderChest(Inventory enderChest) {
 		this.enderChest = enderChest;
+	}
+
+	public List<String> getDisconnectedPlayers() {
+		return disconnectedPlayers;
 	}
 }

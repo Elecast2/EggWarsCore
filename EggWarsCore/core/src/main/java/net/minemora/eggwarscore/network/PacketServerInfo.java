@@ -26,14 +26,14 @@ public class PacketServerInfo extends Packet {
 		for(int i : GameManager.getGames().keySet()) {
 			GameLobby gameLobby = GameManager.getGames().get(i);
 			if(gameLobby.getGame() != null) {
-				sb.append(gameLobby.getId() + ":" + gameLobby.getGame().getPlayersCount() + ":1");
+				sb.append(gameLobby.getId() + ":" + gameLobby.getGame().getPlayersCount() + ":1:0");
 			}
 			else {
 				if(GameManager.isSoftRestarting()) {
-					sb.append(gameLobby.getId() + ":" + gameLobby.getPlayersCount() + ":2");
+					sb.append(gameLobby.getId() + ":" + gameLobby.getPlayersCount() + ":2:0");
 				}
 				else{
-					sb.append(gameLobby.getId() + ":" + gameLobby.getPlayersCount() + ":0");
+					sb.append(gameLobby.getId() + ":" + gameLobby.getPlayersCount() + ":0:" + gameLobby.getFreeTeams());
 				}
 			}
 			count++;

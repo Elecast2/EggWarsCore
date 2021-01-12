@@ -15,6 +15,8 @@ import org.bukkit.event.world.WorldInitEvent;
 
 import net.minemora.eggwarscore.EggWarsCore;
 import net.minemora.eggwarscore.game.Game;
+import net.minemora.eggwarscore.generator.Generator;
+import net.minemora.eggwarscore.generator.GeneratorManager;
 
 public class WorldListener extends EggWarsListener {
 
@@ -58,7 +60,11 @@ public class WorldListener extends EggWarsListener {
 	
 	@EventHandler
 	public void onItemDespawn(ItemDespawnEvent event) {
-		event.setCancelled(true); //TODO FROM CONFIG
+		for(Generator generator : GeneratorManager.getGenerators().values()) {
+			if(generator.getMaterial() == event.getEntity().getItemStack().getType()) {
+				event.setCancelled(true); //TODO FROM CONFIG
+			}
+		}
 	}
 	
 	@EventHandler

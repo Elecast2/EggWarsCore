@@ -14,9 +14,11 @@ import net.minemora.eggwarscore.EggWarsCoreLobby;
 import net.minemora.eggwarscore.chat.ChatManager;
 import net.minemora.eggwarscore.config.ConfigMain;
 import net.minemora.eggwarscore.database.PlayerStats;
+import net.minemora.eggwarscore.game.GameManager;
 import net.minemora.eggwarscore.lobby.Lobby;
 import net.minemora.eggwarscore.lobby.LobbyItem;
 import net.minemora.eggwarscore.player.LobbyPlayer;
+import net.minemora.eggwarscore.player.TournamentLobbyPlayer;
 import net.minemora.eggwarscore.rchest.RewardChest;
 import net.minemora.eggwarscore.shared.VaultManager;
 import net.minemora.eggwarscore.utils.ChatUtils;
@@ -40,8 +42,13 @@ public class PlayerListener extends EggWarsListener {
 		
 		//------------
 		
+		if(!GameManager.isTournamentMode()) {
+			new LobbyPlayer(event.getPlayer());
+		}
+		else {
+			new TournamentLobbyPlayer(event.getPlayer());
+		}
 		
-		new LobbyPlayer(event.getPlayer());
 	}
 	
 	@EventHandler

@@ -31,7 +31,10 @@ public class HeartBeat extends TimerTask {
 			EggWarsCore.getPlugin().getLogger().severe(CmdColor.RED 
 					+ "Lobby connection time out for " + client.getHost() + ":" + client.getPort() + ", trying again..." + CmdColor.RESET);
 			client.shutdown();
-			new NetworkClient(client.getHost(), client.getPort()).start();
+			NetworkManager.getConnections().remove(client);
+			NetworkClient client2 = new NetworkClient(client.getHost(), client.getPort());
+			NetworkManager.getConnections().add(client2);
+			client2.start();
 			timer.cancel();
 			return;
 		}

@@ -12,7 +12,9 @@ import net.minemora.eggwarscore.config.ConfigMain;
 import net.minemora.eggwarscore.database.Database;
 import net.minemora.eggwarscore.game.Game;
 import net.minemora.eggwarscore.game.GameManager;
+import net.minemora.eggwarscore.game.TournamentManager;
 import net.minemora.eggwarscore.network.GamesConnection;
+import net.minemora.eggwarscore.player.TournamentTeam;
 
 public final class HolographicDisplaysHook {
 	
@@ -219,6 +221,18 @@ public final class HolographicDisplaysHook {
 				@Override
 				public String update() {
 					return String.valueOf(topEggsNumber[index]);
+				}
+			});
+		}
+	}
+	
+	public static void loadTournamentPointsPlaceholders() {
+		for(TournamentTeam team  : TournamentManager.getInstance().getTeams().values()) {
+			String id = team.getTeamId();
+			HologramsAPI.registerPlaceholder(EggWarsCoreLobby.getPlugin(), "{team-points-" + id + "}", 10, new PlaceholderReplacer() {
+				@Override
+				public String update() {
+					return String.valueOf(TournamentManager.getInstance().getTeams().get(id).getPoints());
 				}
 			});
 		}

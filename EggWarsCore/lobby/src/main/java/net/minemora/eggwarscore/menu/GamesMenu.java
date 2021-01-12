@@ -19,8 +19,11 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import net.minemora.eggwarscore.game.Game;
 import net.minemora.eggwarscore.game.GameManager;
+import net.minemora.eggwarscore.moraparty.MoraPartyHook;
 import net.minemora.eggwarscore.network.GamesConnection;
 import net.minemora.eggwarscore.utils.ChatUtils;
+import net.minemora.moraparty.MoraPartyAPI;
+import net.minemora.moraparty.Party;
 
 public class GamesMenu extends Menu {
 	
@@ -126,8 +129,23 @@ public class GamesMenu extends Menu {
 			}
 			event.setCancelled(true); 
 			event.getWhoClicked().closeInventory();
-			((Player) event.getWhoClicked()).playSound(event.getWhoClicked().getLocation(), Sound.CLICK, 0.5f, 1);
-			GameManager.attemptToSendPlayer((Player)event.getWhoClicked(), games.get(event.getSlot()));
+			Player player = ((Player) event.getWhoClicked());
+			player.playSound(event.getWhoClicked().getLocation(), Sound.CLICK, 0.5f, 1);
+			if(MoraPartyHook.isEnabled()) {
+				if(MoraPartyAPI.isLeader(player.getName())) {
+					Game game = games.get(event.getSlot());
+					Party party = MoraPartyAPI.getPartyFromLeader(player.getName());
+					if(!GameManager.isGameReadyForTeam(game, party.getMembers().size())) {
+						player.sendMessage(ChatUtils.format("&cNo hay espacio suficiente en la partida para tu equipo."));
+						player.playSound(player.getLocation(), Sound.NOTE_BASS, 0.5f, 1);
+						return;
+					}
+					GameManager.attemptToSendTeam(player, party.getMembers(), game);
+					player.playSound(player.getLocation(), Sound.CLICK, 0.5f, 1);
+					return;
+				}
+			}
+			GameManager.attemptToSendPlayer(player, games.get(event.getSlot()));
 			
 		}
 	}

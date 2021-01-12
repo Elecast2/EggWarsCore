@@ -86,6 +86,13 @@ public class TeamMenu extends Menu {
 				return;
 			}
 			GameTeam team = gameLobby.getGameTeams().get(event.getSlot()+1);
+			if(gameLobby.getReservedTeams().containsValue(team)) {
+				event.getWhoClicked().sendMessage(ChatUtils.format("&cNo puedes unirte a este equipo"));
+				((Player)event.getWhoClicked()).playSound(event.getWhoClicked().getLocation(), 
+						Sound.valueOf(ConfigMain.get().getString("team.team-selector.team-full-sound")), 10, 1);
+				event.getWhoClicked().closeInventory();
+				return;
+			}
 			if(team.getPlayers().size() < TeamManager.getMaxPlayers()) {
 				boolean fromTeam = false;
 				int fromTeamSlot = 0;
@@ -98,14 +105,10 @@ public class TeamMenu extends Menu {
 					}
 					fromTeam = true;
 				}
-				team.addPlayer(event.getWhoClicked().getName());
+				team.addPlayer((Player)event.getWhoClicked());
 				updateItem(event.getSlot());
 				if(fromTeam) {
 					updateItem(fromTeamSlot);
-				}
-				team.setTag(event.getWhoClicked().getName());
-				if(ConfigMain.get().getBoolean("general.leather-armor-when-join-team")) {
-					Utils.dyePlayer((Player) event.getWhoClicked(), Utils.chatColorToColor(team.getTeam().getColor()));
 				}
 				event.getWhoClicked().sendMessage(ChatUtils.format(ConfigLang.get().getString("lobby.joined-to-team")
 						.replaceAll("%team-color%", ""+team.getTeam().getColor()).replaceAll("%team-name%", team.getTeam().getName())));

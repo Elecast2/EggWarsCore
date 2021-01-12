@@ -14,6 +14,7 @@ public class Game {
 	private boolean inGame;
 	private String serverName;
 	private boolean restarting;
+	private int freeTeams;
 	
 	public Game(GamesConnection connection, int id, String mode) {
 		this.connection = connection;
@@ -84,6 +85,14 @@ public class Game {
 
 	public void setRestarting(boolean restarting) {
 		this.restarting = restarting;
+	}
+
+	public int getFreeTeams() {
+		return freeTeams;
+	}
+
+	public void setFreeTeams(int freeTeams) {
+		this.freeTeams = freeTeams;
 	}
 
 }

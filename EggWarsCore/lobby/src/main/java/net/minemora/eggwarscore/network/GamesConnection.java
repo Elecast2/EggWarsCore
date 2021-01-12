@@ -13,8 +13,11 @@ import org.bukkit.Bukkit;
 import net.minemora.eggwarscore.EggWarsCoreLobby;
 import net.minemora.eggwarscore.game.Game;
 import net.minemora.eggwarscore.game.GameManager;
+import net.minemora.eggwarscore.game.TournamentManager;
 import net.minemora.eggwarscore.menu.GamesMenu;
 import net.minemora.eggwarscore.utils.CmdColor;
+import net.minemora.moraparty.MoraPartyAPI;
+import net.minemora.moraparty.Party;
 
 public class GamesConnection extends ClientConnection {
 	
@@ -45,12 +48,14 @@ public class GamesConnection extends ClientConnection {
 				int id = Integer.parseInt(data[0]);
 				int players = Integer.parseInt(data[1]);
 				int status = Integer.parseInt(data[2]);
+				int freeTeams = Integer.parseInt(data[3]);
 				if(!getGames().containsKey(id)) {
 					getGames().put(id, new Game(this, id, mode));
 					getGames().get(id).setServerName(serverName);
 				}
 				Game game = getGames().get(id);
 				game.setPlayerCount(players);
+				game.setFreeTeams(freeTeams);
 				if(status == 1) {
 					if(!game.isInGame()) {
 						game.setInGame(true);
@@ -115,6 +120,28 @@ public class GamesConnection extends ClientConnection {
 				GameManager.getSendQueue().remove(playerName);
 			}
 		}
+		else if(inputLine.startsWith("SendTeam")) {
+			String[] sections = inputLine.split("\\$");
+			String leaderName = sections[1];
+			boolean accept = Boolean.parseBoolean(sections[2]);
+			if(GameManager.getSendQueue().containsKey(leaderName)) {
+				if(Bukkit.getPlayer(leaderName) == null) {
+					System.out.println("[send] player is null, maybe disconnected?");//TODO QUITAR
+					GameManager.getSendQueue().remove(leaderName);
+					return;
+				}
+				if(accept) {
+					if(MoraPartyAPI.isLeader(leaderName)) {
+						Party party = MoraPartyAPI.getPartyFromLeader(leaderName);
+						MoraPartyAPI.sendPartyToServer(Bukkit.getPlayer(leaderName), party, GameManager.getSendQueue().get(leaderName).getServerName());
+					}
+				}
+				else {
+					System.out.println("game not acepted, maybe full?"); //TODO quitar
+				}
+				GameManager.getSendQueue().remove(leaderName);
+			}
+		}
 		else if(inputLine.startsWith("ServerName")) {
 			String[] sections = inputLine.split("\\$");
 			this.mode = sections[1];
@@ -124,6 +151,9 @@ public class GamesConnection extends ClientConnection {
 				GameManager.getGames().put(mode, new TreeSet<GamesConnection>(Comparator.comparing(GamesConnection::getSort)));
 			}
 			EggWarsCoreLobby.getPlugin().getLogger().info(CmdColor.GREEN + "Server " + serverName + " is ready!" + CmdColor.RESET);
+			if(GameManager.isTournamentMode()) {
+				new PacketTournamentInfo(getWriter()).send();
+			}
 		}
 		else if(inputLine.startsWith("QuickGame")) {
 			String[] sections = inputLine.split("\\$");
@@ -136,6 +166,16 @@ public class GamesConnection extends ClientConnection {
 			GameManager.getQuickPlayersFrom().put(playerName, this);
 			GameManager.getSendQueue().put(playerName, game);
 			new PacketSendPlayer(game.getConnection().getWriter(), playerName, game.getId()).send();
+		}
+		else if(inputLine.startsWith("GameUpdate")) {
+			if(GameManager.isTournamentMode()) {
+				String[] sections = inputLine.split("\\$");
+				String statType = sections[1];
+				String playerName = sections[2];
+				String value = sections[3];
+				TournamentManager.getInstance().updateStats(statType, playerName, value);
+				EggWarsCoreLobby.getPlugin().getLogger().info(CmdColor.YELLOW + "GameUpdate packet received" + CmdColor.RESET);
+			}
 		}
 		
 		else if(inputLine.equals("Bye")) {

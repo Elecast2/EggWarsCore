@@ -21,6 +21,7 @@ import net.minemora.eggwarscore.reportsystem.ReportSystemHook;
 import net.minemora.eggwarscore.scoreboard.ScoreboardManager;
 import net.minemora.eggwarscore.shared.SharedHandler;
 import net.minemora.eggwarscore.uc.UltraCosmeticsHook;
+import net.minemora.eggwarscore.moraparty.MoraPartyHook;
 
 public class EggWarsCoreLobby extends JavaPlugin {
 	
@@ -48,6 +49,7 @@ public class EggWarsCoreLobby extends JavaPlugin {
 		Parkour.setup();
 		LobbyPlayer.setupHolos();
 		ReportSystemHook.setup();
+		MoraPartyHook.setup();
 	}
 
 	@Override

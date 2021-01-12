@@ -22,16 +22,18 @@ import net.minemora.eggwarscore.config.ConfigMain;
 import net.minemora.eggwarscore.database.Database;
 import net.minemora.eggwarscore.database.PlayerStats;
 import net.minemora.eggwarscore.database.Stat;
-import net.minemora.eggwarscore.game.GameLobby;
 import net.minemora.eggwarscore.network.NetworkClient;
 import net.minemora.eggwarscore.network.NetworkManager;
+import net.minemora.eggwarscore.network.PacketGameUpdate;
 import net.minemora.eggwarscore.network.PacketQuickGame;
+import net.minemora.eggwarscore.reportsystem.ReportSystemHook;
 import net.minemora.eggwarscore.scoreboard.ScoreboardManager;
 import net.minemora.eggwarscore.shared.SharedHandler;
 import net.minemora.eggwarscore.shared.VaultManager;
 import net.minemora.eggwarscore.team.TeamManager;
 import net.minemora.eggwarscore.utils.ChatUtils;
 import net.minemora.eggwarscore.utils.Utils;
+import net.minemora.reportsystem.ReportSystemAPI;
 
 public class GamePlayer extends PlayerStats {
 
@@ -61,7 +63,7 @@ public class GamePlayer extends PlayerStats {
 	@Override
 	public void loadPlayer(Player player) {
 		
-		if(!NetworkClient.getRegisteredPlayers().containsKey(player.getName())) {
+		if(!NetworkClient.getRegisteredPlayers().containsKey(player.getName().toLowerCase())) {
 			player.kickPlayer("Player not registered to this game");
 			return;
 		}
@@ -92,8 +94,8 @@ public class GamePlayer extends PlayerStats {
 	}
 	
 	public void loadPlayerFromNetwork(Player player) {
-		GameLobby gLobby = NetworkClient.getRegisteredPlayers().get(player.getName());
-		NetworkClient.getRegisteredPlayers().remove(player.getName());
+		GameLobby gLobby = NetworkClient.getRegisteredPlayers().get(player.getName().toLowerCase());
+		NetworkClient.getRegisteredPlayers().remove(player.getName().toLowerCase());
 		if(gLobby.getGame()!=null) {
 			gLobby.getGame().addSpectator(player);
 		}
@@ -267,6 +269,25 @@ public class GamePlayer extends PlayerStats {
 				if(Bukkit.getPlayer(lastDamager)!=null) {
 					GamePlayer.get(lastDamager).addKill();
 					GamePlayer.get(lastDamager).addExp(3); //TODO cantidad de exp configurable
+					if(GameManager.isTournamentMode()) {
+						TournamentManager.sendGameUpdate(PacketGameUpdate.StatType.FINAL_KILL, lastDamager, "null");
+						if(getGameTeam().getAliveCount() == 0) {
+							int teamsAlive = 0;
+							for(GameTeam gameTeam : game.getGameTeams().values()) {
+								for(String playerName : gameTeam.getPlayers()) {
+									GamePlayer gp = GamePlayer.get(playerName);
+									if(gp==null) {
+										continue;
+									}
+									if(!gp.isDead()) {
+										teamsAlive++;
+										break;
+									}
+								}
+							}
+							TournamentManager.sendGameUpdate(PacketGameUpdate.StatType.TEAM_DEATH, getPlayerName(), String.valueOf(teamsAlive));
+						}
+					}
 				}
 				getGame().updateTopKills(lastDamager);
 				hasKiller = true;
@@ -294,7 +315,9 @@ public class GamePlayer extends PlayerStats {
 		//TODO LANG CONFIG
 		//TODO SOUND CONFIG
 		setLastDamager(null);
-		sendGameClick();
+		if(!GameManager.isTournamentMode()) {
+			sendGameClick();
+		}
 		player.playSound(player.getLocation(), Sound.ENDERDRAGON_HIT, 1, 0.1f); //TODO CONFIG
 		game.checkForWinners();
 	}
@@ -322,17 +345,37 @@ public class GamePlayer extends PlayerStats {
 	}
 
 	public void remove() {
+		boolean broadcastQuit = true;
+		if(ReportSystemHook.isEnabled()) {
+			if(ReportSystemAPI.isInQueue(getPlayerName())) {
+				if(!ReportSystemAPI.isQueueVisible(getPlayerName())) {
+					broadcastQuit = false;
+				}
+			}
+			else if(ReportSystemAPI.isSpy(getPlayerName())) {
+				broadcastQuit = false;
+			}
+		}
 		if(getMulticast() instanceof Game) {
 			Game game = getGame();
 			boolean checkForWinners = true;
 			if(!isDead()) {
 				ScoreboardManager.getGameScoreboard().update(game, "team-alive-" + getGameTeam().getTeam().getId(), 
 						String.valueOf(getGameTeam().getAliveCount()));
-				if((System.currentTimeMillis() - getLastTimeDamagedByPlayer()) < 5000) {
-					setDead(getPlayer().getLastDamageCause().getCause());
-					checkForWinners = false;
+				if(GameManager.isTournamentMode()) {
+					if(gameTeam!=null) {
+						gameTeam.getDisconnectedPlayers().add(getPlayerName());
+					}
 				}
-				game.broadcast(getPlayerName() + " &7ha abandonado la partida!"); //TODO LANG
+				else {
+					if((System.currentTimeMillis() - getLastTimeDamagedByPlayer()) < 5000) {
+						setDead(getPlayer().getLastDamageCause().getCause());
+						checkForWinners = false;
+					}
+				}
+				if(broadcastQuit) {
+					game.broadcast(getPlayerName() + " &7ha abandonado la partida!"); //TODO LANG
+				}
 			}
 			removeFromGame();
 			if(checkForWinners) {
@@ -344,14 +387,46 @@ public class GamePlayer extends PlayerStats {
 				removeFromTeam();
 				gameLobby.getPlayers().remove(getPlayerName());
 				ScoreboardManager.getLobbyScoreboard().update(gameLobby, "players", String.valueOf(gameLobby.getPlayers().size()));
-				gameLobby.broadcast(ConfigLang.get().getString("lobby.player-quit").replaceAll("%player%", getPlayerName())
-						.replaceAll("%players%", String.valueOf(gameLobby.getPlayersCount()))
-						.replaceAll("%max-players%", String.valueOf(TeamManager.getMaxPlayers()*TeamManager.getTeams().size())));
+				if(broadcastQuit) {
+					gameLobby.broadcast(ConfigLang.get().getString("lobby.player-quit").replaceAll("%player%", getPlayerName())
+							.replaceAll("%players%", String.valueOf(gameLobby.getPlayersCount()))
+							.replaceAll("%max-players%", String.valueOf(TeamManager.getMaxPlayers()*TeamManager.getTeams().size())));
+				}
 				if(getCurrentVotedMap() != null) {
 					gameLobby.updateMapVotes(getCurrentVotedMap(), -1*getMapVotesMultiplier());
 				}
 				if(getCurrentVotedTime() != null) {
 					gameLobby.updateTimeVotes(getCurrentVotedTime(), -1);
+				}
+				boolean removeSubTeam = false;
+				for(Set<String> subTeam : gameLobby.getReservedTeams().keySet()) {
+					if(subTeam.contains(getPlayerName().toLowerCase())) {
+						int onlineCount = 0;
+						for(String memberName : subTeam) {
+							if(memberName.equalsIgnoreCase(getPlayerName())) {
+								continue;
+							}
+							if(Bukkit.getPlayer(memberName) != null) {
+								onlineCount++;
+							}
+						}
+						if(onlineCount == 0) {
+							removeSubTeam = true;
+						}
+						break;
+					}
+				}
+				if(removeSubTeam) {
+					Set<String> subTeamSet = null;;
+					for(Set<String> subTeam : gameLobby.getReservedTeams().keySet()) {
+						if(subTeam.contains(getPlayerName().toLowerCase())) {
+							subTeamSet = subTeam;
+							break;
+						}
+					}
+					if(subTeamSet != null) {
+						gameLobby.getReservedTeams().remove(subTeamSet);
+					}
 				}
 			}
 		}

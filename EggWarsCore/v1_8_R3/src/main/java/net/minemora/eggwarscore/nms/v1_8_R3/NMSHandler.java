@@ -1,6 +1,7 @@
 package net.minemora.eggwarscore.nms.v1_8_R3;
 
 import java.lang.reflect.Field;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -27,6 +28,7 @@ import net.minecraft.server.v1_8_R3.EntityPlayer;
 import net.minecraft.server.v1_8_R3.EntityTracker;
 import net.minecraft.server.v1_8_R3.EntityTrackerEntry;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent;
+import net.minecraft.server.v1_8_R3.IntHashMap;
 import net.minecraft.server.v1_8_R3.MinecraftServer;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
@@ -160,16 +162,23 @@ public class NMSHandler implements NMS {
 	}
 	
 	private static Field trackedField;
+	private static Field entitiesByIdField;
+	private static Field entitiesByUUIDField;
 	
 	static {
 		try {
         	trackedField = EntityTracker.class.getDeclaredField("c");
             trackedField.setAccessible(true);
+            entitiesByIdField = net.minecraft.server.v1_8_R3.World.class.getDeclaredField("entitiesById");
+            entitiesByIdField.setAccessible(true);
+            entitiesByUUIDField = WorldServer.class.getDeclaredField("entitiesByUUID");
+            entitiesByUUIDField.setAccessible(true);
         } catch (IllegalArgumentException | NoSuchFieldException | SecurityException e) {
             e.printStackTrace();
         }
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void removeWorldFromMemory(org.bukkit.World world) {
 		WorldServer ws = ((CraftWorld)world).getHandle();
@@ -178,12 +187,20 @@ public class NMSHandler implements NMS {
 		ws.chunkProviderServer = null;
 		ws.entityList.clear();
 		ws.h.clear();
+		ws.k.clear();
 		ws.tileEntityList.clear();
 		ws.tracker.trackedEntities.c();
+		ws.capturedBlockStates.clear();
+		ws.capturedTileEntities.clear();
         try {
-            @SuppressWarnings("unchecked")
 			Set<EntityTrackerEntry> trackedSet = (Set<EntityTrackerEntry>) trackedField.get(ws.tracker);
             trackedSet.clear();
+            
+            IntHashMap<Entity> entbyid = (IntHashMap<Entity>) entitiesByIdField.get((net.minecraft.server.v1_8_R3.World)ws);
+            entbyid.c();
+            
+            Map<UUID, Entity> entbyuid = (Map<UUID, Entity>) entitiesByUUIDField.get(ws);
+            entbyuid.clear();
         } catch (IllegalArgumentException | IllegalAccessException | SecurityException e) {
             e.printStackTrace();
         }

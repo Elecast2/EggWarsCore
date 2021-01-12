@@ -24,28 +24,20 @@ public class ReportSystemHook {
 		enabled = true;
 		
 		ReportSystemAPI.setVisibilityManager(new VisibilityManager() {
-
 			@Override
 			public void toggleSpy(Player player, boolean enable) {
-				GamePlayer gp = GamePlayer.get(player.getName());
-				if(gp == null) {
-					return;
-				}
-				if(gp.getGameLobby() == null) {
-					return;
-				}
 				if(enable) {
 					player.setGameMode(GameMode.SPECTATOR);
-					for(Player lp : gp.getMulticast().getBukkitPlayers()) {
-						GamePlayer lgp = GamePlayer.get(lp.getName());
+					for(Player lp : Bukkit.getOnlinePlayers()) {
 						lp.hidePlayer(player);
-						if(!lgp.isDead()) {
-							player.showPlayer(lp);
-						}
 					}
 				}
 				else {
 					player.setGameMode(GameMode.SURVIVAL);
+					GamePlayer gp = GamePlayer.get(player.getName());
+					if(gp == null) {
+						return;
+					}
 					for(Player lp : gp.getMulticast().getBukkitPlayers()) {
 						lp.showPlayer(player);
 					}
@@ -69,10 +61,10 @@ public class ReportSystemHook {
 					return;
 				}
 				if(tgp.getMulticast() instanceof Game) {
-					NetworkClient.getRegisteredPlayers().put(playerName, tgp.getGame().getGameLobby());
+					NetworkClient.getRegisteredPlayers().put(playerName.toLowerCase(), tgp.getGame().getGameLobby());
 				}
 				else if(tgp.getMulticast() instanceof GameLobby) {
-					NetworkClient.getRegisteredPlayers().put(playerName, tgp.getGameLobby());
+					NetworkClient.getRegisteredPlayers().put(playerName.toLowerCase(), tgp.getGameLobby());
 				}
 			}
 			

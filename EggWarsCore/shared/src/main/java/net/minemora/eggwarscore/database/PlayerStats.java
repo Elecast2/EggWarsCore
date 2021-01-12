@@ -97,6 +97,9 @@ public abstract class PlayerStats {
 				loadExtras(player);
 				loadMultipliers(player);
 				updateExpBar(player);
+				if(!player.isOnline()) {
+					return;
+				}
 				ps.loadPlayer(player);
 			}
 		}.runTaskAsynchronously(SharedHandler.getPlugin());

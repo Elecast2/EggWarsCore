@@ -26,6 +26,7 @@ import net.minemora.eggwarscore.EggWarsCore;
 import net.minemora.eggwarscore.config.ConfigLang;
 import net.minemora.eggwarscore.config.ConfigMain;
 import net.minemora.eggwarscore.lobby.Lobby;
+import net.minemora.eggwarscore.network.PacketGameUpdate;
 import net.minemora.eggwarscore.reportsystem.ReportSystemHook;
 import net.minemora.eggwarscore.scoreboard.ScoreboardManager;
 import net.minemora.eggwarscore.shop.Offer;
@@ -69,7 +70,7 @@ public class Game extends Multicast {
 		this.gameLobby = gameLobby;
 		gameId = id;
 		id++;
-		if(id == 100) { //TODO CONFIGURABLE
+		if(id == 160) { //TODO CONFIGURABLE
 			GameManager.setSoftRestarting(true);
 		}
 		gameArena = new GameArena(this, worldName, votedTime);
@@ -174,7 +175,7 @@ public class Game extends Multicast {
 		
 		if(toSelect.size() <= 1) {
 			if(toAdd != null) {
-				toAdd.addPlayer(playerName);
+				toAdd.addPlayerOnly(playerName);
 				return;
 			}
 		}
@@ -182,14 +183,14 @@ public class Game extends Multicast {
 		GameTeam team = Utils.choice(toSelect);
 		
 		if(team == null) {
-			Utils.choice(gameTeams.values()).addPlayer(playerName);
+			Utils.choice(gameTeams.values()).addPlayerOnly(playerName);
 			return;
 		}
 		if(team.getPlayers().size() < TeamManager.getMaxPlayers()) {
-			team.addPlayer(playerName);
+			team.addPlayerOnly(playerName);
 		}
 		else {
-			Utils.choice(gameTeams.values()).addPlayer(playerName);
+			Utils.choice(gameTeams.values()).addPlayerOnly(playerName);
 		}	
 	}
 	
@@ -325,10 +326,7 @@ public class Game extends Multicast {
 		for(GameTeam gameTeam : gameTeams.values()) {
 			for(String playerName : gameTeam.getPlayers()) {
 				GamePlayer gp = GamePlayer.get(playerName);
-				if(gp==null) {
-					continue;
-				}
-				if(!gp.isDead()) {
+				if(gp != null && !gp.isDead()) {
 					teamWinner = gameTeam;
 					teamsAlive++;
 					break;
@@ -359,6 +357,12 @@ public class Game extends Multicast {
 				if(gp.getWinEffect()!=null) {
 					gp.getWinEffect().play(gp.getPlayer()); //TODO algun bug causa que esto se ejctue en alguien en partida sin terminar
 				}
+			}
+		}
+		if(GameManager.isTournamentMode()) {
+			for(String playerName : teamWinner.getPlayers()) {
+				TournamentManager.sendGameUpdate(PacketGameUpdate.StatType.TEAM_WIN, playerName, "null");
+				break;
 			}
 		}
 		broadcastTopKills(); //TODO IF TOP IS ENABLED IN CONFIG THEN LOAD AND SHOW TOP
@@ -421,18 +425,62 @@ public class Game extends Multicast {
 				if(Bukkit.getPlayer(playerName) == null) {
 					continue;
 				}
-				GamePlayer.get(playerName).setGame(null);
-				gameLobby.addPlayer(Bukkit.getPlayer(playerName));
+				if(GameManager.isTournamentMode()) {
+					Bukkit.getPlayer(playerName).teleport(Lobby.getLobby().getSpawn());
+					GamePlayer.sendToLobby(Bukkit.getPlayer(playerName));;
+				}
+				else {
+					GamePlayer.get(playerName).setGame(null);
+					gameLobby.addPlayer(Bukkit.getPlayer(playerName));
+				}
 			}
 		}
 		gameArena.unloadWorld();
 	}
 	
 	public void addSpectator(Player player) {
+		if(GameManager.isTournamentMode()) {
+			for(GameTeam team : gameTeams.values()) {
+				if(team.getDisconnectedPlayers().contains(player.getName())) {
+					if(team.getAliveCount() > 0) {
+						team.getDisconnectedPlayers().remove(player.getName());
+						GamePlayer gp = GamePlayer.get(player.getName());
+						getPlayers().add(player.getName());
+						gp.setGame(this);
+						gp.setCurrentKills(0);
+						gp.setCurrentDeaths(0);
+						gp.setLastDamager(null);
+						ScoreboardManager.setGameScoreboard(player, this);
+						GameTeam.showTags(player);
+						team.addPlayerOnly(player.getName());
+						team.setTag(player.getName());
+						teleportPlayer(player);
+						revealPlayersToPlayer(player);
+						for(Player lp : getBukkitPlayers()) {
+							if(lp.equals(player)) {
+								continue;
+							}
+							lp.showPlayer(player);
+						}
+						return;
+					}
+				}
+			}
+			
+		}
 		GamePlayer gp = GamePlayer.get(player.getName());
 		getPlayers().add(player.getName());
 		player.setGameMode(GameMode.SPECTATOR);
-		player.teleport(gameArena.getSpecSpawn());
+		boolean teleport = true;
+		if(ReportSystemHook.isEnabled()) {
+			ReportSystemAPI.processQueue(player);
+			if(ReportSystemAPI.isSpy(player.getName())) {
+				teleport = false;
+			}
+		}
+		if(teleport) {
+			player.teleport(gameArena.getSpecSpawn());
+		}
 		//TODO mensaje de bienvenida como espectador
 		gp.restore();
 		gp.setDead(true);
@@ -465,6 +513,9 @@ public class Game extends Multicast {
 		ScoreboardManager.getGameScoreboard().update(this, "symbol-" + id, ScoreboardManager.getDeathSymbol());
 		GamePlayer.get(destroyer).addEggDestroyed();
 		GamePlayer.get(destroyer).addExp(5); //TODO cantidad de exp configurable
+		if(GameManager.isTournamentMode()) {
+			TournamentManager.sendGameUpdate(PacketGameUpdate.StatType.DESTROY_EGG, destroyer, "null");
+		}
 	}
 	
 	public void teamDisconnected(int id) {

@@ -13,6 +13,8 @@ public final class GameManager {
 	
 	private static boolean softRestarting = false;
 	
+	private static boolean tournamentMode = false;
+	
 	private GameManager() {}
 	
 	public static void setup() {
@@ -27,6 +29,7 @@ public final class GameManager {
 			respawnTimes.put(ConfigMain.get().getInt("game.respawn-times." + id + ".start-time"), 
 					ConfigMain.get().getInt("game.respawn-times." + id + ".respawn-time"));
 		}
+		tournamentMode = ConfigMain.get().getBoolean("general.tournament-mode", false);
 	}
 	
 	public static Map<Integer, GameLobby> getGames() {
@@ -43,6 +46,14 @@ public final class GameManager {
 
 	public static void setSoftRestarting(boolean softRestarting) {
 		GameManager.softRestarting = softRestarting;
+	}
+	
+	public static boolean isTournamentMode() {
+		return tournamentMode;
+	}
+
+	public static void setTournamentMode(boolean tournamentMode) {
+		GameManager.tournamentMode = tournamentMode;
 	}
 
 }

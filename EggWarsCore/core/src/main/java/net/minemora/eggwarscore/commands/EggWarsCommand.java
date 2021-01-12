@@ -208,6 +208,13 @@ public class EggWarsCommand implements CommandExecutor {
 						Entity entity = player.getWorld().spawnEntity(player.getLocation(), EntityType.VILLAGER);
 						Utils.makeStatue(entity);
 						arenaCreator.getArena().getShops().add(new Coordinates(entity.getLocation()));
+					} else if (args[0].equalsIgnoreCase("removeshop")) {
+						for(Entity ent : player.getNearbyEntities(6, 6, 6)) {
+							if(ent.getType() == EntityType.VILLAGER) {
+								ent.remove();
+								//TODO arenaCreator.getArena().getShops().remove(new Coordinates(entity.getLocation()));
+							}
+						}
 					} else if (args[0].equalsIgnoreCase("getsign")) {
 						//TODO sucess message
 						if (args.length == 3) {

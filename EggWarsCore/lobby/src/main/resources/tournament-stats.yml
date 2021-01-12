@@ -1,0 +1,54 @@
+stage: first-stage-1
+first-stage-1:
+   stage-name: "Fase de Grupos 1"
+   groups:
+      E:
+         games: 0
+         winner-teams: []
+      F:
+         games: 0
+         winner-teams: []
+      G:
+         games: 0
+         winner-teams: []
+      H:
+         games: 0
+         winner-teams: []
+first-stage-2:
+   stage-name: "Fase de Grupos 2"
+   groups:
+      E:
+         games: 0
+         winner-teams: []
+      F:
+         games: 0
+         winner-teams: []
+      G:
+         games: 0
+         winner-teams: []
+      H:
+         games: 0
+         winner-teams: []
+second-stage:
+   stage-name: "Octavos de Final"
+   winner-A: null
+   winner-B: null
+   winner-C: null
+   winner-D: null
+   winner-E: null
+   winner-F: null
+   winner-G: null
+   winner-H: null
+third-stage:
+   stage-name: "Cuartos de Final"
+   winner-1: null
+   winner-2: null
+   winner-3: null
+   winner-4: null
+semi-final:
+   stage-name: "Semifinal"
+   winner-1: null
+   winner-2: null
+final:
+   stage-name: "Final"
+   winner: null

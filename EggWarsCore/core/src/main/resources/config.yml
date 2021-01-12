@@ -15,6 +15,7 @@ general:
   leather-armor-when-join-team: true
   level-rate: 10
   top-limit: 10
+  tournament-mode: false
 database:
   url: 'jdbc:mysql://0.0.0.0:3306/database?useSSL=false'
   username: 'user'
